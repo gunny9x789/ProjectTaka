@@ -4,10 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import AllListForder.MainAdsList;
+import AllListForder.AllList;
 import AllListForder.Object.MainAdsImg;
 
-public class GetJson implements MainAdsList {
+public class GetJson implements AllList {
     public static void getADSJson(String json){
         try {
             JSONArray jsonArray = new JSONArray(json);

@@ -1,13 +1,11 @@
 package View.homeFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,19 +24,18 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import AllListForder.AllItemSellList;
-import AllListForder.AllListUseFromHome;
+import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
-import View.homeFragment.adapter.AdaperRCVItemShowInHome;
+import View.HomeFragment.Adapter.AdaperRCVItemShowInHome;
+import View.HomeFragment.Adapter.AdapterRCVItemSaleInDay;
+import View.HomeFragment.Adapter.AdapterRCVItemYourMayLike;
+import View.HomeFragment.Adapter.OnItemRCVClickListener;
 import View.homeFragment.adapter.AdapteMainADS;
 import View.homeFragment.adapter.AdapterEventHome;
-import View.homeFragment.adapter.AdapterRCVItemSaleInDay;
-import View.homeFragment.adapter.AdapterRCVItemYourMayLike;
-import View.homeFragment.adapter.OnItemRCVClickListener;
 import View.showItemFragment.ShowItemDetailFragment;
 
 
-public class HomeFragment extends Fragment implements AllListUseFromHome, AllItemSellList {
+public class HomeFragment extends Fragment implements AllList {
 
     HomeFragmentBinding homeFragmentBinding;
     private AdapteMainADS adapteMainADS;

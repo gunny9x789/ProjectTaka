@@ -1,7 +1,6 @@
 package View.showItemFragment;
 
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,20 +21,19 @@ import com.example.myproject.R;
 import com.example.myproject.databinding.ShowItemDetailFragmentBinding;
 import com.squareup.picasso.Picasso;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 
-import AllListForder.CheckLogin;
+import AllListForder.AllList;
+import AllListForder.Object.AvatarURL;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import View.homeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowListImgDetailItem;
 import View.showItemFragment.Adapter.ShowImgItemDetailClick;
 
-public class ShowItemDetailFragment extends Fragment implements CheckLogin {
+public class ShowItemDetailFragment extends Fragment implements AllList {
 
     private ShowItemDetailFragmentBinding showItemDetailBinding;
     private MainActivity mainActivity;
@@ -57,11 +55,11 @@ public class ShowItemDetailFragment extends Fragment implements CheckLogin {
         syms.setGroupingSeparator(',');
         DecimalFormat myFormatter = new DecimalFormat("###,###,###,###,###,###", syms);
         ItemSell itemSell = mainActivity.getItemSell();
-        List<String> listUrlImgae = itemSell.getAvatarItemSell();
+        List<AvatarURL> listUrlImgae = itemSell.getAvatarItemSell();
         mainActivity.setVisibleSearchBar(false);
 
         showItemDetailBinding.tvShowDetailNameItem.setText(itemSell.getNameItemSell());
-        Picasso.get().load(listUrlImgae.get(0))
+        Picasso.get().load(listUrlImgae.get(0).getUrlImg())
                 .placeholder(R.drawable.dont_loading_img)
                 .error(R.drawable.dont_loading_img)
                 .into(showItemDetailBinding.showImgDetailItem);

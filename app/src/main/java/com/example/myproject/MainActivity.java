@@ -15,8 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myproject.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import AllListForder.AllItemSellList;
-import AllListForder.CheckLogin;
+import AllListForder.AllList;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import View.CategoryFragment.ShowListCategoryFragment;
@@ -25,7 +24,7 @@ import View.newsFeedFragment.NewsFeedFragment;
 import View.notificationFragment.NotificationFragment;
 import View.userFragment.UserFragment;
 
-public class MainActivity extends AppCompatActivity implements AllItemSellList, CheckLogin {
+public class MainActivity extends AppCompatActivity implements AllList {
     private ActivityMainBinding mainBinding;
     private ItemSell itemSell;
 

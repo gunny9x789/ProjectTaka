@@ -6,10 +6,10 @@ import java.util.List;
 public class ItemSell implements Serializable {
     private int idItemSell, priceDontSale, priceSale, salePercent, totalItem, totalItemSold, itemSoldInMonth, idUserSell;
     private String CodeMainCateId, CodeSideCateId, nameItemSell, trademark, characteristics, EventCode, sale, DaySell;
-    private List<String> avatarItemSell;
+    private List<AvatarURL> avatarItemSell;
 
     public ItemSell(int idItemSell, String CodeMainCateId, String CodeSideCateId, String nameItemSell, int idUserSell,
-                    String trademark, List<String> avatarItemSell, String sale, int salePercent,
+                    String trademark, List<AvatarURL> avatarItemSell, String sale, int salePercent,
                     int priceDontSale, int priceSale, int totalItem, int totalItemSold,
                     int itemSoldInMonth, String characteristics, String EventCode, String DaySell) {
         this.idItemSell = idItemSell;
@@ -127,11 +127,11 @@ public class ItemSell implements Serializable {
         this.nameItemSell = nameItemSell;
     }
 
-    public List<String> getAvatarItemSell() {
+    public List<AvatarURL> getAvatarItemSell() {
         return avatarItemSell;
     }
 
-    public void setAvatarItemSell(List<String> avatarItemSell) {
+    public void setAvatarItemSell(List<AvatarURL> avatarItemSell) {
         this.avatarItemSell = avatarItemSell;
     }
 

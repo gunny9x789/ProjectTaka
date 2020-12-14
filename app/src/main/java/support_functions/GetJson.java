@@ -6,13 +6,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import AllListForder.AllItemSellList;
-import AllListForder.AllListUseFromHome;
+import AllListForder.AllList;
+import AllListForder.Object.AvatarURL;
 import AllListForder.Object.EventInHome;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 
-public class GetJson implements AllListUseFromHome, AllItemSellList {
+public class GetJson implements AllList {
     public static void getADSJson(String json) {
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -58,11 +58,11 @@ public class GetJson implements AllListUseFromHome, AllItemSellList {
                 String CodeMainCateId = jsonObject.getString("CodeMainCateId");
                 String CodeSideCateId = jsonObject.getString("CodeSideCateId");
                 String nameItemSell = jsonObject.getString("nameItemSell");
-                List<String> avatarItemSellList = new ArrayList<>();
+                List<AvatarURL> avatarItemSellList = new ArrayList<>();
                 JSONArray avatarItemSell = jsonObject.getJSONArray("avatarItemSell");
                 for (int j = 0; j < avatarItemSell.length(); j++) {
                     JSONObject jsonObject1 = avatarItemSell.getJSONObject(j);
-                    String UrlImg = jsonObject1.getString("UrlImg");
+                    AvatarURL UrlImg = new AvatarURL(jsonObject1.getString("UrlImg"));
                     avatarItemSellList.add(UrlImg);
                 }
                 String sale = jsonObject.getString("sale");

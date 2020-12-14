@@ -1,4 +1,4 @@
-package View.homeFragment.adapter;
+package View.HomeFragment.Adapter;
 
 import AllListForder.Object.ItemSell;
 

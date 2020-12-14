@@ -1,4 +1,4 @@
-package View.homeFragment.adapter;
+package View.HomeFragment.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 
+import AllListForder.Object.AvatarURL;
 import AllListForder.Object.ItemSell;
+import View.HomeFragment.Adapter.OnItemRCVClickListener;
 
 public class AdapterRCVItemYourMayLike extends RecyclerView.Adapter<AdapterRCVItemYourMayLike.ViewHolder> {
     private List<ItemSell> itemSellList;
@@ -48,8 +50,8 @@ public class AdapterRCVItemYourMayLike extends RecyclerView.Adapter<AdapterRCVIt
         syms.setGroupingSeparator(',');
         DecimalFormat myFormatter = new DecimalFormat("###,###,###,###,###,###", syms);
 
-        List<String> UrlImgList = itemSell.getAvatarItemSell();
-        Picasso.get().load(UrlImgList.get(0))
+        List<AvatarURL> UrlImgList = itemSell.getAvatarItemSell();
+        Picasso.get().load(UrlImgList.get(0).getUrlImg())
                 .placeholder(R.drawable.dont_loading_img)
                 .error(R.drawable.dont_loading_img)
                 .into(holder.imageView);

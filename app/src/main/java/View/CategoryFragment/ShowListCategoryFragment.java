@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import AllListForder.MainCategoryList;
+import AllListForder.AllList;
 import View.CategoryFragment.Adapter.AdsCategoriAdapter;
 import View.CategoryFragment.Adapter.MainCategoryRCVAdapter;
 
 
-public class ShowListCategoryFragment extends Fragment implements MainCategoryList {
+public class ShowListCategoryFragment extends Fragment implements AllList {
 
     ListCategoryFragmentBinding listCategoryFragmentBinding;
     private List<Integer> listItemAdsCategory;

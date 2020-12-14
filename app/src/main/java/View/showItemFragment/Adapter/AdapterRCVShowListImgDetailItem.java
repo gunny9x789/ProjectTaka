@@ -13,14 +13,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import AllListForder.Object.AvatarURL;
+
 public class AdapterRCVShowListImgDetailItem extends RecyclerView.Adapter<AdapterRCVShowListImgDetailItem.ViewHolder> {
-    private List<String> listUrlImg;
+    private List<AvatarURL> listUrlImg;
     private ShowImgItemDetailClick showImgItemDetailClick;
 
     public void setClick(ShowImgItemDetailClick showImgItemDetailClick){
         this.showImgItemDetailClick = showImgItemDetailClick;
     }
-    public void SetDataAdapter(List<String> listUrlImg) {
+    public void SetDataAdapter(List<AvatarURL> listUrlImg) {
         this.listUrlImg = listUrlImg;
         notifyDataSetChanged();
     }
@@ -36,7 +38,7 @@ public class AdapterRCVShowListImgDetailItem extends RecyclerView.Adapter<Adapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final String UrlImg = listUrlImg.get(position);
+        final String UrlImg = listUrlImg.get(position).getUrlImg();
         Picasso.get().load(UrlImg)
                 .placeholder(R.drawable.dont_loading_img)
                 .error(R.drawable.dont_loading_img)
