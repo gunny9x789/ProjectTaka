@@ -16,12 +16,21 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import AllListForder.AllList;
+import AllListForder.Object.EventInHome;
+import AllListForder.Object.ItemSell;
+import AllListForder.Object.MainAdsImg;
 import AllListForder.Object.MainCategory;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import support_functions.CheckInternet;
 import support_functions.Classify_item_list;
+import support_functions.GetApiSP;
 import support_functions.GetJson;
+import support_functions.GetOBJAPI;
 
 public class LoadingScreen extends AppCompatActivity implements AllList {
     private int Request_Permission_Code = 10;
@@ -70,41 +79,56 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
         String EventInHomeJson = "";
         String TotalItemJson = "";
         Intent intent;
-        Bundle bundle;
+        Retrofit retrofit;
+        GetApiSP getApiSP;
+        private Call<List<ItemSell>> callListItemSell;
+        private Call<List<EventInHome>> callListEventInHome;
+        private Call<List<MainAdsImg>> callListMainAdsInHome;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             intent = new Intent(getBaseContext(), MainActivity.class);
-            bundle = new Bundle();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("https://demo8357538.mockable.io/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            getApiSP = retrofit.create(GetApiSP.class);
+
+            callListItemSell = getApiSP.ITEM_SELLS_CALL();
+            callListEventInHome = getApiSP.EVENT_IN_HOME_CALL();
+            callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
         }
 
         @Override
         protected Integer doInBackground(Void... voids) {
             getCateList();
 
-            try {
-                URL urlAdsHome = new URL(URL_LINK_ADS_HOME);
-                URLConnection urlConnectionAdsHome = urlAdsHome.openConnection();
-                InputStream inputStreamAdsHome = urlConnectionAdsHome.getInputStream();
-
-                URL urlEventHome = new URL(URL_LINK_HOME_EVENT);
-                URLConnection urlConnectionEventHome = urlEventHome.openConnection();
-                InputStream inputStreamEventHome = urlConnectionEventHome.getInputStream();
-
-                URL urlTotalItemSell = new URL(URL_LINK_ALL_ITEM_SELL);
-                URLConnection urlConnectionTotalItemSell = urlTotalItemSell.openConnection();
-                InputStream inputStreamTotalItemSell = urlConnectionTotalItemSell.getInputStream();
-
-                AdsInHomeJSON = readUrl(inputStreamAdsHome, AdsInHomeJSON);
-                EventInHomeJson = readUrl(inputStreamEventHome, EventInHomeJson);
-                TotalItemJson = readUrl(inputStreamTotalItemSell, TotalItemJson);
-
-                intent.putExtra("CheckInternet", true);
-            } catch (Exception e) {
-                intent.putExtra("CheckInternet", false);
-                e.printStackTrace();
-            }
+            GetOBJAPI.getOBJItemSell(callListItemSell,LoadingScreen.this);
+            GetOBJAPI.getOBJEventInHome(callListEventInHome,LoadingScreen.this);
+            GetOBJAPI.getOBJMainAdsImg(callListMainAdsInHome,LoadingScreen.this);
+//            try {
+//                URL urlAdsHome = new URL(URL_LINK_ADS_HOME);
+//                URLConnection urlConnectionAdsHome = urlAdsHome.openConnection();
+//                InputStream inputStreamAdsHome = urlConnectionAdsHome.getInputStream();
+//
+//                URL urlEventHome = new URL(URL_LINK_HOME_EVENT);
+//                URLConnection urlConnectionEventHome = urlEventHome.openConnection();
+//                InputStream inputStreamEventHome = urlConnectionEventHome.getInputStream();
+//
+//                URL urlTotalItemSell = new URL(URL_LINK_ALL_ITEM_SELL);
+//                URLConnection urlConnectionTotalItemSell = urlTotalItemSell.openConnection();
+//                InputStream inputStreamTotalItemSell = urlConnectionTotalItemSell.getInputStream();
+//
+//                AdsInHomeJSON = readUrl(inputStreamAdsHome, AdsInHomeJSON);
+//                EventInHomeJson = readUrl(inputStreamEventHome, EventInHomeJson);
+//                TotalItemJson = readUrl(inputStreamTotalItemSell, TotalItemJson);
+//
+//                intent.putExtra("CheckInternet", true);
+//            } catch (Exception e) {
+//                intent.putExtra("CheckInternet", false);
+//                e.printStackTrace();
+//            }
             return null;
         }
 
@@ -112,9 +136,9 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
             //intent.putExtra("JsonAdsInHome", AdsInHomeJSON);
-            GetJson.getADSJson(AdsInHomeJSON);
-            GetJson.getEventHomeJson(EventInHomeJson);
-            GetJson.getTotalItemJson(TotalItemJson);
+//            GetJson.getADSJson(AdsInHomeJSON);
+//            GetJson.getEventHomeJson(EventInHomeJson);
+//            GetJson.getTotalItemJson(TotalItemJson);
 
             Classify_item_list.Classify_list();
             startActivity(intent);
@@ -144,7 +168,8 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
 
         return json;
     }
-    private void getCateList(){
+
+    private void getCateList() {
         MAIN_CATEGORY_LIST.clear();
         MAIN_CATEGORY_LIST.add(new MainCategory(0, "toy_and_mom", getString(R.string.toy_and_mom), R.drawable.toy_and_mom));
         MAIN_CATEGORY_LIST.add(new MainCategory(1, "phone_and_tablet", getString(R.string.phone_and_tablet), R.drawable.phone_and_tablet));
