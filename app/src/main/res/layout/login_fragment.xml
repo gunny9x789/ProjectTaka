@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE">
+        <Button
+            android:id="@+id/btn_back_login"
+            android:background="#00FFFFFF"
+            android:text="Back"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_login_account"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/et_log_reg"
+            android:hint="Tài khoản"
+            android:paddingLeft="@dimen/_10sdp" />
+
+        <EditText
+            android:id="@+id/et_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@+id/et_login_account"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/et_log_reg"
+            android:hint="Mật Khẩu"
+            android:paddingLeft="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@+id/et_login_password"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/_10sdp"
+            android:text="Quên mật khẩu" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@+id/forgot_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/bt_log_or_reg"
+            android:text="Đăng nhập"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_Log_Reg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:text="Nếu chưa có tài khoản\nẤn đây để đăng ký."
+            android:textColor="#585858" />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF1BA9FF"
+    tools:context=".LoadingScreen">
+
+    <TextView
+        android:id="@+id/tv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:text="Wellcome To My App"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_40sdp"
+        android:textStyle="bold" />
+</RelativeLayout>

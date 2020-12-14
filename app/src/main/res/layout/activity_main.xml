@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentTop="true"
+            android:background="@color/background_bar"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            android:weightSum="11">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10">
+
+                <EditText
+                    android:id="@+id/et_search_item_inMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:background="@drawable/seach_bar"
+                    android:hint="@string/et_search_bar"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_30sdp"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:src="@drawable/ic_baseline_search_24" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/img_icon_buy_inMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_shopping_cart_24" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/main_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/main_function"
+            android:layout_below="@+id/main_search_bar" />
+
+        <LinearLayout
+            android:id="@+id/main_function"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@android:color/darker_gray" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/main_function_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@color/white"
+                app:backgroundTint="@color/white"
+                app:itemIconTint="@color/main_function_bar"
+                app:itemTextColor="@color/main_function_bar"
+                app:menu="@menu/main_function_bar" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_back_register"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="Back" />
+
+            <LinearLayout
+                android:id="@+id/nameUser"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_first_name_register"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_log_reg"
+                    android:hint="Họ"
+                    android:padding="@dimen/_5sdp" />
+
+                <EditText
+                    android:id="@+id/et_last_name_register"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_log_reg"
+                    android:hint="Tên"
+                    android:padding="@dimen/_5sdp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_account_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/nameUser"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/et_log_reg"
+                android:hint="Tên tài khoản"
+                android:padding="@dimen/_5sdp" />
+
+            <EditText
+                android:id="@+id/et_pass_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/et_account_register"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/et_log_reg"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"
+                android:padding="@dimen/_5sdp" />
+
+            <EditText
+                android:id="@+id/et_email_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/et_pass_register"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/et_log_reg"
+                android:hint="Email"
+                android:inputType="text"
+                android:padding="@dimen/_5sdp" />
+
+            <EditText
+                android:id="@+id/et_phone_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/et_email_register"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/et_log_reg"
+                android:hint="Nhập số điện thoại"
+                android:inputType="number"
+                android:padding="@dimen/_5sdp" />
+
+            <RadioGroup
+                android:id="@+id/checkbox_user_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_phone_register"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/check_seller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Người mua" />
+
+                <RadioButton
+                    android:id="@+id/check_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Người bán" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/checkbox_user_type"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bt_log_or_reg"
+                android:text="Đăng ký"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
