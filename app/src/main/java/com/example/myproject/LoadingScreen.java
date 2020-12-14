@@ -33,10 +33,10 @@ import support_functions.GetJson;
 import support_functions.GetOBJAPI;
 
 public class LoadingScreen extends AppCompatActivity implements AllList {
-    private int Request_Permission_Code = 10;
-    private String URL_LINK_ADS_HOME = "https://demo8357538.mockable.io/DemoHomeAds";
-    private String URL_LINK_HOME_EVENT = "https://demo8357538.mockable.io/demoHomeEvent";
-    private String URL_LINK_ALL_ITEM_SELL = "https://demo8357538.mockable.io/DemoSanPham";
+    private final int Request_Permission_Code = 10;
+    private final String URL_LINK_ADS_HOME = "https://demo8357538.mockable.io/DemoHomeAds";
+    private final String URL_LINK_HOME_EVENT = "https://demo8357538.mockable.io/demoHomeEvent";
+    private final String URL_LINK_ALL_ITEM_SELL = "https://demo8357538.mockable.io/DemoSanPham";
 
 
     @Override
@@ -46,6 +46,8 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, Request_Permission_Code);
         loadData();
+
+
     }
 
     private void loadData() {
@@ -139,7 +141,6 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
 //            GetJson.getADSJson(AdsInHomeJSON);
 //            GetJson.getEventHomeJson(EventInHomeJson);
 //            GetJson.getTotalItemJson(TotalItemJson);
-
             Classify_item_list.Classify_list();
             startActivity(intent);
             finish();

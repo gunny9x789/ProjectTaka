@@ -1,4 +1,4 @@
-package View.homeFragment.adapter;
+package View.HomeFragment.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,12 +17,13 @@ import java.util.List;
 import AllListForder.Object.MainAdsImg;
 
 public class AdapteMainADS extends PagerAdapter {
-    private List<MainAdsImg> mainAdsLists;
-    private Context context;
+    private final List<MainAdsImg> mainAdsLists;
+    private final Context context;
 
     public AdapteMainADS(List<MainAdsImg> mainAdsLists, Context context) {
         this.mainAdsLists = mainAdsLists;
         this.context = context;
+        notifyDataSetChanged();
     }
 
 

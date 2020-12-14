@@ -1,4 +1,4 @@
-package View.homeFragment;
+package View.HomeFragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,10 +27,10 @@ import java.util.TimerTask;
 import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
 import View.HomeFragment.Adapter.AdaperRCVItemShowInHome;
+import View.HomeFragment.Adapter.AdapteMainADS;
 import View.HomeFragment.Adapter.AdapterRCVItemSaleInDay;
 import View.HomeFragment.Adapter.AdapterRCVItemYourMayLike;
 import View.HomeFragment.Adapter.OnItemRCVClickListener;
-import View.homeFragment.adapter.AdapteMainADS;
 import View.homeFragment.adapter.AdapterEventHome;
 import View.showItemFragment.ShowItemDetailFragment;
 
@@ -59,14 +59,13 @@ public class HomeFragment extends Fragment implements AllList {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
-
         adapteMainADS = new AdapteMainADS(MAIN_ADS_IMG_LIST, getActivity().getBaseContext());
         homeFragmentBinding.VpMainAdsHomeFragment.setAdapter(adapteMainADS);
         homeFragmentBinding.CIMainAdsHomeFragment.setViewPager(
                 homeFragmentBinding.VpMainAdsHomeFragment
         );
         adapteMainADS.registerDataSetObserver(homeFragmentBinding.CIMainAdsHomeFragment.getDataSetObserver());
-        autoSide();
+        //autoSide();
 
         adapterEventHome = new AdapterEventHome(EVENT_IN_HOME_LIST, getActivity().getBaseContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);

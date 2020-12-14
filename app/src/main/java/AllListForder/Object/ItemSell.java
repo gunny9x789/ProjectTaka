@@ -8,28 +8,6 @@ public class ItemSell implements Serializable {
     private String CodeMainCateId, CodeSideCateId, nameItemSell, trademark, characteristics, EventCode, sale, DaySell;
     private List<AvatarURL> avatarItemSell;
 
-    public ItemSell(int idItemSell, String CodeMainCateId, String CodeSideCateId, String nameItemSell, int idUserSell,
-                    String trademark, List<AvatarURL> avatarItemSell, String sale, int salePercent,
-                    int priceDontSale, int priceSale, int totalItem, int totalItemSold,
-                    int itemSoldInMonth, String characteristics, String EventCode, String DaySell) {
-        this.idItemSell = idItemSell;
-        this.priceDontSale = priceDontSale;
-        this.priceSale = priceSale;
-        this.salePercent = salePercent;
-        this.itemSoldInMonth = itemSoldInMonth;
-        this.CodeMainCateId = CodeMainCateId;
-        this.CodeSideCateId = CodeSideCateId;
-        this.sale = sale;
-        this.nameItemSell = nameItemSell;
-        this.idUserSell = idUserSell;
-        this.avatarItemSell = avatarItemSell;
-        this.characteristics = characteristics;
-        this.EventCode = EventCode;
-        this.totalItem = totalItem;
-        this.totalItemSold = totalItemSold;
-        this.DaySell = DaySell;
-        this.trademark = trademark;
-    }
 
     public String getTrademark() {
         return trademark;

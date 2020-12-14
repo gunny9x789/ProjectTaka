@@ -16,7 +16,6 @@ import retrofit2.Response;
 
 public class GetOBJAPI implements AllList {
     public static void getOBJItemSell(Call<List<ItemSell>> callListItemSell, Context context) {
-        List<ItemSell> list;
         callListItemSell.enqueue(new Callback<List<ItemSell>>() {
             @Override
             public void onResponse(Call<List<ItemSell>> call, Response<List<ItemSell>> response) {
@@ -28,7 +27,10 @@ public class GetOBJAPI implements AllList {
                 Log.e("tag", itemSellsList.get(20).getNameItemSell());
                 ALL_ITEM_SELL_LIST.addAll(itemSellsList);
                 Log.e("SizeItemList", ALL_ITEM_SELL_LIST.size() + "");
-                Log.e("test1", ALL_ITEM_SELL_LIST.get(20).getNameItemSell());
+                Log.e("test1", ALL_ITEM_SELL_LIST.get(20).getPriceDontSale() + "");
+                ItemSell itemSell = ALL_ITEM_SELL_LIST.get(20);
+                Log.e("test1", ALL_ITEM_SELL_LIST.get(20).getCharacteristics() + "");
+
             }
 
             @Override
