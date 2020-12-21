@@ -1,4 +1,4 @@
-package View.homeFragment.adapter;
+package View.HomeFragment.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,8 +17,8 @@ import java.util.List;
 import AllListForder.Object.EventInHome;
 
 public class AdapterEventHome extends RecyclerView.Adapter<AdapterEventHome.ViewHolder> {
-    private List<EventInHome> eventInHomeList;
-    private Context context;
+    private final List<EventInHome> eventInHomeList;
+    private final Context context;
 
     public AdapterEventHome(List<EventInHome> eventInHomeList, Context context) {
         this.eventInHomeList = eventInHomeList;

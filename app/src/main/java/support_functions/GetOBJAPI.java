@@ -1,6 +1,7 @@
 package support_functions;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,7 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GetOBJAPI implements AllList {
-    public static void getOBJItemSell(Call<List<ItemSell>> callListItemSell, Context context) {
+    public static void getOBJItemSell(Call<List<ItemSell>> callListItemSell, Context context, Intent intent) {
         callListItemSell.enqueue(new Callback<List<ItemSell>>() {
             @Override
             public void onResponse(Call<List<ItemSell>> call, Response<List<ItemSell>> response) {
@@ -24,13 +25,10 @@ public class GetOBJAPI implements AllList {
                     return;
                 }
                 List<ItemSell> itemSellsList = response.body();
-                Log.e("tag", itemSellsList.get(20).getNameItemSell());
                 ALL_ITEM_SELL_LIST.addAll(itemSellsList);
-                Log.e("SizeItemList", ALL_ITEM_SELL_LIST.size() + "");
-                Log.e("test1", ALL_ITEM_SELL_LIST.get(20).getPriceDontSale() + "");
                 ItemSell itemSell = ALL_ITEM_SELL_LIST.get(20);
-                Log.e("test1", ALL_ITEM_SELL_LIST.get(20).getCharacteristics() + "");
-
+                Classify_item_list.Classify_list();
+                context.startActivity(intent);
             }
 
             @Override
@@ -51,13 +49,10 @@ public class GetOBJAPI implements AllList {
                 }
                 List<EventInHome> eventInHomeList = response.body();
                 EVENT_IN_HOME_LIST.addAll(eventInHomeList);
-                Log.e("SizeEventList", EVENT_IN_HOME_LIST.size() + "");
-                Log.e("test2", EVENT_IN_HOME_LIST.get(0).getUrlMainEventImg());
             }
 
             @Override
             public void onFailure(Call<List<EventInHome>> call, Throwable t) {
-                Log.e("Fail3", t.getMessage());
                 Toast.makeText(context, "Fail" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
@@ -73,15 +68,11 @@ public class GetOBJAPI implements AllList {
                 }
                 List<MainAdsImg> mainAdsImgList = response.body();
                 MAIN_ADS_IMG_LIST.addAll(mainAdsImgList);
-                Log.e("SizeADS", MAIN_ADS_IMG_LIST.size() + "");
-                Log.e("test3", MAIN_ADS_IMG_LIST.get(0).getUrlIMG());
             }
 
             @Override
             public void onFailure(Call<List<MainAdsImg>> call, Throwable t) {
-                Log.e("Fail3", t.getMessage());
                 Toast.makeText(context, "Fail" + t.getMessage(), Toast.LENGTH_LONG).show();
-
             }
         });
     }

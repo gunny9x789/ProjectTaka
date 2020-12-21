@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,24 +19,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.HomeFragmentBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
+import AllListForder.Object.MainAdsImg;
 import View.HomeFragment.Adapter.AdaperRCVItemShowInHome;
 import View.HomeFragment.Adapter.AdapteMainADS;
+import View.HomeFragment.Adapter.AdapterEventHome;
 import View.HomeFragment.Adapter.AdapterRCVItemSaleInDay;
 import View.HomeFragment.Adapter.AdapterRCVItemYourMayLike;
 import View.HomeFragment.Adapter.OnItemRCVClickListener;
-import View.homeFragment.adapter.AdapterEventHome;
 import View.showItemFragment.ShowItemDetailFragment;
+import View.showItemFragment.Show_all_item_fragment;
 
 
-public class HomeFragment extends Fragment implements AllList {
+public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
 
     HomeFragmentBinding homeFragmentBinding;
     private AdapteMainADS adapteMainADS;
@@ -59,13 +64,28 @@ public class HomeFragment extends Fragment implements AllList {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
-        adapteMainADS = new AdapteMainADS(MAIN_ADS_IMG_LIST, getActivity().getBaseContext());
-        homeFragmentBinding.VpMainAdsHomeFragment.setAdapter(adapteMainADS);
-        homeFragmentBinding.CIMainAdsHomeFragment.setViewPager(
-                homeFragmentBinding.VpMainAdsHomeFragment
-        );
-        adapteMainADS.registerDataSetObserver(homeFragmentBinding.CIMainAdsHomeFragment.getDataSetObserver());
-        //autoSide();
+
+        homeFragmentBinding.showAllItemSaleInDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(SALE_IN_HOME);
+                mainActivity.getFragment(Show_all_item_fragment.newInstance());
+            }
+        });
+        homeFragmentBinding.showAllItemYouMayLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(YOU_MAY_LIKE);
+                mainActivity.getFragment(Show_all_item_fragment.newInstance());
+            }
+        });
+
+        for (int i = 0; i < MAIN_ADS_IMG_LIST.size(); i++) {
+            MainAdsImg mainAdsImg = MAIN_ADS_IMG_LIST.get(i);
+            flipPerImage(mainAdsImg.getUrlIMG());
+        }
 
         adapterEventHome = new AdapterEventHome(EVENT_IN_HOME_LIST, getActivity().getBaseContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);
@@ -80,6 +100,7 @@ public class HomeFragment extends Fragment implements AllList {
         adapterRCVItemSaleInDay.setItemClickListener(new OnItemRCVClickListener() {
             @Override
             public void onItemClick(ItemSell itemSell) {
+                mainActivity.setMainLocal(LOCAL_HOME);
                 mainActivity.setItemSell(itemSell);
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
@@ -93,6 +114,7 @@ public class HomeFragment extends Fragment implements AllList {
         adapterRCVItemYourMayLike.setItemClickListener(new OnItemRCVClickListener() {
             @Override
             public void onItemClick(ItemSell itemSell) {
+                mainActivity.setMainLocal(SHOW_ALL_ITEM);
                 mainActivity.setItemSell(itemSell);
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
@@ -106,6 +128,7 @@ public class HomeFragment extends Fragment implements AllList {
         adaperRCVItemShowInHome.setItemClickListener(new OnItemRCVClickListener() {
             @Override
             public void onItemClick(ItemSell itemSell) {
+                mainActivity.setMainLocal(LOCAL_HOME);
                 mainActivity.setItemSell(itemSell);
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
@@ -135,31 +158,18 @@ public class HomeFragment extends Fragment implements AllList {
         return homeFragmentBinding.getRoot();
     }
 
-    private void autoSide() {
-        if (MAIN_ADS_IMG_LIST == null || MAIN_ADS_IMG_LIST.isEmpty() || homeFragmentBinding.VpMainAdsHomeFragment == null) {
-            return;
-        }
-        if (timer == null) {
-            timer = new Timer();
-        }
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        int currentItem = homeFragmentBinding.VpMainAdsHomeFragment.getCurrentItem();
-                        int total = MAIN_ADS_IMG_LIST.size() - 1;
-                        if (currentItem < total) {
-                            currentItem++;
-                            homeFragmentBinding.VpMainAdsHomeFragment.setCurrentItem(currentItem);
-                        } else {
-                            homeFragmentBinding.VpMainAdsHomeFragment.setCurrentItem(0);
-                        }
-                    }
-                });
-            }
-        }, 500, 5000);
+    public void flipPerImage(String urlImage) {
+        ImageView imageView = new ImageView(getContext());
+        Picasso.get().load(urlImage)
+                .placeholder(R.drawable.dont_loading_img)
+                .error(R.drawable.dont_loading_img)
+                .into(imageView);
+        homeFragmentBinding.VfMainAdsHomeFragment.addView(imageView);
+        homeFragmentBinding.VfMainAdsHomeFragment.setFlipInterval(5000);
+        homeFragmentBinding.VfMainAdsHomeFragment.setAutoStart(true);
+
+        homeFragmentBinding.VfMainAdsHomeFragment.setInAnimation(getContext(), android.R.anim.slide_in_left);
+        homeFragmentBinding.VfMainAdsHomeFragment.setOutAnimation(getContext(), android.R.anim.slide_out_right);
     }
 
     private List<ItemSell> getList(List<ItemSell> itemSells) {

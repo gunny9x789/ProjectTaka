@@ -19,18 +19,10 @@
                 android:paddingTop="@dimen/_20sdp"
                 android:paddingRight="@dimen/_10sdp">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/Vp_main_ads_home_fragment"
+                <ViewFlipper
+                    android:id="@+id/Vf_main_ads_home_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <me.relex.circleindicator.CircleIndicator
-                    android:id="@+id/CI_main_ads_home_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/_5sdp" />
+                    android:layout_height="match_parent" />
             </RelativeLayout>
 
             <LinearLayout

@@ -25,6 +25,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 
+import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.AvatarURL;
 import AllListForder.Object.InfoLogin;
@@ -33,7 +34,7 @@ import View.HomeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowListImgDetailItem;
 import View.showItemFragment.Adapter.ShowImgItemDetailClick;
 
-public class ShowItemDetailFragment extends Fragment implements AllList {
+public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyLocal {
 
     private ShowItemDetailFragmentBinding showItemDetailBinding;
     private MainActivity mainActivity;
@@ -94,8 +95,13 @@ public class ShowItemDetailFragment extends Fragment implements AllList {
         showItemDetailBinding.imgIconBackInShowDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.getFragment(HomeFragment.newInstance());
-                mainActivity.setVisibleSearchBar(true);
+                if (mainActivity.getMainLocal().equals(LOCAL_HOME)) {
+                    mainActivity.getFragment(HomeFragment.newInstance());
+                    mainActivity.setVisibleSearchBar(true);
+                } else if (mainActivity.getMainLocal().equals(SHOW_ALL_ITEM)) {
+                    mainActivity.getFragment(Show_all_item_fragment.newInstance());
+                    mainActivity.setVisibleSearchBar(true);
+                }
             }
         });
         showItemDetailBinding.btnBuyItem.setOnClickListener(new View.OnClickListener() {

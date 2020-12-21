@@ -13,13 +13,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
 import AllListForder.AllList;
 import AllListForder.Object.EventInHome;
+import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 import AllListForder.Object.MainCategory;
@@ -27,9 +25,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import support_functions.CheckInternet;
-import support_functions.Classify_item_list;
 import support_functions.GetApiSP;
-import support_functions.GetJson;
 import support_functions.GetOBJAPI;
 
 public class LoadingScreen extends AppCompatActivity implements AllList {
@@ -77,9 +73,6 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
     }
 
     class GetData extends AsyncTask<Void, Integer, Integer> {
-        String AdsInHomeJSON = "";
-        String EventInHomeJson = "";
-        String TotalItemJson = "";
         Intent intent;
         Retrofit retrofit;
         GetApiSP getApiSP;
@@ -97,53 +90,27 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
                     .build();
             getApiSP = retrofit.create(GetApiSP.class);
 
-            callListItemSell = getApiSP.ITEM_SELLS_CALL();
-            callListEventInHome = getApiSP.EVENT_IN_HOME_CALL();
-            callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
+
         }
 
         @Override
         protected Integer doInBackground(Void... voids) {
             getCateList();
+            callListItemSell = getApiSP.ITEM_SELLS_CALL();
+            callListEventInHome = getApiSP.EVENT_IN_HOME_CALL();
+            callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
 
-            GetOBJAPI.getOBJItemSell(callListItemSell,LoadingScreen.this);
-            GetOBJAPI.getOBJEventInHome(callListEventInHome,LoadingScreen.this);
-            GetOBJAPI.getOBJMainAdsImg(callListMainAdsInHome,LoadingScreen.this);
-//            try {
-//                URL urlAdsHome = new URL(URL_LINK_ADS_HOME);
-//                URLConnection urlConnectionAdsHome = urlAdsHome.openConnection();
-//                InputStream inputStreamAdsHome = urlConnectionAdsHome.getInputStream();
-//
-//                URL urlEventHome = new URL(URL_LINK_HOME_EVENT);
-//                URLConnection urlConnectionEventHome = urlEventHome.openConnection();
-//                InputStream inputStreamEventHome = urlConnectionEventHome.getInputStream();
-//
-//                URL urlTotalItemSell = new URL(URL_LINK_ALL_ITEM_SELL);
-//                URLConnection urlConnectionTotalItemSell = urlTotalItemSell.openConnection();
-//                InputStream inputStreamTotalItemSell = urlConnectionTotalItemSell.getInputStream();
-//
-//                AdsInHomeJSON = readUrl(inputStreamAdsHome, AdsInHomeJSON);
-//                EventInHomeJson = readUrl(inputStreamEventHome, EventInHomeJson);
-//                TotalItemJson = readUrl(inputStreamTotalItemSell, TotalItemJson);
-//
-//                intent.putExtra("CheckInternet", true);
-//            } catch (Exception e) {
-//                intent.putExtra("CheckInternet", false);
-//                e.printStackTrace();
-//            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            //intent.putExtra("JsonAdsInHome", AdsInHomeJSON);
-//            GetJson.getADSJson(AdsInHomeJSON);
-//            GetJson.getEventHomeJson(EventInHomeJson);
-//            GetJson.getTotalItemJson(TotalItemJson);
-            Classify_item_list.Classify_list();
-            startActivity(intent);
-            finish();
+            INFO_LOGIN_LIST.add(new InfoLogin(0, 0, false));
+            GetOBJAPI.getOBJItemSell(callListItemSell, LoadingScreen.this, intent);
+            GetOBJAPI.getOBJEventInHome(callListEventInHome, LoadingScreen.this);
+            GetOBJAPI.getOBJMainAdsImg(callListMainAdsInHome, LoadingScreen.this);
+
         }
     }
 
@@ -155,19 +122,6 @@ public class LoadingScreen extends AppCompatActivity implements AllList {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    public String readUrl(InputStream inputStream, String json) {
-        try {
-            int byteCharacter;
-            while ((byteCharacter = inputStream.read()) != -1) {
-                json += (char) byteCharacter;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return json;
     }
 
     private void getCateList() {

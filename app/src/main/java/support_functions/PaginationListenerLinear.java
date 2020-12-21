@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class PaginationListener extends RecyclerView.OnScrollListener {
-    private LinearLayoutManager linearLayoutManager;
+public abstract class PaginationListenerLinear extends RecyclerView.OnScrollListener {
+    private final LinearLayoutManager linearLayoutManager;
 
-    public PaginationListener(LinearLayoutManager linearLayoutManager) {
+    public PaginationListenerLinear(LinearLayoutManager linearLayoutManager) {
         this.linearLayoutManager = linearLayoutManager;
     }
 
@@ -19,17 +19,17 @@ public abstract class PaginationListener extends RecyclerView.OnScrollListener {
         int totalItemCount = linearLayoutManager.getItemCount();
         int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
 
-        if (isLoading() || isLatePage()) {
+        if (isLoadingLinear() || isLatePageLinear()) {
             return;
         }
-        if (firstVisibleItemPosition >= 0 && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount){
-            loadMoreItem();
+        if (firstVisibleItemPosition >= 0 && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount) {
+            loadMoreItemLinear();
         }
     }
 
-    public abstract void loadMoreItem();
+    public abstract void loadMoreItemLinear();
 
-    public abstract boolean isLoading();
+    public abstract boolean isLoadingLinear();
 
-    public abstract boolean isLatePage();
+    public abstract boolean isLatePageLinear();
 }
