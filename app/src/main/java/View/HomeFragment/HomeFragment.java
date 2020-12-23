@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
     private AdapterRCVItemSaleInDay adapterRCVItemSaleInDay;
     private AdapterRCVItemYourMayLike adapterRCVItemYourMayLike;
     private AdaperRCVItemShowInHome adaperRCVItemShowInHome;
-    private Timer timer;
     private MainActivity mainActivity;
 
 
@@ -64,7 +63,7 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
-
+        mainActivity.setLocal(HOT_DEAL_ITEM);
         homeFragmentBinding.showAllItemSaleInDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +113,7 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
         adapterRCVItemYourMayLike.setItemClickListener(new OnItemRCVClickListener() {
             @Override
             public void onItemClick(ItemSell itemSell) {
-                mainActivity.setMainLocal(SHOW_ALL_ITEM);
+                mainActivity.setMainLocal(LOCAL_HOME);
                 mainActivity.setItemSell(itemSell);
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
@@ -137,6 +136,8 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
         homeFragmentBinding.tvHotDealInHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(HOT_DEAL_ITEM);
                 adaperRCVItemShowInHome.setData(getList(ITEM_HOT_DEAL));
                 homeFragmentBinding.rcvShowListSpItemInHome.setAdapter(adaperRCVItemShowInHome);
             }
@@ -144,6 +145,8 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
         homeFragmentBinding.tvBestPriceInHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(BEST_PRICE_ITEM);
                 adaperRCVItemShowInHome.setData(getList(ITEM_BEST_PRICE));
                 homeFragmentBinding.rcvShowListSpItemInHome.setAdapter(adaperRCVItemShowInHome);
             }
@@ -151,8 +154,16 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
         homeFragmentBinding.tvNewItemInHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(NEW_ITEM);
                 adaperRCVItemShowInHome.setData(getList(ITEM_NEW));
                 homeFragmentBinding.rcvShowListSpItemInHome.setAdapter(adaperRCVItemShowInHome);
+            }
+        });
+        homeFragmentBinding.btnShowMoreInHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.getFragment(Show_all_item_fragment.newInstance());
             }
         });
         return homeFragmentBinding.getRoot();
@@ -174,18 +185,16 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
 
     private List<ItemSell> getList(List<ItemSell> itemSells) {
         List<ItemSell> itemSellList = new ArrayList<>();
-        for (int i = 0; i < itemSells.size(); i++) {
-            itemSellList.add(itemSells.get(i));
+        if (itemSells.size() <= 15) {
+            for (int i = 0; i < itemSells.size(); i++) {
+                itemSellList.add(itemSells.get(i));
+            }
+        } else if (itemSells.size() > 15) {
+            for (int i = 0; i < 15; i++) {
+                itemSellList.add(itemSells.get(i));
+            }
         }
         return itemSellList;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
 }

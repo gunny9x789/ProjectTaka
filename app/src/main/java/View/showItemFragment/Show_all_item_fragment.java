@@ -1,13 +1,14 @@
 package View.showItemFragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myproject.MainActivity;
@@ -25,8 +25,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
@@ -35,17 +33,14 @@ import AllListForder.Object.MainAdsImg;
 import View.HomeFragment.Adapter.OnItemRCVClickListener;
 import View.HomeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowAllItem;
-import View.showItemFragment.Adapter.AdapterShowAdsInShowAllItem;
-import support_functions.PaginationListenerGrid;
 
 public class Show_all_item_fragment extends Fragment implements AllList, AllKeyLocal {
-    private final int currentPage = 1;
+    private int currentPage = 1;
     private ShowAllListItemFragmentBinding showAllListItemFragmentBinding;
     private MainActivity mainActivity;
     private AdapterRCVShowAllItem adapterRCVShowAllItem;
-    private boolean isLoading;
-    private boolean isLastPage;
     private int totalPage;
+    private List<ItemSell> MainListItemShow;
 
     public static Show_all_item_fragment newInstance() {
 
@@ -62,6 +57,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         showAllListItemFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.show_all_list_item_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
         mainActivity.setVisibleSearchBar(false);
+        MainListItemShow = new ArrayList<>();
 
         for (int i = 0; i < MAIN_ADS_IMG_LIST.size(); i++) {
             MainAdsImg mainAdsImg = MAIN_ADS_IMG_LIST.get(i);
@@ -74,30 +70,57 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         adapterRCVShowAllItem.setItemClickListener(new OnItemRCVClickListener() {
             @Override
             public void onItemClick(ItemSell itemSell) {
-                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setMainLocal(SHOW_ALL_ITEM);
                 mainActivity.setItemSell(itemSell);
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
         });
         if (mainActivity.getLocal().equals(SALE_IN_HOME)) {
-            setData(ITEM_SALE_IN_DAY_LIST);
+            setMainList(ITEM_SALE_IN_DAY_LIST);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(YOU_MAY_LIKE)) {
-            setData(ITEM_YOUR_MAY_LIKE_LIST);
+            setMainList(ITEM_YOUR_MAY_LIKE_LIST);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
+        }else if (mainActivity.getLocal().equals(HOT_DEAL_ITEM)){
+            setMainList(ITEM_HOT_DEAL);
+            setData(MainListItemShow,currentPage);
+            totalPage =getTotalPage(MainListItemShow);
+        }else if (mainActivity.getLocal().equals(BEST_PRICE_ITEM)){
+            setMainList(ITEM_NEW);
+            setData(MainListItemShow,currentPage);
+            totalPage = getTotalPage(MainListItemShow);
+        }else if (mainActivity.getLocal().equals(NEW_ITEM)){
+            setMainList(ITEM_NEW);
+            setData(MainListItemShow,currentPage);
+            totalPage = getTotalPage(MainListItemShow);
         }
-        showAllListItemFragmentBinding.rcvShowAllItem.addOnScrollListener(new PaginationListenerGrid(gridLayoutManager) {
-            @Override
-            public void loadMoreItemGrid() {
+        showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
 
+        showAllListItemFragmentBinding.backPageInShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentPage == 1) {
+                    Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
+                } else if (currentPage > 1) {
+                    currentPage -= 1;
+                    setData(MainListItemShow,currentPage);
+                    showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
+                }
             }
+        });
 
+        showAllListItemFragmentBinding.nextPageInShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean isLoadingGrid() {
-                return isLoading;
-            }
-
-            @Override
-            public boolean isLastPageGrid() {
-                return isLastPage;
+            public void onClick(View v) {
+                if (currentPage == totalPage) {
+                    Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
+                } else if (currentPage < totalPage) {
+                    currentPage += 1;
+                    setData(MainListItemShow,currentPage);
+                    showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
+                }
             }
         });
 
@@ -133,22 +156,72 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                 return false;
             }
         });
+
+        showAllListItemFragmentBinding.popupMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(getActivity().getBaseContext(), v);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.sort_item_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.newItemMenu: {
+                                showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.newItem));
+                                break;
+                            }
+                            case R.id.hotItemMenu: {
+                                showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.hotItem));
+                                break;
+                            }
+                            case R.id.lowPriceMenu: {
+                                showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.lowPrice));
+                                break;
+                            }
+                            case R.id.hightPriceMenu: {
+                                showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.hightPrice));
+                                break;
+                            }
+
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
         return showAllListItemFragmentBinding.getRoot();
     }
-
-    private void setData(List<ItemSell> itemSells) {
-        adapterRCVShowAllItem.setDataAdapter(getListItem(itemSells));
+    private void setMainList(List<ItemSell> itemSells){
+        MainListItemShow.clear();
+        MainListItemShow.addAll(itemSells);
+    }
+    private void setData(List<ItemSell> itemSells, int currentPage) {
+        adapterRCVShowAllItem.setDataAdapter(getListItem(itemSells, currentPage));
         showAllListItemFragmentBinding.rcvShowAllItem.setAdapter(adapterRCVShowAllItem);
     }
 
-    private List<ItemSell> getListItem(List<ItemSell> itemSells) {
+    private int getTotalPage(List<ItemSell> itemSells) {
+        int total = 1;
+        if (itemSells.size() <= 15) {
+            total = 1;
+        } else if (itemSells.size() > 15 && itemSells.size() % 15 == 0) {
+            total = itemSells.size() / 15;
+        } else if (itemSells.size() > 15 && itemSells.size() % 15 != 0) {
+            total = (itemSells.size() / 15) + 1;
+        }
+        return total;
+    }
+
+    private List<ItemSell> getListItem(List<ItemSell> itemSells, int currentPage) {
         List<ItemSell> itemSellList = new ArrayList<>();
-        if (itemSells.size() < 10) {
-            for (int i = 0; i < itemSells.size(); i++) {
+        if (itemSells.size() <= currentPage * 15) {
+            for (int i = (currentPage - 1) * 15; i < itemSells.size(); i++) {
                 itemSellList.add(itemSells.get(i));
             }
-        } else if (itemSells.size() >= 10) {
-            for (int i = 0; i < 10; i++) {
+        } else if (itemSells.size() > currentPage * 15) {
+            for (int i = (currentPage - 1) * 15; i < (currentPage - 1) * 15 + 15; i++) {
                 itemSellList.add(itemSells.get(i));
             }
         }

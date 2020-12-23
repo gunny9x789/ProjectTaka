@@ -58,8 +58,12 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
         ItemSell itemSell = mainActivity.getItemSell();
         List<AvatarURL> listUrlImgae = itemSell.getAvatarItemSell();
         mainActivity.setVisibleSearchBar(false);
+        int totalItem = itemSell.getTotalItem() - itemSell.getItemSoldInMonth();
 
         showItemDetailBinding.tvShowDetailNameItem.setText(itemSell.getNameItemSell());
+        showItemDetailBinding.tvTotalItem.setText(" " + totalItem + " " + getString(R.string.item));
+        showItemDetailBinding.tvTotalItemSold.setText(" " + itemSell.getTotalItemSold() + " " + getString(R.string.item));
+
         Picasso.get().load(listUrlImgae.get(0).getUrlImg())
                 .placeholder(R.drawable.dont_loading_img)
                 .error(R.drawable.dont_loading_img)
@@ -99,6 +103,7 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                     mainActivity.getFragment(HomeFragment.newInstance());
                     mainActivity.setVisibleSearchBar(true);
                 } else if (mainActivity.getMainLocal().equals(SHOW_ALL_ITEM)) {
+                    mainActivity.setMainLocal(LOCAL_HOME);
                     mainActivity.getFragment(Show_all_item_fragment.newInstance());
                     mainActivity.setVisibleSearchBar(true);
                 }

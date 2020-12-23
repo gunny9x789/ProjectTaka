@@ -32,13 +32,11 @@ public class MainActivity extends AppCompatActivity implements AllList {
     private ItemSell itemSell;
     private String local;
     private String MainLocal;
-    private Tovuti tovuti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        tovuti = Tovuti.from(this);
         Tovuti.from(this).monitor(new Monitor.ConnectivityListener() {
             @Override
             public void onConnectivityChanged(int connectionType, boolean isConnected, boolean isFast) {
