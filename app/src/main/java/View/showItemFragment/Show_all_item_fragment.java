@@ -23,7 +23,13 @@ import com.example.myproject.R;
 import com.example.myproject.databinding.ShowAllListItemFragmentBinding;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import AllListForder.AllKeyLocal;
@@ -83,17 +89,17 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
             setMainList(ITEM_YOUR_MAY_LIKE_LIST);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
-        }else if (mainActivity.getLocal().equals(HOT_DEAL_ITEM)){
+        } else if (mainActivity.getLocal().equals(HOT_DEAL_ITEM)) {
             setMainList(ITEM_HOT_DEAL);
-            setData(MainListItemShow,currentPage);
-            totalPage =getTotalPage(MainListItemShow);
-        }else if (mainActivity.getLocal().equals(BEST_PRICE_ITEM)){
-            setMainList(ITEM_NEW);
-            setData(MainListItemShow,currentPage);
+            setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
-        }else if (mainActivity.getLocal().equals(NEW_ITEM)){
+        } else if (mainActivity.getLocal().equals(BEST_PRICE_ITEM)) {
             setMainList(ITEM_NEW);
-            setData(MainListItemShow,currentPage);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
+        } else if (mainActivity.getLocal().equals(NEW_ITEM)) {
+            setMainList(ITEM_NEW);
+            setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         }
         showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
@@ -105,7 +111,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
                 } else if (currentPage > 1) {
                     currentPage -= 1;
-                    setData(MainListItemShow,currentPage);
+                    setData(MainListItemShow, currentPage);
                     showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
                 }
             }
@@ -118,7 +124,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
                 } else if (currentPage < totalPage) {
                     currentPage += 1;
-                    setData(MainListItemShow,currentPage);
+                    setData(MainListItemShow, currentPage);
                     showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
                 }
             }
@@ -156,7 +162,50 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                 return false;
             }
         });
-
+//        sort
+        Comparator<ItemSell> comparatorHotItem = new Comparator<ItemSell>() {
+            @Override
+            public int compare(ItemSell o1, ItemSell o2) {
+                return o1.getItemSoldInMonth() > o2.getItemSoldInMonth() ? 1 : -1;
+            }
+        };
+        Comparator<ItemSell> comparatorLowPrice = new Comparator<ItemSell>() {
+            @Override
+            public int compare(ItemSell o1, ItemSell o2) {
+                return o1.getPriceSale() < o2.getPriceSale() ? -1 : 1;
+            }
+        };
+        Comparator<ItemSell> comparatorHightPrice = new Comparator<ItemSell>() {
+            @Override
+            public int compare(ItemSell o1, ItemSell o2) {
+                return o1.getPriceSale() < o2.getPriceSale() ? 1 : -1;
+            }
+        };
+        Comparator<ItemSell> comparatorDate = new Comparator<ItemSell>() {
+            @Override
+            public int compare(ItemSell o1, ItemSell o2) {
+                Date dateO1 = null;
+                Date dateO2 = null;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    dateO1 = sdf.parse(o1.getDaySell());
+                    dateO2 = sdf.parse(o2.getDaySell());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Calendar calendarO1 = Calendar.getInstance();
+                calendarO1.setTime(dateO1);
+                int ngayO1 = calendarO1.get(Calendar.DAY_OF_MONTH);
+                int thangO1 = calendarO1.get(Calendar.MONTH);
+                int namO1 = calendarO1.get(Calendar.YEAR);
+                Calendar calendarO2 = Calendar.getInstance();
+                calendarO2.setTime(dateO2);
+                int ngayO2 = calendarO1.get(Calendar.DAY_OF_MONTH);
+                int thangO2 = calendarO1.get(Calendar.MONTH);
+                int namO2 = calendarO1.get(Calendar.YEAR);
+                return namO1 > namO2 ? 1 : namO1 < namO2 ? -1 : thangO1 > thangO2 ? 1 : thangO1 < thangO2 ? -1 : ngayO1 > ngayO2 ? 1 : -1;
+            }
+        };
         showAllListItemFragmentBinding.popupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,18 +218,34 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                         switch (item.getItemId()) {
                             case R.id.newItemMenu: {
                                 showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.newItem));
+                                Collections.sort(MainListItemShow, comparatorDate);
+                                currentPage = 1;
+                                setData(MainListItemShow, currentPage);
+                                showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
                                 break;
                             }
                             case R.id.hotItemMenu: {
                                 showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.hotItem));
+                                Collections.sort(MainListItemShow, comparatorHotItem);
+                                currentPage = 1;
+                                setData(MainListItemShow, currentPage);
+                                showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
                                 break;
                             }
                             case R.id.lowPriceMenu: {
                                 showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.lowPrice));
+                                Collections.sort(MainListItemShow, comparatorLowPrice);
+                                currentPage = 1;
+                                setData(MainListItemShow, currentPage);
+                                showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
                                 break;
                             }
                             case R.id.hightPriceMenu: {
                                 showAllListItemFragmentBinding.popupMenu.setText(getString(R.string.hightPrice));
+                                Collections.sort(MainListItemShow, comparatorHightPrice);
+                                currentPage = 1;
+                                setData(MainListItemShow, currentPage);
+                                showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
                                 break;
                             }
 
@@ -193,10 +258,12 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         });
         return showAllListItemFragmentBinding.getRoot();
     }
-    private void setMainList(List<ItemSell> itemSells){
+
+    private void setMainList(List<ItemSell> itemSells) {
         MainListItemShow.clear();
         MainListItemShow.addAll(itemSells);
     }
+
     private void setData(List<ItemSell> itemSells, int currentPage) {
         adapterRCVShowAllItem.setDataAdapter(getListItem(itemSells, currentPage));
         showAllListItemFragmentBinding.rcvShowAllItem.setAdapter(adapterRCVShowAllItem);
