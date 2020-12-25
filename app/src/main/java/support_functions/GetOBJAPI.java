@@ -11,6 +11,7 @@ import AllListForder.AllList;
 import AllListForder.Object.EventInHome;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
+import AllListForder.Object.MainCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +39,6 @@ public class GetOBJAPI implements AllList {
             }
         });
     }
-
     public static void getOBJEventInHome(Call<List<EventInHome>> callListEventInHome, Context context) {
         callListEventInHome.enqueue(new Callback<List<EventInHome>>() {
             @Override

@@ -19,7 +19,6 @@ import java.util.List;
 
 import AllListForder.Object.AvatarURL;
 import AllListForder.Object.ItemSell;
-import View.HomeFragment.Adapter.OnItemRCVClickListener;
 
 public class AdapterRCVItemYourMayLike extends RecyclerView.Adapter<AdapterRCVItemYourMayLike.ViewHolder> {
     private List<ItemSell> itemSellList;

@@ -36,6 +36,7 @@ import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
+import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.Adapter.OnItemRCVClickListener;
 import View.HomeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowAllItem;
@@ -76,7 +77,11 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         adapterRCVShowAllItem.setItemClickListener(new OnItemRCVClickListener() {
             @Override
             public void onItemClick(ItemSell itemSell) {
-                mainActivity.setMainLocal(SHOW_ALL_ITEM);
+                if (mainActivity.getMainLocal().equals(LOCAL_HOME)) {
+                    mainActivity.setMainLocal(SHOW_ALL_ITEM);
+                } else if (mainActivity.getMainLocal().equals(LOCAL_CATEGORY)) {
+                    mainActivity.setMainLocal(LOCAL_CATEGORY);
+                }
                 mainActivity.setItemSell(itemSell);
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
@@ -101,6 +106,14 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
             setMainList(ITEM_NEW);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
+        } else if (mainActivity.getLocal().equals(ALL_ITEM)) {
+            setMainList(ALL_ITEM_SELL_LIST);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
+        } else if (mainActivity.getLocal().equals(ITEM_FROM_CATEGORY)) {
+            setMainList(ITEM_IN_CATEGORY);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
         }
         showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
 
@@ -116,7 +129,6 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                 }
             }
         });
-
         showAllListItemFragmentBinding.nextPageInShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +147,9 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
             public void onClick(View v) {
                 if (mainActivity.getMainLocal().equals(LOCAL_HOME)) {
                     mainActivity.getFragment(HomeFragment.newInstance());
+                    mainActivity.setVisibleSearchBar(true);
+                } else if (mainActivity.getMainLocal().equals(LOCAL_CATEGORY)) {
+                    mainActivity.getFragment(ShowListCategoryFragment.newInstance());
                     mainActivity.setVisibleSearchBar(true);
                 }
             }

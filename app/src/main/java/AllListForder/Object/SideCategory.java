@@ -1,23 +1,15 @@
 package AllListForder.Object;
 
 public class SideCategory {
-    private int  idSideCategory;
-    private String codeId, sideCategoryName,codeMainCategory,sideCategoryAvatar;
+    private int idSideCategory, idMainCategory;
+    private String codeId, sideCategoryName, sideCategoryAvatar;
 
-    public SideCategory(String codeMainCategory, int idSideCategory, String codeId, String sideCategoryName, String sideCategoryAvatar) {
-        this.codeMainCategory = codeMainCategory;
+    public SideCategory(int idSideCategory, int idMainCategory, String codeId, String sideCategoryName, String sideCategoryAvatar) {
         this.idSideCategory = idSideCategory;
+        this.idMainCategory = idMainCategory;
         this.codeId = codeId;
         this.sideCategoryName = sideCategoryName;
         this.sideCategoryAvatar = sideCategoryAvatar;
-    }
-
-    public String getIdMainCategory() {
-        return codeMainCategory;
-    }
-
-    public void setIdMainCategory(String codeMainCategory) {
-        this.codeMainCategory = codeMainCategory;
     }
 
     public int getIdSideCategory() {
@@ -26,6 +18,14 @@ public class SideCategory {
 
     public void setIdSideCategory(int idSideCategory) {
         this.idSideCategory = idSideCategory;
+    }
+
+    public int getIdMainCategory() {
+        return idMainCategory;
+    }
+
+    public void setIdMainCategory(int idMainCategory) {
+        this.idMainCategory = idMainCategory;
     }
 
     public String getCodeId() {

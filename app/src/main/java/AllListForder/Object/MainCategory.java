@@ -1,45 +1,57 @@
 package AllListForder.Object;
 
+import java.util.List;
+
 public class MainCategory {
-    private int idMainCategory,mainCategoryAvatar;
-    private String codeIdMainCategori, mainCategoryName;
+    private int idMainCate;
+    private String codeIdCategory, nameCategory, urlImgMainCategory;
+    private List<SideCategory> sideCategoryList;
 
-    public MainCategory(int idMainCategory, String codeIdMainCategori, String mainCategoryName, int mainCategoryAvatar) {
-        this.idMainCategory = idMainCategory;
-        this.codeIdMainCategori = codeIdMainCategori;
-        this.mainCategoryName = mainCategoryName;
-        this.mainCategoryAvatar = mainCategoryAvatar;
+    public MainCategory(int idMainCate, String codeIdCategory, String nameCategory, String urlImgMainCategory, List<SideCategory> sideCategoryList) {
+        this.idMainCate = idMainCate;
+        this.codeIdCategory = codeIdCategory;
+        this.nameCategory = nameCategory;
+        this.urlImgMainCategory = urlImgMainCategory;
+        this.sideCategoryList = sideCategoryList;
     }
 
-    public int getIdMainCategory() {
-        return idMainCategory;
+    public int getIdMainCate() {
+        return idMainCate;
     }
 
-    public void setIdMainCategory(int idMainCategory) {
-        this.idMainCategory = idMainCategory;
+    public void setIdMainCate(int idMainCate) {
+        this.idMainCate = idMainCate;
     }
 
-    public String getCodeIdMainCategori() {
-        return codeIdMainCategori;
+    public String getCodeIdCategory() {
+        return codeIdCategory;
     }
 
-    public void setCodeIdMainCategori(String codeIdMainCategori) {
-        this.codeIdMainCategori = codeIdMainCategori;
+    public void setCodeIdCategory(String codeIdCategory) {
+        this.codeIdCategory = codeIdCategory;
     }
 
-    public String getMainCategoryName() {
-        return mainCategoryName;
+    public String getNameCategory() {
+        return nameCategory;
     }
 
-    public void setMainCategoryName(String mainCategoryName) {
-        this.mainCategoryName = mainCategoryName;
+    public void setNameCategory(String nameCategory) {
+        this.nameCategory = nameCategory;
     }
 
-    public int getMainCategoryAvatar() {
-        return mainCategoryAvatar;
+    public String getUrlImgMainCategory() {
+        return urlImgMainCategory;
     }
 
-    public void setMainCategoryAvatar(int mainCategoryAvatar) {
-        this.mainCategoryAvatar = mainCategoryAvatar;
+    public void setUrlImgMainCategory(String urlImgMainCategory) {
+        this.urlImgMainCategory = urlImgMainCategory;
+    }
+
+    public List<SideCategory> getSideCategoryList() {
+        return sideCategoryList;
+    }
+
+    public void setSideCategoryList(List<SideCategory> sideCategoryList) {
+        this.sideCategoryList = sideCategoryList;
     }
 }

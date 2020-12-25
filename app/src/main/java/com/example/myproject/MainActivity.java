@@ -19,6 +19,7 @@ import com.androidstudy.networkmanager.Tovuti;
 import com.example.myproject.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
 import View.CategoryFragment.ShowListCategoryFragment;
@@ -27,11 +28,12 @@ import View.newsFeedFragment.NewsFeedFragment;
 import View.notificationFragment.NotificationFragment;
 import View.userFragment.UserFragment;
 
-public class MainActivity extends AppCompatActivity implements AllList {
+public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal {
     private ActivityMainBinding mainBinding;
     private ItemSell itemSell;
     private String local;
     private String MainLocal;
+    private String typeCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements AllList {
                                 }
                                 case R.id.function_category: {
                                     mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+                                    setLocal(TOY_AND_MOM);
+                                    setTypeCategory(TYPE_MAIN);
                                     getFragment(ShowListCategoryFragment.newInstance());
                                     break;
                                 }
@@ -103,47 +107,6 @@ public class MainActivity extends AppCompatActivity implements AllList {
                 }
             }
         });
-//        getFragment(HomeFragment.newInstance());
-//        Intent getIntend = getIntent();
-//        Boolean checkInternet = getIntend.getBooleanExtra("CheckInternet", true);
-//        if (checkInternet == false) {
-//            Toast.makeText(MainActivity.this, "Kiem tra lai ket noi", Toast.LENGTH_LONG).show();
-//        }
-//        mainBinding.mainFunctionBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.function_home: {
-//                        mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
-//                        getFragment(HomeFragment.newInstance());
-//                        break;
-//                    }
-//                    case R.id.function_category: {
-//                        mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
-//                        getFragment(ShowListCategoryFragment.newInstance());
-//                        break;
-//                    }
-//                    case R.id.function_News: {
-//                        mainBinding.mainSearchBar.setVisibility(View.GONE);
-//                        getFragment(NewsFeedFragment.newInstance());
-//                        break;
-//                    }
-//                    case R.id.function_Notification: {
-//                        mainBinding.mainSearchBar.setVisibility(View.GONE);
-//                        getFragment(NotificationFragment.newInstance());
-//                        break;
-//                    }
-//                    case R.id.function_User: {
-//                        mainBinding.mainSearchBar.setVisibility(View.GONE);
-//                        getFragment(UserFragment.newInstance());
-//                        break;
-//                    }
-//                    default:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
     }
 
     @Override
@@ -180,6 +143,14 @@ public class MainActivity extends AppCompatActivity implements AllList {
         return mainBinding.etSearchItemInMain;
     }
 
+    public String getTypeCategory() {
+        return typeCategory;
+    }
+
+    public void setTypeCategory(String typeCategory) {
+        this.typeCategory = typeCategory;
+    }
+
     public void getFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
     }
@@ -192,40 +163,4 @@ public class MainActivity extends AppCompatActivity implements AllList {
         }
     }
 
-//    class CheckConection extends TimerTask {
-//        private Context context;
-//
-//        public CheckConection(Context context) {
-//            this.context = context;
-//        }
-//        public void checkInterNet() {
-//            if (CheckInternet.checkInterNet(context)) {
-//                //network enabled
-//            } else {
-//                //network disable
-//                AlertDialog checkInternetAnalog = new AlertDialog.Builder(context)
-//                        .setTitle(getString(R.string.dialogTile))
-//                        .setMessage(getString(R.string.notifyCheckInternet))
-//                        .setPositiveButton(getString(R.string.returnConnect), new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                checkInterNet();
-//                            }
-//                        })
-//                        .setNegativeButton(getString(R.string.cancelNotify), new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                finish();
-//                                System.exit(0);
-//                            }
-//                        }).create();
-//                checkInternetAnalog.show();
-//            }
-//        }
-//
-//        @Override
-//        public void run() {
-//            checkInterNet();
-//        }
-//    }
 }

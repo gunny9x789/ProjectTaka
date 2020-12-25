@@ -106,6 +106,10 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                     mainActivity.setMainLocal(LOCAL_HOME);
                     mainActivity.getFragment(Show_all_item_fragment.newInstance());
                     mainActivity.setVisibleSearchBar(true);
+                } else if (mainActivity.getMainLocal().equals(LOCAL_CATEGORY)) {
+                    mainActivity.setMainLocal(LOCAL_CATEGORY);
+                    mainActivity.getFragment(Show_all_item_fragment.newInstance());
+                    mainActivity.setVisibleSearchBar(true);
                 }
             }
         });

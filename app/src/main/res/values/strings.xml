@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TaKa</string>
-<!--System-->
+    <!--System-->
     <string name="et_search_bar">Bạn muốn tìm gì</string>
     <string name="notifyCheckInternet">Không có kết nối Interner, kiểm tra lại kết nối.</string>
     <string name="notifyCheckLogin">Chưa đăng nhập bạn muốn đăng nhập không.</string>
@@ -10,22 +10,23 @@
     <string name="dialogTile">Thông báo</string>
     <string name="dont_loading">Không có sản phẩm hiển thị</string>
     <string name="item">sản phẩm</string>
-<!--NavigationBar-->
+    <!--NavigationBar-->
     <string name="function_home">Trang chủ</string>
     <string name="function_Category">Danh mục</string>
     <string name="function_new">Bản tin</string>
     <string name="function_Notification">Thông báo</string>
     <string name="function_user">Tài khoản</string>
-<!--HomeFragment-->
+    <!--HomeFragment-->
     <string name="sale_in_day">Deal sốc trong ngày.</string>
     <string name="HotDeal">Hot Deal</string>
     <string name="BestPrice">Giá tốt</string>
     <string name="NewItemHome">Mới</string>
     <string name="show_all_in_home">Tất cả</string>
     <string name="item_your_like">Có thể bạn sẽ thích.</string>
-<!--CategoryFragment-->
-    <string name="show_all">TẤT CẢ</string>
+    <!--CategoryFragment-->
+    <string name="show_all">TẤT CẢ SẢN PHẨM</string>
     <string name="category_tile">DANH MỤC</string>
+    <!--MainCate    -->
     <string name="toy_and_mom">Đồ chơi-Mẹ và bé</string>
     <string name="phone_and_tablet">Điện thoại-Máy tính bảng</string>
     <string name="cosmetic">Mỹ phẩm-Sức Khỏe</string>
@@ -35,14 +36,39 @@
     <string name="jewelry">Trang sức-Phụ kiện</string>
     <string name="laptop_pc">Laptop-PC-Phụ kiện</string>
     <string name="car_moto">Ô tô-Xe máy</string>
-<!--Detail Item-->
+    <!--SideCate    -->
+    <string name="taLot">Tã lót</string>
+    <string name="suaBot">Sữa bột</string>
+    <string name="doChoi">Đồ chơi</string>
+    <string name="quanAoTreEm">Quần áo trẻ em</string>
+    <string name="dienThoai">Điện thoại</string>
+    <string name="mayTinhBang">Máy tính bảng</string>
+    <string name="lipstick">Son</string>
+    <string name="nuocHoa">Nước hoa</string>
+    <string name="lamMat">Làm mát</string>
+    <string name="nauAn">Nấu ăn</string>
+    <string name="giaDung">Gia dụng</string>
+    <string name="aoNu">Áo nữ</string>
+    <string name="quanNu">Quần nữ</string>
+    <string name="vayNu">Váy nữ</string>
+    <string name="aoNam">Áo Nam</string>
+    <string name="quanNam">Quần nam</string>
+    <string name="trangSuc">Trang sức</string>
+    <string name="balo">Balo</string>
+    <string name="tuiXach">Túi xách</string>
+    <string name="laptop">Laptop</string>
+    <string name="pc">PC</string>
+    <string name="phuKien">Phụ kiện</string>
+    <string name="oto">Ô tô</string>
+    <string name="xeMay">Xe máy</string>
+    <!--Detail Item-->
     <string name="characteristics">Thông tin sản phẩm</string>
     <string name="btnBuy">Mua</string>
     <string name="TotalItemSold">Đã bán : </string>
     <string name="TotalItem">Còn lại : </string>
-<!--Show All Item-->
+    <!--Show All Item-->
     <string name="sort">Sắp xếp: </string>
-<!--Sort menu-->
+    <!--Sort menu-->
     <string name="newItem">Hàng mới</string>
     <string name="hotItem">Bán chạy</string>
     <string name="lowPrice">Giá thấp</string>

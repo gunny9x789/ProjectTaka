@@ -20,7 +20,7 @@ public interface AllList {
     List<ItemSell> ITEM_HOT_DEAL = new ArrayList<>();
     List<ItemSell> ITEM_BEST_PRICE = new ArrayList<>();
     List<ItemSell> ITEM_NEW = new ArrayList<>();
-
+    List<ItemSell> ITEM_IN_CATEGORY = new ArrayList<>();
     List<ItemBuy> ITEM_BUY_LIST = new ArrayList<>();
     //    Event
     List<EventInHome> EVENT_IN_HOME_LIST = new ArrayList<>();
@@ -31,5 +31,4 @@ public interface AllList {
     List<User> USER_LIST = new ArrayList<>();
     //    Category
     List<MainCategory> MAIN_CATEGORY_LIST = new ArrayList<>();
-    List<SideCategory> SIDE_CATEGORIES = new ArrayList<>();
 }

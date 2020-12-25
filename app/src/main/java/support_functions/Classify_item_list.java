@@ -1,12 +1,13 @@
 package support_functions;
 
+import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.User;
 
 
-public class Classify_item_list implements AllList {
+public class Classify_item_list implements AllList, AllKeyLocal {
     public static void Classify_list() {
         getItemSaleInDay();
         getItemYourMayLike();
@@ -85,8 +86,27 @@ public class Classify_item_list implements AllList {
         for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
             ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
             String eventCode = itemSell.getEventCode();
-            if (eventCode.indexOf("NEW_ITEM")!=-1){
+            if (eventCode.indexOf("NEW_ITEM") != -1) {
                 ITEM_NEW.add(itemSell);
+            }
+        }
+    }
+
+    public static void getItemInCategory(String typeCategory, String codeIdCategory) {
+        ITEM_IN_CATEGORY.clear();
+        if (typeCategory.equals(TYPE_MAIN)) {
+            for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
+                ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
+                if (itemSell.getCodeMainCateId().equals(codeIdCategory)) {
+                    ITEM_IN_CATEGORY.add(itemSell);
+                }
+            }
+        } else if (typeCategory.equals(TYPE_SIDE)) {
+            for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
+                ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
+                if (itemSell.getCodeSideCateId().equals(codeIdCategory)) {
+                    ITEM_IN_CATEGORY.add(itemSell);
+                }
             }
         }
     }
