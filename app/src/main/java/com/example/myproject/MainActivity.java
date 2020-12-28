@@ -24,9 +24,9 @@ import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
 import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.HomeFragment;
+import View.UserFragment.UserFragment;
 import View.newsFeedFragment.NewsFeedFragment;
 import View.notificationFragment.NotificationFragment;
-import View.userFragment.UserFragment;
 
 public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal {
     private ActivityMainBinding mainBinding;
@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        getFragment(HomeFragment.newInstance());
         Tovuti.from(this).monitor(new Monitor.ConnectivityListener() {
             @Override
             public void onConnectivityChanged(int connectionType, boolean isConnected, boolean isFast) {
                 if (isConnected) {
-                    getFragment(HomeFragment.newInstance());
                     Intent getIntend = getIntent();
                     Boolean checkInternet = getIntend.getBooleanExtra("CheckInternet", true);
                     if (checkInternet == false) {

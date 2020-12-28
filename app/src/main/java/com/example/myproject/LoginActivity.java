@@ -8,14 +8,16 @@ import android.os.Bundle;
 
 import com.example.myproject.databinding.ActivityLoginBinding;
 
-import View.userFragment.LoginRegisterFragment.LoginFragment.LoginFragment;
+import View.UserFragment.LoginRegisterFragment.LoginFragment.LoginFragment;
+
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         getFragment(LoginFragment.newInstance());
 
     }

@@ -5,12 +5,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE">
+
         <Button
             android:id="@+id/btn_back_login"
-            android:background="#00FFFFFF"
-            android:text="Back"
             android:layout_width="@dimen/_50sdp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:text="Back" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_above="@id/et_login_account"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/_15sdp"
+            android:src="@drawable/logoapp" />
+
         <EditText
             android:id="@+id/et_login_account"
             android:layout_width="match_parent"

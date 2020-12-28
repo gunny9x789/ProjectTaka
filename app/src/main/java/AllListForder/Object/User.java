@@ -2,9 +2,10 @@ package AllListForder.Object;
 
 public class User {
     private int idUser;
-    private String accountType, accountName, accountPass, userFistName, userLastName, userEmail, userPhone, sex, avatar;
+    private String accountType, accountName, accountPass, userFistName, userLastName, userEmail, userPhone, sex, avatar, address;
 
-    public User(int idUser, String accountType, String accountName, String accountPass, String userFistName, String userLastName, String userEmail, String userPhone, String sex, String avatar) {
+    public User(int idUser, String accountType, String accountName, String accountPass, String userFistName, String userLastName,
+                String userEmail, String userPhone, String address, String sex, String avatar) {
         this.idUser = idUser;
         this.accountType = accountType;
         this.accountName = accountName;
@@ -15,6 +16,7 @@ public class User {
         this.userPhone = userPhone;
         this.sex = sex;
         this.avatar = avatar;
+        this.address = address;
     }
 
     public String getSex() {
@@ -95,5 +97,13 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

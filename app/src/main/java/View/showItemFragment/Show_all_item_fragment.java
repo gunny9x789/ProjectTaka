@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -87,30 +88,37 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
             }
         });
         if (mainActivity.getLocal().equals(SALE_IN_HOME)) {
+            setViewInfo(0);
             setMainList(ITEM_SALE_IN_DAY_LIST);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(YOU_MAY_LIKE)) {
+            setViewInfo(0);
             setMainList(ITEM_YOUR_MAY_LIKE_LIST);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(HOT_DEAL_ITEM)) {
+            setViewInfo(0);
             setMainList(ITEM_HOT_DEAL);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(BEST_PRICE_ITEM)) {
+            setViewInfo(0);
             setMainList(ITEM_NEW);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(NEW_ITEM)) {
+            setViewInfo(0);
             setMainList(ITEM_NEW);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(ALL_ITEM)) {
+            setViewInfo(0);
             setMainList(ALL_ITEM_SELL_LIST);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         } else if (mainActivity.getLocal().equals(ITEM_FROM_CATEGORY)) {
+            setViewInfo(0);
             setMainList(ITEM_IN_CATEGORY);
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
@@ -310,7 +318,22 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         return itemSellList;
     }
 
-    public void flipPerImage(String urlImage) {
+    private void setViewInfo(int key) {
+        switch (key) {
+            case 0: {
+                showAllListItemFragmentBinding.viewInfoAds.setVisibility(View.VISIBLE);
+                showAllListItemFragmentBinding.viewInfoUserSell.setVisibility(View.GONE);
+                break;
+            }
+            case 1: {
+                showAllListItemFragmentBinding.viewInfoAds.setVisibility(View.GONE);
+                showAllListItemFragmentBinding.viewInfoUserSell.setVisibility(View.VISIBLE);
+                break;
+            }
+        }
+    }
+
+    private void flipPerImage(String urlImage) {
         ImageView imageView = new ImageView(getContext());
         Picasso.get().load(urlImage)
                 .placeholder(R.drawable.dont_loading_img)

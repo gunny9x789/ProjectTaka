@@ -68,9 +68,21 @@
     <string name="TotalItem">Còn lại : </string>
     <!--Show All Item-->
     <string name="sort">Sắp xếp: </string>
+    <string name="totalItemUserSell">Sản phẩm: </string>
+    <string name="totalSoldUserSell">Đã bán: </string>
     <!--Sort menu-->
     <string name="newItem">Hàng mới</string>
     <string name="hotItem">Bán chạy</string>
     <string name="lowPrice">Giá thấp</string>
     <string name="hightPrice">Giá cao</string>
+    <!--    Register user-->
+    <string name="firstNameUser">Họ</string>
+    <string name="lastNameUser">Tên</string>
+    <string name="accountNameUser">Tài khoản</string>
+    <string name="passNameUser">Mật khẩu</string>
+    <string name="emailNameUser">Email</string>
+    <string name="phoneNameUser">Số điện thoại</string>
+    <string name="addressNameUser">Địa chỉ</string>
+    <string name="typeSeller">Người bán</string>
+    <string name="typeBuy">Người mua</string>
 </resources>

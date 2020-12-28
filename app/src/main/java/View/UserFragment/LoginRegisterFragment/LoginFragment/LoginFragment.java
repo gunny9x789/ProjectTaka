@@ -1,4 +1,4 @@
-package View.userFragment.LoginRegisterFragment.LoginFragment;
+package View.UserFragment.LoginRegisterFragment.LoginFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,14 +12,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.myproject.LoginActivity;
 import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.LoginFragmentBinding;
 
-import View.userFragment.LoginRegisterFragment.RegisterFragment.RegisterFragment;
+import View.UserFragment.LoginRegisterFragment.RegisterFragment.RegisterFragment;
+
 
 public class LoginFragment extends Fragment {
     LoginFragmentBinding loginFragmentBinding;
+    LoginActivity loginActivity;
 
     public static LoginFragment newInstance() {
 
@@ -34,24 +37,21 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         loginFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false);
-
+        loginActivity = (LoginActivity) getActivity();
         loginFragmentBinding.btnBackLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
         loginFragmentBinding.tvLogReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragment(RegisterFragment.newInstance());
+                loginActivity.getFragment(RegisterFragment.newInstance());
             }
         });
         return loginFragmentBinding.getRoot();
     }
-    public void getFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.log_reg_fragment, fragment).commit();
-    }
+
 }

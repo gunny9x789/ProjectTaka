@@ -1,4 +1,4 @@
-package View.userFragment.LoginRegisterFragment.RegisterFragment;
+package View.UserFragment.LoginRegisterFragment.RegisterFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.myproject.LoginActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.RegisterFragmentBinding;
 
-import View.userFragment.LoginRegisterFragment.LoginFragment.LoginFragment;
+import View.UserFragment.LoginRegisterFragment.LoginFragment.LoginFragment;
+
 
 public class RegisterFragment extends Fragment {
     RegisterFragmentBinding registerFragmentBinding;
+    LoginActivity loginActivity;
 
     public static RegisterFragment newInstance() {
 
@@ -31,18 +34,15 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        registerFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.register_fragment,container,false);
-
+        registerFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.register_fragment, container, false);
+        loginActivity = (LoginActivity) getActivity();
         registerFragmentBinding.btnBackRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragment(LoginFragment.newInstance());
+                loginActivity.getFragment(LoginFragment.newInstance());
             }
         });
         return registerFragmentBinding.getRoot();
     }
-    public void getFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.log_reg_fragment, fragment).commit();
-    }
+
 }
