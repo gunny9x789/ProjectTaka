@@ -1,4 +1,4 @@
-package View.notificationFragment;
+package View.NotificationFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,22 +19,41 @@ import com.androidstudy.networkmanager.Monitor;
 import com.androidstudy.networkmanager.Tovuti;
 import com.example.myproject.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.special.ResideMenu.ResideMenu;
+import com.special.ResideMenu.ResideMenuItem;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.ItemSell;
 import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.HomeFragment;
+import View.NewsFeedFragment.NewsFeedFragment;
+import View.NotificationFragment.NotificationFragment;
 import View.UserFragment.UserFragment;
-import View.newsFeedFragment.NewsFeedFragment;
-import View.notificationFragment.NotificationFragment;
 
-public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal {
+public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal, View.OnClickListener {
     private ActivityMainBinding mainBinding;
     private ItemSell itemSell;
     private String local;
     private String MainLocal;
     private String typeCategory;
+    private final ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
+        @Override
+        public void openMenu() {
+
+        }
+
+        @Override
+        public void closeMenu() {
+
+        }
+    };
+    private ResideMenu resideMenu;
+    private ResideMenuItem homeItem;
+    private ResideMenuItem categoryItem;
+    private ResideMenuItem newsFeedItem;
+    private ResideMenuItem notificationItem;
+    private ResideMenuItem userItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,43 +69,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
                     if (checkInternet == false) {
                         Toast.makeText(MainActivity.this, "Kiem tra lai ket noi", Toast.LENGTH_LONG).show();
                     }
-                    mainBinding.mainFunctionBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                        @Override
-                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.function_home: {
-                                    mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
-                                    getFragment(HomeFragment.newInstance());
-                                    break;
-                                }
-                                case R.id.function_category: {
-                                    mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
-                                    setLocal(TOY_AND_MOM);
-                                    setTypeCategory(TYPE_MAIN);
-                                    getFragment(ShowListCategoryFragment.newInstance());
-                                    break;
-                                }
-                                case R.id.function_News: {
-                                    mainBinding.mainSearchBar.setVisibility(View.GONE);
-                                    getFragment(NewsFeedFragment.newInstance());
-                                    break;
-                                }
-                                case R.id.function_Notification: {
-                                    mainBinding.mainSearchBar.setVisibility(View.GONE);
-                                    getFragment(NotificationFragment.newInstance());
-                                    break;
-                                }
-                                case R.id.function_User: {
-                                    mainBinding.mainSearchBar.setVisibility(View.GONE);
-                                    getFragment(UserFragment.newInstance());
-                                    break;
-                                }
-                                default:
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
+                    setUpMenu();
                 } else {
                     AlertDialog checkInternetAnalog = new AlertDialog.Builder(MainActivity.this)
                             .setTitle(getString(R.string.dialogTile))
@@ -105,6 +89,40 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
                             }).create();
                     checkInternetAnalog.show();
                 }
+            }
+        });
+    }
+
+    private void setUpMenu() {
+        resideMenu = new ResideMenu(this);
+        resideMenu.setBackground(R.drawable.menu_backgroud);
+        resideMenu.attachToActivity(this);
+        resideMenu.setScaleValue(0.6f);
+
+        resideMenu.setMenuListener(menuListener);
+
+        homeItem = new ResideMenuItem(this, R.drawable.homeimg, getString(R.string.function_home));
+        categoryItem = new ResideMenuItem(this, R.drawable.categoryimg, getString(R.string.function_Category));
+        newsFeedItem = new ResideMenuItem(this, R.drawable.newsimg, getString(R.string.function_new));
+        notificationItem = new ResideMenuItem(this, R.drawable.notificationimg, getString(R.string.function_Notification));
+        userItem = new ResideMenuItem(this, R.drawable.userimg, getString(R.string.function_user));
+
+        homeItem.setOnClickListener(this);
+        categoryItem.setOnClickListener(this);
+        newsFeedItem.setOnClickListener(this);
+        notificationItem.setOnClickListener(this);
+        userItem.setOnClickListener(this);
+
+        resideMenu.addMenuItem(homeItem, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(categoryItem, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(newsFeedItem, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(notificationItem, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(userItem, ResideMenu.DIRECTION_LEFT);
+
+        mainBinding.btnBarMenuInMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
             }
         });
     }
@@ -163,4 +181,31 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == homeItem) {
+            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+            getFragment(HomeFragment.newInstance());
+        } else if (v == categoryItem) {
+            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+            setLocal(TOY_AND_MOM);
+            setTypeCategory(TYPE_MAIN);
+            getFragment(ShowListCategoryFragment.newInstance());
+        } else if (v == newsFeedItem) {
+            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+            getFragment(NewsFeedFragment.newInstance());
+        } else if (v == notificationItem) {
+            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+            getFragment(NotificationFragment.newInstance());
+        } else if (v == userItem) {
+            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+            getFragment(UserFragment.newInstance());
+        }
+        resideMenu.closeMenu();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return resideMenu.dispatchTouchEvent(ev);
+    }
 }

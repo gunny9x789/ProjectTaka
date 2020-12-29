@@ -24,19 +24,25 @@ import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 import AllListForder.Object.MainCategory;
 import AllListForder.Object.SideCategory;
+import AllListForder.Object.User;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import support_functions.CheckFistInstallApp;
 import support_functions.CheckInternet;
 import support_functions.GetApiSP;
 import support_functions.GetOBJAPI;
+import support_functions.SqlLiteHelper;
 
 public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyLocal {
     private final int Request_Permission_Code = 10;
     private final String URL_LINK_ADS_HOME = "https://demo8357538.mockable.io/DemoHomeAds";
     private final String URL_LINK_HOME_EVENT = "https://demo8357538.mockable.io/demoHomeEvent";
     private final String URL_LINK_ALL_ITEM_SELL = "https://demo8357538.mockable.io/DemoSanPham";
-
+    private static final String keyFistInstal = "KEY_FIST_INSTAL";
+    private SqlLiteHelper sqlLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,7 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         setContentView(R.layout.activity_loading_screen);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, Request_Permission_Code);
+        sqlLiteHelper = new SqlLiteHelper(this);
         loadData();
 
 
@@ -52,7 +59,8 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
     private void loadData() {
         if (CheckInternet.checkInterNet(this)) {
             //network enabled
-            new GetData().execute();
+            //new GetData().execute();
+            loadingData();
         } else {
             //network disable
             AlertDialog checkInternetAnalog = new AlertDialog.Builder(this)
@@ -130,6 +138,55 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         }
     }
 
+    private void loadingData() {
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://demo8357538.mockable.io/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetApiSP getApiSP = retrofit.create(GetApiSP.class);
+        final CheckFistInstallApp checkFistInstallApp = new CheckFistInstallApp(LoadingScreen.this);
+
+        Call<List<ItemSell>> callListItemSell = getApiSP.ITEM_SELLS_CALL();
+        Call<List<EventInHome>> callListEventInHome = getApiSP.EVENT_IN_HOME_CALL();
+        Call<List<MainAdsImg>> callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
+        Call<List<User>> callListUser = getApiSP.USER_LIST_CALL();
+
+        INFO_LOGIN_LIST.add(new InfoLogin(0, 0, false));
+        setListCategory();
+        if (checkFistInstallApp.getBooleanValue(keyFistInstal)) {
+            List<User> userList1 = sqlLiteHelper.getAllListUser();
+            USER_LIST.addAll(userList1);
+        } else {
+            callListUser.clone().enqueue(new Callback<List<User>>() {
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(getBaseContext(), "Code" + response.code(), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    List<User> userList = response.body();
+                    for (int i = 0; i < userList.size(); i++) {
+                        sqlLiteHelper.addUserTable(userList.get(i));
+                    }
+                    List<User> userList1 = sqlLiteHelper.getAllListUser();
+                    USER_LIST.addAll(userList1);
+
+                }
+
+                @Override
+                public void onFailure(Call<List<User>> call, Throwable t) {
+                    Toast.makeText(getBaseContext(), "False", Toast.LENGTH_SHORT).show();
+                }
+            });
+            checkFistInstallApp.putBooleanValue(keyFistInstal, true);
+
+        }
+        GetOBJAPI.getOBJEventInHome(callListEventInHome, LoadingScreen.this);
+        GetOBJAPI.getOBJMainAdsImg(callListMainAdsInHome, LoadingScreen.this);
+        GetOBJAPI.getOBJItemSell(callListItemSell, LoadingScreen.this, intent);
+    }
+
     class GetData extends AsyncTask<Void, Integer, Integer> {
         Intent intent;
         Retrofit retrofit;
@@ -137,7 +194,7 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         private Call<List<ItemSell>> callListItemSell;
         private Call<List<EventInHome>> callListEventInHome;
         private Call<List<MainAdsImg>> callListMainAdsInHome;
-        private Call<List<MainCategory>> callListMainCategory;
+        private Call<List<User>> callListUser;
 
         @Override
         protected void onPreExecute() {
@@ -148,17 +205,17 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             getApiSP = retrofit.create(GetApiSP.class);
+            final CheckFistInstallApp checkFistInstallApp = new CheckFistInstallApp(LoadingScreen.this);
 
 
         }
 
         @Override
         protected Integer doInBackground(Void... voids) {
-
             callListItemSell = getApiSP.ITEM_SELLS_CALL();
             callListEventInHome = getApiSP.EVENT_IN_HOME_CALL();
             callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
-            callListMainCategory = getApiSP.MAIN_CATEGORY_CALL();
+            callListUser = getApiSP.USER_LIST_CALL();
             return null;
         }
 
@@ -167,9 +224,10 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
             super.onPostExecute(integer);
             INFO_LOGIN_LIST.add(new InfoLogin(0, 0, false));
             setListCategory();
-            GetOBJAPI.getOBJItemSell(callListItemSell, LoadingScreen.this, intent);
             GetOBJAPI.getOBJEventInHome(callListEventInHome, LoadingScreen.this);
             GetOBJAPI.getOBJMainAdsImg(callListMainAdsInHome, LoadingScreen.this);
+            GetOBJAPI.getOBJItemSell(callListItemSell, LoadingScreen.this, intent);
+
         }
     }
 }

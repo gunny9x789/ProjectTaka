@@ -17,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GetOBJAPI implements AllList {
+
     public static void getOBJItemSell(Call<List<ItemSell>> callListItemSell, Context context, Intent intent) {
         callListItemSell.enqueue(new Callback<List<ItemSell>>() {
             @Override

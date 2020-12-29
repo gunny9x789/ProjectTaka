@@ -6,6 +6,7 @@ import AllListForder.Object.EventInHome;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 import AllListForder.Object.MainCategory;
+import AllListForder.Object.User;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -20,6 +21,6 @@ public interface GetApiSP {
     @GET("DemoHomeAds")
     Call<List<MainAdsImg>> MAIN_ADS_IN_HOME_CALL();
 
-    @GET("DemoCategory")
-    Call<List<MainCategory>> MAIN_CATEGORY_CALL();
+    @GET("DemoUserAccount")
+    Call<List<User>> USER_LIST_CALL();
 }
