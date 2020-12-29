@@ -18,6 +18,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private static final String DB_NAME = "UserList.db";
     private static final String DB_USER_TABLE = "User";
     private static final int DB_VERSION = 1;
+
     SQLiteDatabase sqLiteDatabase;
     ContentValues contentValues;
     private Cursor cursor;

@@ -36,10 +36,10 @@ public class Classify_item_list implements AllList, AllKeyLocal {
             ITEM_YOUR_MAY_LIKE_LIST.addAll(ALL_ITEM_SELL_LIST);
         } else {
             InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
-            if (infoLogin.getInfoLogin() == false) {
+            if (infoLogin.getInfoLogin().equals(USER_LOGOUT)) {
                 ITEM_YOUR_MAY_LIKE_LIST.clear();
                 ITEM_YOUR_MAY_LIKE_LIST.addAll(ALL_ITEM_SELL_LIST);
-            } else if (infoLogin.getInfoLogin()) {
+            } else if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
                 int idUser = infoLogin.getIdUserLogin();
                 User user;
                 for (int i = 0; i < USER_LIST.size(); i++) {

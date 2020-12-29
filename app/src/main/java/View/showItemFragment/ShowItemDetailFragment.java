@@ -117,7 +117,7 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
             @Override
             public void onClick(View v) {
                 InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
-                if (infoLogin.getInfoLogin()) {
+                if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
                     Toast.makeText(getActivity().getBaseContext(), "Đã mua", Toast.LENGTH_LONG).show();
                 } else {
                     AlertDialog alertDialog = new AlertDialog.Builder(getContext())
@@ -126,7 +126,7 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                             .setPositiveButton(getString(R.string.Login), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    INFO_LOGIN_LIST.add(new InfoLogin(0, 0, true));
+                                    INFO_LOGIN_LIST.add(new InfoLogin(0, 0, USER_LOGIN));
                                     Toast.makeText(getActivity().getBaseContext(), "Đã login", Toast.LENGTH_LONG).show();
                                 }
                             }).setNegativeButton(getString(R.string.cancelNotify), new DialogInterface.OnClickListener() {

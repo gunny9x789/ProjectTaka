@@ -152,7 +152,7 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         Call<List<MainAdsImg>> callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
         Call<List<User>> callListUser = getApiSP.USER_LIST_CALL();
 
-        INFO_LOGIN_LIST.add(new InfoLogin(0, 0, false));
+        INFO_LOGIN_LIST.add(new InfoLogin(0, 0, USER_LOGOUT));
         setListCategory();
         if (checkFistInstallApp.getBooleanValue(keyFistInstal)) {
             List<User> userList1 = sqlLiteHelper.getAllListUser();
@@ -187,47 +187,4 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         GetOBJAPI.getOBJItemSell(callListItemSell, LoadingScreen.this, intent);
     }
 
-    class GetData extends AsyncTask<Void, Integer, Integer> {
-        Intent intent;
-        Retrofit retrofit;
-        GetApiSP getApiSP;
-        private Call<List<ItemSell>> callListItemSell;
-        private Call<List<EventInHome>> callListEventInHome;
-        private Call<List<MainAdsImg>> callListMainAdsInHome;
-        private Call<List<User>> callListUser;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            intent = new Intent(getBaseContext(), MainActivity.class);
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("https://demo8357538.mockable.io/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            getApiSP = retrofit.create(GetApiSP.class);
-            final CheckFistInstallApp checkFistInstallApp = new CheckFistInstallApp(LoadingScreen.this);
-
-
-        }
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            callListItemSell = getApiSP.ITEM_SELLS_CALL();
-            callListEventInHome = getApiSP.EVENT_IN_HOME_CALL();
-            callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
-            callListUser = getApiSP.USER_LIST_CALL();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
-            INFO_LOGIN_LIST.add(new InfoLogin(0, 0, false));
-            setListCategory();
-            GetOBJAPI.getOBJEventInHome(callListEventInHome, LoadingScreen.this);
-            GetOBJAPI.getOBJMainAdsImg(callListMainAdsInHome, LoadingScreen.this);
-            GetOBJAPI.getOBJItemSell(callListItemSell, LoadingScreen.this, intent);
-
-        }
-    }
 }
