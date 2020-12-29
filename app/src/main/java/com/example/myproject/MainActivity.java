@@ -3,13 +3,11 @@ package com.example.myproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -18,18 +16,21 @@ import androidx.fragment.app.Fragment;
 import com.androidstudy.networkmanager.Monitor;
 import com.androidstudy.networkmanager.Tovuti;
 import com.example.myproject.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
+import java.util.List;
+
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
+import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.HomeFragment;
 import View.NewsFeedFragment.NewsFeedFragment;
 import View.NotificationFragment.NotificationFragment;
 import View.UserFragment.UserFragment;
+import support_functions.SqlLiteHelper;
 
 public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal, View.OnClickListener {
     private ActivityMainBinding mainBinding;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     private String local;
     private String MainLocal;
     private String typeCategory;
+    private SqlLiteHelper sqlLiteHelper;
     private final ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
         @Override
         public void openMenu() {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         getFragment(HomeFragment.newInstance());
+        sqlLiteHelper = new SqlLiteHelper(this);
         Tovuti.from(this).monitor(new Monitor.ConnectivityListener() {
             @Override
             public void onConnectivityChanged(int connectionType, boolean isConnected, boolean isFast) {
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
 
     private void setUpMenu() {
         resideMenu = new ResideMenu(this);
+        resideMenu.setSwipeDirectionDisable(ResideMenu.SCREEN_STATE_ON);
         resideMenu.setBackground(R.drawable.menu_backgroud);
         resideMenu.attachToActivity(this);
         resideMenu.setScaleValue(0.6f);
@@ -202,6 +206,13 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
             getFragment(UserFragment.newInstance());
         }
         resideMenu.closeMenu();
+    }
+
+    public void addLoginInfo(InfoLogin infoLogin) {
+        sqlLiteHelper.addCheckLoginTable(infoLogin);
+        List<InfoLogin> infoLoginList = sqlLiteHelper.getAllListCheckLogin();
+        INFO_LOGIN_LIST.clear();
+        INFO_LOGIN_LIST.addAll(infoLoginList);
     }
 
     @Override

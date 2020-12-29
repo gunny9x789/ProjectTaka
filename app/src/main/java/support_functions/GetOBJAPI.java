@@ -11,7 +11,6 @@ import AllListForder.AllList;
 import AllListForder.Object.EventInHome;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
-import AllListForder.Object.MainCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

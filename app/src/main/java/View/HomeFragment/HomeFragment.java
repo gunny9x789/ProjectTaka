@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
+        mainActivity.setMainLocal(LOCAL_HOME);
         mainActivity.setLocal(HOT_DEAL_ITEM);
         homeFragmentBinding.showAllItemSaleInDay.setOnClickListener(new View.OnClickListener() {
             @Override

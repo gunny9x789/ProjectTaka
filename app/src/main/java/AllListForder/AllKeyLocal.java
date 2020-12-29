@@ -5,6 +5,7 @@ public interface AllKeyLocal {
     String LOCAL_HOME = "HOME";
     String LOCAL_CATEGORY = "CATEGORY";
     //    User
+    String NONE_USER = "NONE_USER";
     String USER_LOGIN = "USER_LOGIN";
     String USER_LOGOUT = "USER_LOGOUT";
     //    SideLocal

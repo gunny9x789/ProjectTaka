@@ -1,17 +1,16 @@
 package com.example.myproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,12 +151,16 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         Call<List<MainAdsImg>> callListMainAdsInHome = getApiSP.MAIN_ADS_IN_HOME_CALL();
         Call<List<User>> callListUser = getApiSP.USER_LIST_CALL();
 
-        INFO_LOGIN_LIST.add(new InfoLogin(0, 0, USER_LOGOUT));
         setListCategory();
         if (checkFistInstallApp.getBooleanValue(keyFistInstal)) {
             List<User> userList1 = sqlLiteHelper.getAllListUser();
             USER_LIST.addAll(userList1);
+            List<InfoLogin> infoLoginList = sqlLiteHelper.getAllListCheckLogin();
+            INFO_LOGIN_LIST.addAll(infoLoginList);
         } else {
+            sqlLiteHelper.addCheckLoginTable(new InfoLogin(0, NONE_USER, USER_LOGOUT));
+            List<InfoLogin> infoLoginList = sqlLiteHelper.getAllListCheckLogin();
+            INFO_LOGIN_LIST.addAll(infoLoginList);
             callListUser.clone().enqueue(new Callback<List<User>>() {
                 @Override
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {

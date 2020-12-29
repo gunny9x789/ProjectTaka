@@ -15,7 +15,7 @@ public interface SQLKey {
     String USER_ADDRESS = "address";
     //    CheckLogin
     String ID_CHECK_LOGIN = "idCheckLogin";
-    String ID_USER_LOGIN = "idUserLogin";
+    String NAME_USER_LOGIN = "nameUserLogin";
     String INFO_LOGIN = "infoLogin";
 
 }

@@ -1,12 +1,12 @@
 package AllListForder.Object;
 
 public class InfoLogin {
-    private int idCheck, idUserLogin;
-    private String infoLogin;
+    private int idCheck;
+    private String infoLogin, nameUserLogin;
 
-    public InfoLogin(int idCheck, int idUserLogin, String infoLogin) {
+    public InfoLogin(int idCheck, String nameUserLogin, String infoLogin) {
         this.idCheck = idCheck;
-        this.idUserLogin = idUserLogin;
+        this.nameUserLogin = nameUserLogin;
         this.infoLogin = infoLogin;
     }
 
@@ -18,12 +18,12 @@ public class InfoLogin {
         this.idCheck = idCheck;
     }
 
-    public int getIdUserLogin() {
-        return idUserLogin;
+    public String getNameUserLogin() {
+        return nameUserLogin;
     }
 
-    public void setIdUserLogin(int idUserLogin) {
-        this.idUserLogin = idUserLogin;
+    public void setNameUserLogin(String nameUserLogin) {
+        this.nameUserLogin = nameUserLogin;
     }
 
     public String getInfoLogin() {

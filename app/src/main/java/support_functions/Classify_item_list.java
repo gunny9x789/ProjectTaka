@@ -40,11 +40,11 @@ public class Classify_item_list implements AllList, AllKeyLocal {
                 ITEM_YOUR_MAY_LIKE_LIST.clear();
                 ITEM_YOUR_MAY_LIKE_LIST.addAll(ALL_ITEM_SELL_LIST);
             } else if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
-                int idUser = infoLogin.getIdUserLogin();
+                String nameUser = infoLogin.getNameUserLogin();
                 User user;
                 for (int i = 0; i < USER_LIST.size(); i++) {
                     User checkUser = USER_LIST.get(i);
-                    if (checkUser.getIdUser() == idUser) {
+                    if (checkUser.getAccountName().toLowerCase().equals(nameUser.toLowerCase())) {
                         user = checkUser;
                         break;
                     }

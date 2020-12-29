@@ -11,17 +11,20 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import AllListForder.Object.InfoLogin;
 import AllListForder.Object.SQLKey;
 import AllListForder.Object.User;
 
 public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private static final String DB_NAME = "UserList.db";
     private static final String DB_USER_TABLE = "User";
+    private static final String DB_CHECK_LOGIN_TABLE = "CheckLogin";
     private static final int DB_VERSION = 1;
 
     SQLiteDatabase sqLiteDatabase;
     ContentValues contentValues;
-    private Cursor cursor;
+    private Cursor cursorUser;
+    private Cursor cursorCheckLogin;
 
 
     public SqlLiteHelper(@Nullable Context context) {
@@ -42,7 +45,12 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
                 "sex TEXT," +
                 "avatar TEXT," +
                 "address TEXT)";
+        String queryCreateCheckLoginTable = "CREATE TABLE CheckLogin(" +
+                "idCheckLogin INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "nameUserLogin TEXT," +
+                "infoLogin TEXT)";
         db.execSQL(queryCreateUserTable);
+        db.execSQL(queryCreateCheckLoginTable);
     }
 
     @Override
@@ -69,6 +77,17 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         contentValues.put(USER_ADDRESS, user.getAddress());
 
         sqLiteDatabase.insert(DB_USER_TABLE, null, contentValues);
+        closeDB();
+    }
+
+    public void addCheckLoginTable(InfoLogin infoLogin) {
+        sqLiteDatabase = getWritableDatabase();
+        contentValues = new ContentValues();
+
+        contentValues.put(NAME_USER_LOGIN, infoLogin.getNameUserLogin());
+        contentValues.put(INFO_LOGIN, infoLogin.getInfoLogin());
+
+        sqLiteDatabase.insert(DB_CHECK_LOGIN_TABLE, null, contentValues);
         closeDB();
     }
 
@@ -109,20 +128,20 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         User user;
 
         sqLiteDatabase = getReadableDatabase();
-        cursor = sqLiteDatabase.query(false, DB_USER_TABLE, null
+        cursorUser = sqLiteDatabase.query(false, DB_USER_TABLE, null
                 , null, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex(ID_USER));
-            String userType = cursor.getString(cursor.getColumnIndex(USER_TYPE));
-            String userAccount = cursor.getString(cursor.getColumnIndex(USER_ACCOUNT));
-            String userPass = cursor.getString(cursor.getColumnIndex(USER_PASS));
-            String userFistName = cursor.getString(cursor.getColumnIndex(USER_FIST_NAME));
-            String userLastName = cursor.getString(cursor.getColumnIndex(USER_LAST_NAME));
-            String userEmail = cursor.getString(cursor.getColumnIndex(USER_EMAIL));
-            String userPhone = cursor.getString(cursor.getColumnIndex(USER_PHONE));
-            String userSex = cursor.getString(cursor.getColumnIndex(USER_SEX));
-            String userAvatar = cursor.getString(cursor.getColumnIndex(USER_AVATAR));
-            String userAddress = cursor.getString(cursor.getColumnIndex(USER_ADDRESS));
+        while (cursorUser.moveToNext()) {
+            int id = cursorUser.getInt(cursorUser.getColumnIndex(ID_USER));
+            String userType = cursorUser.getString(cursorUser.getColumnIndex(USER_TYPE));
+            String userAccount = cursorUser.getString(cursorUser.getColumnIndex(USER_ACCOUNT));
+            String userPass = cursorUser.getString(cursorUser.getColumnIndex(USER_PASS));
+            String userFistName = cursorUser.getString(cursorUser.getColumnIndex(USER_FIST_NAME));
+            String userLastName = cursorUser.getString(cursorUser.getColumnIndex(USER_LAST_NAME));
+            String userEmail = cursorUser.getString(cursorUser.getColumnIndex(USER_EMAIL));
+            String userPhone = cursorUser.getString(cursorUser.getColumnIndex(USER_PHONE));
+            String userSex = cursorUser.getString(cursorUser.getColumnIndex(USER_SEX));
+            String userAvatar = cursorUser.getString(cursorUser.getColumnIndex(USER_AVATAR));
+            String userAddress = cursorUser.getString(cursorUser.getColumnIndex(USER_ADDRESS));
 
             user = new User(id, userType, userAccount, userPass, userFistName, userLastName, userEmail
                     , userPhone, userAddress, userSex, userAvatar);
@@ -132,9 +151,28 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         return userList;
     }
 
+    public List<InfoLogin> getAllListCheckLogin() {
+        List<InfoLogin> infoLoginList = new ArrayList<>();
+        InfoLogin infoLogin;
+        sqLiteDatabase = getReadableDatabase();
+        cursorCheckLogin = sqLiteDatabase.query(false, DB_CHECK_LOGIN_TABLE, null
+                , null, null, null, null, null, null);
+
+        while (cursorCheckLogin.moveToNext()) {
+            int id = cursorCheckLogin.getInt(cursorCheckLogin.getColumnIndex(ID_CHECK_LOGIN));
+            String nameUserLogin = cursorCheckLogin.getString(cursorCheckLogin.getColumnIndex(NAME_USER_LOGIN));
+            String infoLogin1 = cursorCheckLogin.getString(cursorCheckLogin.getColumnIndex(INFO_LOGIN));
+            infoLogin = new InfoLogin(id, nameUserLogin, infoLogin1);
+            infoLoginList.add(infoLogin);
+        }
+        closeDB();
+        return infoLoginList;
+    }
+
     private void closeDB() {
         if (contentValues != null) contentValues.clear();
-        if (cursor != null) cursor.close();
+        if (cursorUser != null) cursorUser.close();
+        if (cursorCheckLogin != null) cursorCheckLogin.close();
         if (sqLiteDatabase != null) sqLiteDatabase.close();
     }
 }
