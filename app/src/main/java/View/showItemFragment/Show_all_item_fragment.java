@@ -1,5 +1,7 @@
 package View.showItemFragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -13,11 +15,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myproject.LoginActivity;
 import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.ShowAllListItemFragmentBinding;
@@ -34,6 +38,7 @@ import java.util.List;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
+import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 import View.CategoryFragment.ShowListCategoryFragment;
@@ -276,6 +281,32 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                     }
                 });
                 popupMenu.show();
+            }
+        });
+//        orderItem
+        showAllListItemFragmentBinding.iconBuyInShowDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
+                if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
+                    mainActivity.getFragment(OrderItemBuyFragment.newInstance());
+                } else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                            .setTitle(getString(R.string.dialogTile))
+                            .setMessage(getString(R.string.notifyCheckLogin))
+                            .setPositiveButton(getString(R.string.Login), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getActivity().getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton(getString(R.string.cancelNotify), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).create();
+                    alertDialog.show();
+                }
             }
         });
         return showAllListItemFragmentBinding.getRoot();

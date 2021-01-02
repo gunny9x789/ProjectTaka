@@ -25,22 +25,27 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Calendar;
 import java.util.List;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.AvatarURL;
 import AllListForder.Object.InfoLogin;
+import AllListForder.Object.ItemBuy;
 import AllListForder.Object.ItemSell;
+import AllListForder.Object.User;
 import View.HomeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowListImgDetailItem;
 import View.showItemFragment.Adapter.ShowImgItemDetailClick;
+import support_functions.SqlLiteHelper;
 
 public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyLocal {
 
     private ShowItemDetailFragmentBinding showItemDetailBinding;
     private MainActivity mainActivity;
     private AdapterRCVShowListImgDetailItem adapterRCVShowListImgDetailItem;
+    private SqlLiteHelper sqlLiteHelper;
 
     public static ShowItemDetailFragment newInstance() {
         Bundle args = new Bundle();
@@ -54,6 +59,7 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         showItemDetailBinding = DataBindingUtil.inflate(inflater, R.layout.show_item_detail_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
+        sqlLiteHelper = new SqlLiteHelper(getContext());
         final DecimalFormatSymbols syms = new DecimalFormatSymbols();
         syms.setGroupingSeparator(',');
         DecimalFormat myFormatter = new DecimalFormat("###,###,###,###,###,###", syms);
@@ -117,12 +123,34 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                 }
             }
         });
+//        BUY_ITEM
         showItemDetailBinding.btnBuyItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
                 if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
-                    Toast.makeText(getActivity().getBaseContext(), "Đã mua", Toast.LENGTH_LONG).show();
+                    Calendar calendar = Calendar.getInstance();
+                    int id = 1;
+                    int idItem = itemSell.getIdItemSell();
+                    int priceOnceItem = itemSell.getPriceSale();
+                    int purchased = 1;
+                    int TotalItemPrice = priceOnceItem * purchased;
+                    int idUserSell = itemSell.getIdUserSell();
+                    String userSellName = null;
+                    for (int i = 0; i < USER_LIST.size(); i++) {
+                        User user = USER_LIST.get(i);
+                        if (idUserSell == user.getIdUser()) {
+                            userSellName = user.getAccountName();
+                            break;
+                        }
+                    }
+                    String userBuyName = infoLogin.getNameUserLogin();
+                    String itemName = itemSell.getNameItemSell();
+                    String avatarItem = itemSell.getAvatarItemSell().get(0).getUrlImg();
+                    String dayBuy = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR);
+                    ItemBuy itemBuy = new ItemBuy(id, idItem, priceOnceItem, TotalItemPrice, purchased, userSellName, userBuyName, itemName, avatarItem, dayBuy);
+                    ITEM_ORDER_LIST.add(itemBuy);
+                    Toast.makeText(getActivity().getBaseContext(), getString(R.string.addComplete), Toast.LENGTH_LONG).show();
                 } else {
                     AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                             .setTitle(getString(R.string.dialogTile))
@@ -142,6 +170,7 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                 }
             }
         });
+//        SEARCH
         showItemDetailBinding.iconSearchInShowDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +184,31 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                         return false;
                     }
                 });
+            }
+        });
+        showItemDetailBinding.iconBuyInShowDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
+                if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
+                    mainActivity.getFragment(OrderItemBuyFragment.newInstance());
+                } else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                            .setTitle(getString(R.string.dialogTile))
+                            .setMessage(getString(R.string.notifyCheckLogin))
+                            .setPositiveButton(getString(R.string.Login), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getActivity().getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton(getString(R.string.cancelNotify), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).create();
+                    alertDialog.show();
+                }
             }
         });
         return showItemDetailBinding.getRoot();

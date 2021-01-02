@@ -47,14 +47,16 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         managerUserFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.manager_user_fragment, container, false);
-        totalPage = getTotalPage(USER_LIST);
+        sqlLiteHelper = new SqlLiteHelper(getContext());
+        List<User> userList = sqlLiteHelper.getAllListUser();
+        totalPage = getTotalPage(userList);
         managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
         mainActivity = (MainActivity) getActivity();
 //RCV
-        adapterRCVManagerUser = new AdapterRCVManagerUser();
+        adapterRCVManagerUser = new AdapterRCVManagerUser(getContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);
         managerUserFragmentBinding.rcvManagerUserSell.setLayoutManager(layoutManager);
-        setData(USER_LIST, currentPage);
+        setData(userList, currentPage);
 
         managerUserFragmentBinding.backPageInManagerUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +65,8 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
                 } else if (currentPage > 1) {
                     currentPage -= 1;
-                    setData(USER_LIST, currentPage);
+                    List<User> userList = sqlLiteHelper.getAllListUser();
+                    setData(userList, currentPage);
                     managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
                 }
             }
@@ -75,7 +78,8 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
                 } else if (currentPage < totalPage) {
                     currentPage += 1;
-                    setData(USER_LIST, currentPage);
+                    List<User> userList = sqlLiteHelper.getAllListUser();
+                    setData(userList, currentPage);
                     managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
                 }
             }

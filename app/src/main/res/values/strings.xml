@@ -104,6 +104,14 @@
     <string name="Register">Nếu chưa có tài khoản ấn đây để đăng ký.</string>
     <string name="Logout">Đăng xuất</string>
     <string name="backSetting">Quay lại</string>
-    <!--    ManagerUser-->
+    <string name="delete">Xóa</string>
+    <!--    OrderFragment-->
+    <string name="tileOrder">Danh sách sản phẩm </string>
+    <string name="addComplete">Đã thêm sản phẩm</string>
+    <string name="priceOnceItem">Giá : </string>
+    <string name="priceTotal">Tổng :</string>
+    <string name="notification_1">Bạn muốn mua </string>
+    <string name="notification_2"> sản phẩm hết </string>
+    <string name="buyComplete">Yêu cầu mua thành công.</string>
 
 </resources>

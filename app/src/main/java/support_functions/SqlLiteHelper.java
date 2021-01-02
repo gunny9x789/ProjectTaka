@@ -117,11 +117,11 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         contentValues.put(PURCHASED, itemBuy.getPurchased());
         contentValues.put(TOTAL_PRICE_ITEM, itemBuy.getTotalItemPrice());
         contentValues.put(ITEM_AVATAR, itemBuy.getAvatarItem());
-        contentValues.put(TIME_BUY, itemBuy.getTimeBuy());
         contentValues.put(ACCOUNT_NAME_SELL_ITEM, itemBuy.getNameAccountSell());
         contentValues.put(ACCOUNT_NAME_SELL_BUY, itemBuy.getNameAccountBuy());
+        contentValues.put(TIME_BUY, itemBuy.getTimeBuy());
 
-        sqLiteDatabase.insert(DB_CHECK_LOGIN_TABLE, null, contentValues);
+        sqLiteDatabase.insert(DB_ITEMBUY, null, contentValues);
         closeDB();
     }
 
@@ -145,13 +145,13 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         closeDB();
     }
 
-    public void delUser(int id) {
+    public void delUser(int idUser) {
         sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.delete(DB_USER_TABLE, "idUser=?", new String[]{String.valueOf(id)});
+        sqLiteDatabase.delete(DB_USER_TABLE, "idUser=?", new String[]{String.valueOf(idUser)});
         closeDB();
     }
 
-    public void delAllUser(int id) {
+    public void delAllUser() {
         sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete(DB_USER_TABLE, null, null);
         closeDB();

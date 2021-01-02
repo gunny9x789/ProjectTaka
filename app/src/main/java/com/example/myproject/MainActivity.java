@@ -30,6 +30,7 @@ import View.HomeFragment.HomeFragment;
 import View.NewsFeedFragment.NewsFeedFragment;
 import View.NotificationFragment.NotificationFragment;
 import View.UserFragment.UserFragment;
+import View.showItemFragment.OrderItemBuyFragment;
 import support_functions.SqlLiteHelper;
 
 public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal, View.OnClickListener {
@@ -73,6 +74,33 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
                         Toast.makeText(MainActivity.this, "Kiem tra lai ket noi", Toast.LENGTH_LONG).show();
                     }
                     setUpMenu();
+                    mainBinding.imgIconBuyInMain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
+                            if (infoLogin.getInfoLogin().equals(USER_LOGIN)) {
+                                setVisibleSearchBar(false);
+                                getFragment(OrderItemBuyFragment.newInstance());
+                            } else {
+                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                                        .setTitle(getString(R.string.dialogTile))
+                                        .setMessage(getString(R.string.notifyCheckLogin))
+                                        .setPositiveButton(getString(R.string.Login), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        }).setNegativeButton(getString(R.string.cancelNotify), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        }).create();
+                                alertDialog.show();
+                            }
+
+                        }
+                    });
                 } else {
                     AlertDialog checkInternetAnalog = new AlertDialog.Builder(MainActivity.this)
                             .setTitle(getString(R.string.dialogTile))
@@ -98,7 +126,9 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
 
     private void setUpMenu() {
         resideMenu = new ResideMenu(this);
+        //SCREEN_STATE_ON
         resideMenu.setSwipeDirectionDisable(ResideMenu.SCREEN_STATE_ON);
+        resideMenu.setSwipeDirectionDisable(ResideMenu.SCREEN_STATE_OFF);
         resideMenu.setBackground(R.drawable.menu_backgroud);
         resideMenu.attachToActivity(this);
         resideMenu.setScaleValue(0.6f);

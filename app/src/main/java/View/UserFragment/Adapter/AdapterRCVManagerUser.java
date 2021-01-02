@@ -1,13 +1,19 @@
 package View.UserFragment.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.swipe.SimpleSwipeListener;
+import com.daimajia.swipe.SwipeLayout;
 import com.example.myproject.R;
 import com.squareup.picasso.Picasso;
 
@@ -15,9 +21,16 @@ import java.util.List;
 
 import AllListForder.Object.User;
 import de.hdodenhof.circleimageview.CircleImageView;
+import support_functions.SqlLiteHelper;
 
 public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManagerUser.ViewHolder> {
     List<User> userList;
+    SqlLiteHelper sqlLiteHelper;
+    Context mContext;
+
+    public AdapterRCVManagerUser(Context mContext) {
+        this.mContext = mContext;
+    }
 
     public void setDataUserList(List<User> dataUserList) {
         this.userList = dataUserList;
@@ -35,9 +48,10 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final User user = userList.get(position);
+        User user = userList.get(position);
+        sqlLiteHelper = new SqlLiteHelper(mContext);
         String avatarUrl = user.getAvatar();
-        if (avatarUrl.trim().isEmpty() || avatarUrl == null) {
+        if (avatarUrl.isEmpty() || avatarUrl == null) {
             holder.circleImageView.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
         } else {
             Picasso.get().load(avatarUrl)
@@ -45,6 +59,24 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                     .error(R.drawable.dont_loading_img)
                     .into(holder.circleImageView);
         }
+        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.relativeLayout);
+        holder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+            @Override
+            public void onOpen(SwipeLayout layout) {
+                super.onOpen(layout);
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userList.remove(position);
+                int id = user.getIdUser();
+                sqlLiteHelper.delUser(id);
+                Toast.makeText(mContext, "Delete", Toast.LENGTH_SHORT).show();
+                setDataUserList(userList);
+            }
+        });
         holder.tvAccName.setText(": " + user.getAccountName());
         holder.tvAccPass.setText(": " + user.getAccountPass());
         holder.tvFistNameUser.setText(": " + user.getUserFistName());
@@ -73,6 +105,9 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
         private final TextView tvPhone;
         private final TextView tvAddress;
         private final TextView tvType;
+        private final SwipeLayout swipeLayout;
+        private final Button btnDelete;
+        private final RelativeLayout relativeLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +120,9 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
             tvPhone = itemView.findViewById(R.id.manager_user_tv_phone_account);
             tvAddress = itemView.findViewById(R.id.manager_user_tv_address_account);
             tvType = itemView.findViewById(R.id.manager_user_tv_type_account);
+            swipeLayout = itemView.findViewById(R.id.swipeLayout);
+            btnDelete = itemView.findViewById(R.id.btn_delete_manager_user);
+            relativeLayout = itemView.findViewById(R.id.layoutDown);
         }
     }
 }
