@@ -47,7 +47,7 @@
                     android:layout_marginTop="@dimen/_3sdp"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="Đăng Nhập/Đăng ký"
+                    android:text="@string/LoginOrLogout"
                     android:textColor="@color/TextLogReg"
                     android:textSize="20sp"
                     android:textStyle="bold" />

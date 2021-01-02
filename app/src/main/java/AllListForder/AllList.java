@@ -9,7 +9,6 @@ import AllListForder.Object.ItemBuy;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 import AllListForder.Object.MainCategory;
-import AllListForder.Object.SideCategory;
 import AllListForder.Object.User;
 
 public interface AllList {
@@ -22,6 +21,7 @@ public interface AllList {
     List<ItemSell> ITEM_NEW = new ArrayList<>();
     List<ItemSell> ITEM_IN_CATEGORY = new ArrayList<>();
     List<ItemBuy> ITEM_BUY_LIST = new ArrayList<>();
+    List<ItemBuy> ITEM_ORDER_LIST = new ArrayList<>();
     //    Event
     List<EventInHome> EVENT_IN_HOME_LIST = new ArrayList<>();
     //    ADS

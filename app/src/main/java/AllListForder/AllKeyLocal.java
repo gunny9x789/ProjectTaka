@@ -8,6 +8,10 @@ public interface AllKeyLocal {
     String NONE_USER = "NONE_USER";
     String USER_LOGIN = "USER_LOGIN";
     String USER_LOGOUT = "USER_LOGOUT";
+    String TYPE_ADMIN = "admin";
+    String TYPE_NORMAL = "normal";
+    String TYPE_SELLER = "seller";
+    String TYPE_TRADEMARK = "trademark";
     //    SideLocal
     String SALE_IN_HOME = "SALE_IN_HOME";
     String YOU_MAY_LIKE = "YOU_MAY_LIKE";

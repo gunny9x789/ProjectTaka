@@ -71,7 +71,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_alignParentBottom="true"
             android:gravity="center_horizontal"
-            android:text="@string/Logout"
+            android:text="@string/Register"
             android:textColor="#585858" />
     </RelativeLayout>
 </layout>

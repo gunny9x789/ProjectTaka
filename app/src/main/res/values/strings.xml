@@ -80,7 +80,7 @@
     <string name="welcomeToMyApp">Chào mừng bạn đến với chúng tôi.</string>
     <string name="LoginOrLogout">Đăng Nhập/Đăng ký</string>
     <string name="manager_item_sell">Quản lý sản phẩm bán.</string>
-    <string name="manager_user">Quản lý sản tài khoản.</string>
+    <string name="manager_user">Quản lý tài khoản.</string>
     <string name="manager_item_buy">Sản phẩm đã mua.</string>
     <string name="user_seting">Cài đặt.</string>
     <!--    Register user-->
@@ -91,6 +91,7 @@
     <string name="emailNameUser">Email</string>
     <string name="phoneNameUser">Số điện thoại</string>
     <string name="addressNameUser">Địa chỉ</string>
+    <string name="Type">Loại</string>
     <string name="typeSeller">Người bán</string>
     <string name="typeBuy">Người mua</string>
     <!--    Login User-->
@@ -100,5 +101,9 @@
     <string name="Login">Đăng nhập</string>
     <string name="LoginComplete">Đăng nhập thành công</string>
     <string name="LoginFalse">Đăng nhập thất bại</string>
-    <string name="Logout">Nếu chưa có tài khoản ấn đây để đăng ký.</string>
+    <string name="Register">Nếu chưa có tài khoản ấn đây để đăng ký.</string>
+    <string name="Logout">Đăng xuất</string>
+    <string name="backSetting">Quay lại</string>
+    <!--    ManagerUser-->
+
 </resources>

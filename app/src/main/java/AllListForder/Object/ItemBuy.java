@@ -1,19 +1,29 @@
 package AllListForder.Object;
 
 public class ItemBuy {
-    private int id, idItem, priceItem, purchased, idUserSell, idUserbuy;
-    private String itemName, avatarItem, timeBuy;
+    private int id, idItem, priceOnceItem, TotalItemPrice, purchased;
+    private String itemName, avatarItem, timeBuy, nameAccountSell, nameAccountBuy;
 
-    public ItemBuy(int id, int idItem, int priceItem, int purchased, int idUserSell, int idUserbuy, String itemName, String avatarItem, String timeBuy) {
+    public ItemBuy(int id, int idItem, int priceOnceItem, int TotalItemPrice, int purchased, String nameAccountSell, String nameAccountBuy,
+                   String itemName, String avatarItem, String timeBuy) {
         this.id = id;
         this.idItem = idItem;
-        this.priceItem = priceItem;
+        this.priceOnceItem = priceOnceItem;
+        this.TotalItemPrice = TotalItemPrice;
         this.purchased = purchased;
-        this.idUserSell = idUserSell;
-        this.idUserbuy = idUserbuy;
+        this.nameAccountSell = nameAccountSell;
+        this.nameAccountBuy = nameAccountBuy;
         this.itemName = itemName;
         this.avatarItem = avatarItem;
         this.timeBuy = timeBuy;
+    }
+
+    public int getTotalItemPrice() {
+        return TotalItemPrice;
+    }
+
+    public void setTotalItemPrice(int totalItemPrice) {
+        TotalItemPrice = totalItemPrice;
     }
 
     public int getId() {
@@ -32,12 +42,12 @@ public class ItemBuy {
         this.idItem = idItem;
     }
 
-    public int getPriceItem() {
-        return priceItem;
+    public int getPriceOnceItem() {
+        return priceOnceItem;
     }
 
-    public void setPriceItem(int priceItem) {
-        this.priceItem = priceItem;
+    public void setPriceOnceItem(int priceOnceItem) {
+        this.priceOnceItem = priceOnceItem;
     }
 
     public int getPurchased() {
@@ -48,20 +58,20 @@ public class ItemBuy {
         this.purchased = purchased;
     }
 
-    public int getIdUserSell() {
-        return idUserSell;
+    public String getNameAccountSell() {
+        return nameAccountSell;
     }
 
-    public void setIdUserSell(int idUserSell) {
-        this.idUserSell = idUserSell;
+    public void setNameAccountSell(String nameAccountSell) {
+        this.nameAccountSell = nameAccountSell;
     }
 
-    public int getIdUserbuy() {
-        return idUserbuy;
+    public String getNameAccountBuy() {
+        return nameAccountBuy;
     }
 
-    public void setIdUserbuy(int idUserbuy) {
-        this.idUserbuy = idUserbuy;
+    public void setNameAccountBuy(String nameAccountBuy) {
+        this.nameAccountBuy = nameAccountBuy;
     }
 
     public String getItemName() {

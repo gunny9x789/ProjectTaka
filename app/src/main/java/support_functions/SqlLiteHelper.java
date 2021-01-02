@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import AllListForder.Object.InfoLogin;
+import AllListForder.Object.ItemBuy;
 import AllListForder.Object.SQLKey;
 import AllListForder.Object.User;
 
@@ -19,12 +20,14 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private static final String DB_NAME = "UserList.db";
     private static final String DB_USER_TABLE = "User";
     private static final String DB_CHECK_LOGIN_TABLE = "CheckLogin";
+    private static final String DB_ITEMBUY = "ItemBuy";
     private static final int DB_VERSION = 1;
 
     SQLiteDatabase sqLiteDatabase;
     ContentValues contentValues;
     private Cursor cursorUser;
     private Cursor cursorCheckLogin;
+    private Cursor cursorItemBuy;
 
 
     public SqlLiteHelper(@Nullable Context context) {
@@ -49,8 +52,21 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
                 "idCheckLogin INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "nameUserLogin TEXT," +
                 "infoLogin TEXT)";
+
+        String queryCreateItemBuyTable = "CREATE TABLE ItemBuy(" +
+                "idTrade INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "idItemBuy INTEGER," +
+                "idItemName TEXT," +
+                "priceOnceItem INTEGER," +
+                "purchased INTEGER," +
+                "totalItemPrice INTEGER," +
+                "avatarItem TEXT," +
+                "timeBuy TEXT," +
+                "nameAccountSell TEXT," +
+                "nameAccountBuy TEXT)";
         db.execSQL(queryCreateUserTable);
         db.execSQL(queryCreateCheckLoginTable);
+        db.execSQL(queryCreateItemBuyTable);
     }
 
     @Override
@@ -86,6 +102,24 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
 
         contentValues.put(NAME_USER_LOGIN, infoLogin.getNameUserLogin());
         contentValues.put(INFO_LOGIN, infoLogin.getInfoLogin());
+
+        sqLiteDatabase.insert(DB_CHECK_LOGIN_TABLE, null, contentValues);
+        closeDB();
+    }
+
+    public void addItemBuy(ItemBuy itemBuy) {
+        sqLiteDatabase = getWritableDatabase();
+        contentValues = new ContentValues();
+
+        contentValues.put(ID_ITEM_BUY, itemBuy.getIdItem());
+        contentValues.put(ID_ITEM_NAME, itemBuy.getItemName());
+        contentValues.put(PRICE_ONCE_ITEM, itemBuy.getPriceOnceItem());
+        contentValues.put(PURCHASED, itemBuy.getPurchased());
+        contentValues.put(TOTAL_PRICE_ITEM, itemBuy.getTotalItemPrice());
+        contentValues.put(ITEM_AVATAR, itemBuy.getAvatarItem());
+        contentValues.put(TIME_BUY, itemBuy.getTimeBuy());
+        contentValues.put(ACCOUNT_NAME_SELL_ITEM, itemBuy.getNameAccountSell());
+        contentValues.put(ACCOUNT_NAME_SELL_BUY, itemBuy.getNameAccountBuy());
 
         sqLiteDatabase.insert(DB_CHECK_LOGIN_TABLE, null, contentValues);
         closeDB();
@@ -167,6 +201,32 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         }
         closeDB();
         return infoLoginList;
+    }
+
+    public List<ItemBuy> getAllListItemBuy() {
+        List<ItemBuy> itemBuyList = new ArrayList<>();
+        ItemBuy itemBuy;
+        sqLiteDatabase = getReadableDatabase();
+        cursorItemBuy = cursorCheckLogin = sqLiteDatabase.query(false, DB_ITEMBUY, null
+                , null, null, null, null, null, null);
+
+        while (cursorItemBuy.moveToNext()) {
+            int idTrade = cursorItemBuy.getInt(cursorItemBuy.getColumnIndex(ID_TRADE));
+            int idItemSell = cursorItemBuy.getInt(cursorItemBuy.getColumnIndex(ID_ITEM_BUY));
+            String itemName = cursorItemBuy.getString(cursorItemBuy.getColumnIndex(ID_ITEM_NAME));
+            int priceOnceItem = cursorItemBuy.getInt(cursorItemBuy.getColumnIndex(PRICE_ONCE_ITEM));
+            int purchased = cursorItemBuy.getInt(cursorItemBuy.getColumnIndex(PURCHASED));
+            int totalItemPrice = cursorItemBuy.getInt(cursorItemBuy.getColumnIndex(TOTAL_PRICE_ITEM));
+            String itemAvatar = cursorItemBuy.getString(cursorItemBuy.getColumnIndex(ITEM_AVATAR));
+            String timeBuy = cursorItemBuy.getString(cursorItemBuy.getColumnIndex(TIME_BUY));
+            String nameAccountSell = cursorItemBuy.getString(cursorItemBuy.getColumnIndex(ACCOUNT_NAME_SELL_ITEM));
+            String nameAccountBuy = cursorItemBuy.getString(cursorItemBuy.getColumnIndex(ACCOUNT_NAME_SELL_BUY));
+            itemBuy = new ItemBuy(idTrade, idItemSell, priceOnceItem, totalItemPrice, purchased, nameAccountSell
+                    , nameAccountBuy, itemName, itemAvatar, timeBuy);
+            itemBuyList.add(itemBuy);
+        }
+        closeDB();
+        return itemBuyList;
     }
 
     private void closeDB() {

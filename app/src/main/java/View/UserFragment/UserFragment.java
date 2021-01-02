@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myproject.LoginActivity;
+import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.UserFragmentBinding;
 import com.squareup.picasso.Picasso;
@@ -25,6 +26,8 @@ import support_functions.SqlLiteHelper;
 public class UserFragment extends Fragment implements AllList, AllKeyLocal {
     UserFragmentBinding userFragmentBinding;
     SqlLiteHelper sqlLiteHelper;
+    MainActivity mainActivity;
+
     public static UserFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -39,6 +42,7 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         userFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.user_fragment, container, false);
         sqlLiteHelper = new SqlLiteHelper(getContext());
+        mainActivity = (MainActivity) getActivity();
 
         InfoLogin infoLogin = INFO_LOGIN_LIST.get(INFO_LOGIN_LIST.size() - 1);
         if (infoLogin.getInfoLogin().equals(USER_LOGOUT)) {
@@ -60,7 +64,19 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
                         .error(R.drawable.dont_loading_img)
                         .into(userFragmentBinding.imgAvatarUser);
             }
+            String typeAccount = userLoginNow.getAccountType();
+            if (typeAccount.equals(TYPE_ADMIN)) {
+                userFragmentBinding.managerItemSell.setVisibility(View.VISIBLE);
+                userFragmentBinding.managerUser.setVisibility(View.VISIBLE);
+            } else if (typeAccount.equals(TYPE_SELLER)) {
+                userFragmentBinding.managerItemSell.setVisibility(View.VISIBLE);
+                userFragmentBinding.managerUser.setVisibility(View.GONE);
+            } else if (typeAccount.equals(TYPE_NORMAL) || typeAccount.equals(TYPE_TRADEMARK)) {
+                userFragmentBinding.managerItemSell.setVisibility(View.GONE);
+                userFragmentBinding.managerUser.setVisibility(View.GONE);
+            }
         }
+
         userFragmentBinding.tvLogReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +84,18 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
                 startActivity(intent);
             }
         });
-
+        userFragmentBinding.userSeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.getFragment(SettingFragment.newInstance());
+            }
+        });
+        userFragmentBinding.managerUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.getFragment(ManagerUserFragment.newInstance());
+            }
+        });
         return userFragmentBinding.getRoot();
     }
 

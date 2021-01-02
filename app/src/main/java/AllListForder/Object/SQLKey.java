@@ -17,5 +17,16 @@ public interface SQLKey {
     String ID_CHECK_LOGIN = "idCheckLogin";
     String NAME_USER_LOGIN = "nameUserLogin";
     String INFO_LOGIN = "infoLogin";
+    //    ItemBuy
+    String ID_TRADE = "idTrade";
+    String ID_ITEM_BUY = "idItemBuy";
+    String ID_ITEM_NAME = "idItemName";
+    String PRICE_ONCE_ITEM = "priceOnceItem";
+    String PURCHASED = "purchased";
+    String TOTAL_PRICE_ITEM = "totalItemPrice";
+    String ITEM_AVATAR = "avatarItem";
+    String TIME_BUY = "timeBuy";
+    String ACCOUNT_NAME_SELL_ITEM = "nameAccountSell";
+    String ACCOUNT_NAME_SELL_BUY = "nameAccountBuy";
 
 }
