@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -189,7 +188,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         Comparator<ItemSell> comparatorHotItem = new Comparator<ItemSell>() {
             @Override
             public int compare(ItemSell o1, ItemSell o2) {
-                return o1.getItemSoldInMonth() > o2.getItemSoldInMonth() ? 1 : -1;
+                return o1.getItemSoldInMonth() > o2.getItemSoldInMonth() ? -1 : 1;
             }
         };
         Comparator<ItemSell> comparatorLowPrice = new Comparator<ItemSell>() {
@@ -226,7 +225,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                 int ngayO2 = calendarO1.get(Calendar.DAY_OF_MONTH);
                 int thangO2 = calendarO1.get(Calendar.MONTH);
                 int namO2 = calendarO1.get(Calendar.YEAR);
-                return namO1 > namO2 ? 1 : namO1 < namO2 ? -1 : thangO1 > thangO2 ? 1 : thangO1 < thangO2 ? -1 : ngayO1 > ngayO2 ? 1 : -1;
+                return namO1 > namO2 ? -1 : namO1 < namO2 ? 1 : thangO1 > thangO2 ? -1 : thangO1 < thangO2 ? 1 : ngayO1 > ngayO2 ? -1 : 1;
             }
         };
         showAllListItemFragmentBinding.popupMenu.setOnClickListener(new View.OnClickListener() {

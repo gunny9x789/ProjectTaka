@@ -4,7 +4,6 @@
     <string name="et_search_bar">Bạn muốn tìm gì</string>
     <string name="notifyCheckInternet">Không có kết nối Interner, kiểm tra lại kết nối.</string>
     <string name="notifyCheckLogin">Chưa đăng nhập bạn muốn đăng nhập không.</string>
-    <string name="Login">Đăng nhập</string>
     <string name="returnConnect">Kết nối lại</string>
     <string name="cancelNotify">Đóng</string>
     <string name="dialogTile">Thông báo</string>
@@ -66,6 +65,8 @@
     <string name="btnBuy">Mua</string>
     <string name="TotalItemSold">Đã bán : </string>
     <string name="TotalItem">Còn lại : </string>
+    <string name="trademark">Nhãn Hiệu : </string>
+    <string name="UserSellName">Người bán : </string>
     <!--Show All Item-->
     <string name="sort">Sắp xếp: </string>
     <string name="totalItemUserSell">Sản phẩm: </string>
@@ -75,6 +76,13 @@
     <string name="hotItem">Bán chạy</string>
     <string name="lowPrice">Giá thấp</string>
     <string name="hightPrice">Giá cao</string>
+    <!--    UserFragment-->
+    <string name="welcomeToMyApp">Chào mừng bạn đến với chúng tôi.</string>
+    <string name="LoginOrLogout">Đăng Nhập/Đăng ký</string>
+    <string name="manager_item_sell">Quản lý sản phẩm bán.</string>
+    <string name="manager_user">Quản lý sản tài khoản.</string>
+    <string name="manager_item_buy">Sản phẩm đã mua.</string>
+    <string name="user_seting">Cài đặt.</string>
     <!--    Register user-->
     <string name="firstNameUser">Họ</string>
     <string name="lastNameUser">Tên</string>
@@ -85,4 +93,12 @@
     <string name="addressNameUser">Địa chỉ</string>
     <string name="typeSeller">Người bán</string>
     <string name="typeBuy">Người mua</string>
+    <!--    Login User-->
+    <string name="AccountNameLogin">Tài khoản</string>
+    <string name="AccountPassLogin">Mật Khẩu</string>
+    <string name="forgotPassword">Quên Mật Khẩu</string>
+    <string name="Login">Đăng nhập</string>
+    <string name="LoginComplete">Đăng nhập thành công</string>
+    <string name="LoginFalse">Đăng nhập thất bại</string>
+    <string name="Logout">Nếu chưa có tài khoản ấn đây để đăng ký.</string>
 </resources>

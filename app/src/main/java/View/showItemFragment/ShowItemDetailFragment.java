@@ -1,6 +1,7 @@
 package View.showItemFragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myproject.LoginActivity;
 import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.ShowItemDetailFragmentBinding;
@@ -63,6 +65,8 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
         showItemDetailBinding.tvShowDetailNameItem.setText(itemSell.getNameItemSell());
         showItemDetailBinding.tvTotalItem.setText(" " + totalItem + " " + getString(R.string.item));
         showItemDetailBinding.tvTotalItemSold.setText(" " + itemSell.getTotalItemSold() + " " + getString(R.string.item));
+        showItemDetailBinding.tvTrademark.setText(" " + itemSell.getTrademark());
+        showItemDetailBinding.tvUserSellName.setText(" " + USER_LIST.get(itemSell.getIdUserSell() - 1).getAccountName());
 
         Picasso.get().load(listUrlImgae.get(0).getUrlImg())
                 .placeholder(R.drawable.dont_loading_img)
@@ -126,8 +130,8 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                             .setPositiveButton(getString(R.string.Login), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    mainActivity.addLoginInfo(new InfoLogin(0, "UserTest", USER_LOGIN));
-                                    Toast.makeText(getActivity().getBaseContext(), "Đã login", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getActivity().getBaseContext(), LoginActivity.class);
+                                    startActivity(intent);
                                 }
                             }).setNegativeButton(getString(R.string.cancelNotify), new DialogInterface.OnClickListener() {
                                 @Override
