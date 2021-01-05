@@ -56,8 +56,11 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
             userFragmentBinding.userAllChoice.setVisibility(View.VISIBLE);
             userFragmentBinding.tvNameUser.setVisibility(View.VISIBLE);
             userFragmentBinding.tvNameUser.setText(userLoginNow.getAccountName());
-            if (userLoginNow.getAvatar().trim().isEmpty() || userLoginNow.getAvatar() == null) {
-                userFragmentBinding.imgAvatarUser.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+            if (userLoginNow.getAvatar().equals(NONE_AVATAR)) {
+                Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(userFragmentBinding.imgAvatarUser);
             } else {
                 Picasso.get().load(userLoginNow.getAvatar())
                         .placeholder(R.drawable.dont_loading_img)

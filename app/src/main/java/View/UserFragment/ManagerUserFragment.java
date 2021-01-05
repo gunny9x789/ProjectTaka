@@ -33,6 +33,7 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
     private MainActivity mainActivity;
     private int currentPage = 1;
     private int totalPage;
+    private List<User> showListNow;
 
     public static ManagerUserFragment newInstance() {
 
@@ -48,15 +49,18 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         managerUserFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.manager_user_fragment, container, false);
         sqlLiteHelper = new SqlLiteHelper(getContext());
-        List<User> userList = sqlLiteHelper.getAllListUser();
-        totalPage = getTotalPage(userList);
+        showListNow = new ArrayList<>();
+        //List<User> userList = sqlLiteHelper.getAllListUser();
+
+        setShowListNow(sqlLiteHelper.getAllListUser());
+        totalPage = getTotalPage(showListNow);
         managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
         mainActivity = (MainActivity) getActivity();
 //RCV
         adapterRCVManagerUser = new AdapterRCVManagerUser(getContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);
         managerUserFragmentBinding.rcvManagerUserSell.setLayoutManager(layoutManager);
-        setData(userList, currentPage);
+        setData(showListNow, currentPage);
 
         managerUserFragmentBinding.backPageInManagerUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +69,7 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
                 } else if (currentPage > 1) {
                     currentPage -= 1;
-                    List<User> userList = sqlLiteHelper.getAllListUser();
-                    setData(userList, currentPage);
+                    setData(showListNow, currentPage);
                     managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
                 }
             }
@@ -78,8 +81,7 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_loading), Toast.LENGTH_SHORT).show();
                 } else if (currentPage < totalPage) {
                     currentPage += 1;
-                    List<User> userList = sqlLiteHelper.getAllListUser();
-                    setData(userList, currentPage);
+                    setData(showListNow, currentPage);
                     managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
                 }
             }
@@ -91,7 +93,50 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                 mainActivity.getFragment(UserFragment.newInstance());
             }
         });
+//        search user
+        managerUserFragmentBinding.iconSearchAccountName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String accountNameSearch = managerUserFragmentBinding.etSearchAccountName.getText().toString().toLowerCase();
+                if (accountNameSearch == null || accountNameSearch.trim().isEmpty()) {
+                    Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_fint_user), Toast.LENGTH_SHORT).show();
+                } else {
+                    List<User> allUser = sqlLiteHelper.getAllListUser();
+                    List<User> userFind = new ArrayList<>();
+                    for (int i = 0; i < allUser.size(); i++) {
+                        User userCheck = allUser.get(i);
+                        if (userCheck.getAccountName().toLowerCase().indexOf(accountNameSearch) > -1
+                                || userCheck.getAccountType().toLowerCase().indexOf(accountNameSearch) > -1) {
+                            userFind.add(userCheck);
+                        } else continue;
+                    }
+                    if (userFind == null || userFind.isEmpty()) {
+                        Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_fint_user), Toast.LENGTH_SHORT).show();
+                    } else {
+                        setShowListNow(userFind);
+                        totalPage = getTotalPage(showListNow);
+                        currentPage = 1;
+                        setData(showListNow, currentPage);
+                        managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
+                    }
+                }
+            }
+        });
+        managerUserFragmentBinding.refeshListUserManager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setShowListNow(sqlLiteHelper.getAllListUser());
+                totalPage = getTotalPage(showListNow);
+                currentPage = 1;
+                setData(showListNow, currentPage);
+                managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
+            }
+        });
         return managerUserFragmentBinding.getRoot();
+    }
+
+    public void setShowListNow(List<User> showListNow) {
+        this.showListNow = showListNow;
     }
 
     private int getTotalPage(List<User> userList) {

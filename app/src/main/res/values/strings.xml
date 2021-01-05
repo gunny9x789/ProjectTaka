@@ -7,7 +7,7 @@
     <string name="returnConnect">Kết nối lại</string>
     <string name="cancelNotify">Đóng</string>
     <string name="dialogTile">Thông báo</string>
-    <string name="dont_loading">Không có sản phẩm hiển thị</string>
+    <string name="dont_loading">Không thể hiển thị</string>
     <string name="item">sản phẩm</string>
     <!--NavigationBar-->
     <string name="function_home">Trang chủ</string>
@@ -91,9 +91,6 @@
     <string name="emailNameUser">Email</string>
     <string name="phoneNameUser">Số điện thoại</string>
     <string name="addressNameUser">Địa chỉ</string>
-    <string name="Type">Loại</string>
-    <string name="typeSeller">Người bán</string>
-    <string name="typeBuy">Người mua</string>
     <string name="sexMale">Nam</string>
     <string name="sexFemale">Nữ</string>
     <string name="notification_dont_name_user">Tên người dùng không hợp lệ</string>
@@ -114,6 +111,7 @@
     <string name="Logout">Đăng xuất</string>
     <string name="backSetting">Quay lại</string>
     <string name="delete">Xóa</string>
+    <string name="edit_type">Type</string>
     <!--    OrderFragment-->
     <string name="tileOrder">Danh sách sản phẩm </string>
     <string name="addComplete">Đã thêm sản phẩm</string>
@@ -122,5 +120,14 @@
     <string name="notification_1">Bạn muốn mua </string>
     <string name="notification_2"> sản phẩm hết </string>
     <string name="buyComplete">Yêu cầu mua thành công.</string>
-
+    <!--manager user-->
+    <string name="search_user_name">Nhập account bạn muốn tìm</string>
+    <string name="dont_fint_user">Người dùng không tồn tại</string>
+    <string name="Type">Loại</string>
+    <string name="typeSeller">Seller</string>
+    <string name="typeNormal">Normal</string>
+    <string name="typeTradeMark">TradeMark</string>
+    <string name="typeAdmin">Admin</string>
+    <string name="delete_complete">Đã xóa, vui lòng làm mới danh sách</string>
+    <string name="edit_type_complete">Đã thay đổi, vui lòng làm mới danh sách</string>
 </resources>

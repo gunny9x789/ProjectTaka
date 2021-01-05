@@ -36,16 +36,59 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_manager_user_sell"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/et_search_account_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/seach_bar"
+                        android:hint="@string/search_user_name"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_30sdp"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/icon_search_account_name"
+                        android:layout_width="@dimen/_28sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/ic_baseline_search_24" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@color/white"
-                android:padding="@dimen/_5sdp" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/refesh_list_user_manager"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:src="@drawable/ic_baseline_refresh_24" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_manager_user_sell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

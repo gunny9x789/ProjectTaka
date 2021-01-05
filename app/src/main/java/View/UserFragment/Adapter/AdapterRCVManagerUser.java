@@ -2,10 +2,13 @@ package View.UserFragment.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +22,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import AllListForder.AllKeyLocal;
 import AllListForder.Object.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 import support_functions.SqlLiteHelper;
 
-public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManagerUser.ViewHolder> {
+public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManagerUser.ViewHolder> implements AllKeyLocal {
     List<User> userList;
     SqlLiteHelper sqlLiteHelper;
     Context mContext;
@@ -50,17 +54,19 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = userList.get(position);
         sqlLiteHelper = new SqlLiteHelper(mContext);
-        String avatarUrl = user.getAvatar();
-        if (avatarUrl.isEmpty() || avatarUrl == null) {
-            holder.circleImageView.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+        if (user.getAvatar().equals(NONE_AVATAR)) {
+            Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                    .placeholder(R.drawable.dont_loading_img)
+                    .error(R.drawable.dont_loading_img)
+                    .into(holder.circleImageView);
         } else {
-            Picasso.get().load(avatarUrl)
+            Picasso.get().load(user.getAvatar())
                     .placeholder(R.drawable.dont_loading_img)
                     .error(R.drawable.dont_loading_img)
                     .into(holder.circleImageView);
         }
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.relativeLayout);
+        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.linearLayout);
         holder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
             public void onOpen(SwipeLayout layout) {
@@ -73,8 +79,54 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                 userList.remove(position);
                 int id = user.getIdUser();
                 sqlLiteHelper.delUser(id);
-                Toast.makeText(mContext, "Delete", Toast.LENGTH_SHORT).show();
-                setDataUserList(userList);
+                Toast.makeText(mContext, mContext.getString(R.string.delete_complete), Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        });
+        holder.btnSetType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(mContext, v);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.set_type_user, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.setAdmin: {
+                                user.setAccountType(TYPE_ADMIN);
+                                sqlLiteHelper.editUserTable(user);
+                                Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                                break;
+                            }
+                            case R.id.setSeller: {
+                                user.setAccountType(TYPE_SELLER);
+                                sqlLiteHelper.editUserTable(user);
+                                Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                                break;
+                            }
+                            case R.id.setNormal: {
+                                user.setAccountType(TYPE_NORMAL);
+                                sqlLiteHelper.editUserTable(user);
+                                Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                                break;
+                            }
+                            case R.id.setTradeMark: {
+                                user.setAccountType(TYPE_TRADEMARK);
+                                sqlLiteHelper.editUserTable(user);
+                                Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+
             }
         });
         holder.tvAccName.setText(": " + user.getAccountName());
@@ -107,7 +159,8 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
         private final TextView tvType;
         private final SwipeLayout swipeLayout;
         private final Button btnDelete;
-        private final RelativeLayout relativeLayout;
+        private final LinearLayout linearLayout;
+        Button btnSetType;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,7 +175,8 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
             tvType = itemView.findViewById(R.id.manager_user_tv_type_account);
             swipeLayout = itemView.findViewById(R.id.swipeLayout);
             btnDelete = itemView.findViewById(R.id.btn_delete_manager_user);
-            relativeLayout = itemView.findViewById(R.id.layoutDown);
+            btnSetType = itemView.findViewById(R.id.btn_edit_type_manager_user);
+            linearLayout = itemView.findViewById(R.id.layoutDown);
         }
     }
 }

@@ -6,6 +6,7 @@ public interface AllKeyLocal {
     String LOCAL_CATEGORY = "CATEGORY";
     //    User
     String NONE_USER = "NONE_USER";
+    String NONE_AVATAR = "NONE_AVATAR";
     String USER_LOGIN = "USER_LOGIN";
     String USER_LOGOUT = "USER_LOGOUT";
     String TYPE_ADMIN = "admin";
