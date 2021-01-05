@@ -94,6 +94,15 @@
     <string name="Type">Loại</string>
     <string name="typeSeller">Người bán</string>
     <string name="typeBuy">Người mua</string>
+    <string name="sexMale">Nam</string>
+    <string name="sexFemale">Nữ</string>
+    <string name="notification_dont_name_user">Tên người dùng không hợp lệ</string>
+    <string name="notification_dont_name_account">Tên tài khoản không hợp lệ</string>
+    <string name="notification_have_name_account">Tên tài khoản đã tồn tại</string>
+    <string name="notification_dont_pass_account">Mật khẩu không hợp lệ</string>
+    <string name="notification_dont_phone_account">Số điện thoại không hợp lệ</string>
+    <string name="notification_dont_address_account">Nhập địa chỉ của bạn</string>
+    <string name="register_complete">Đăng ký thành công</string>
     <!--    Login User-->
     <string name="AccountNameLogin">Tài khoản</string>
     <string name="AccountPassLogin">Mật Khẩu</string>

@@ -48,7 +48,8 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, Request_Permission_Code);
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET,
+                Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, Request_Permission_Code);
         sqlLiteHelper = new SqlLiteHelper(this);
         loadData();
 

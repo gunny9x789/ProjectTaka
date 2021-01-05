@@ -64,7 +64,10 @@ dependencies {
     compile 'com.specyci:residemenu:1.6+'
 //    SwipeLayout
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
-
+//map
+    compile 'com.google.android.gms:play-services-location:10.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
 
 

@@ -48,6 +48,6 @@
             android:layout_marginTop="@dimen/_2sdp"
             android:gravity="center_vertical|center"
             android:text="price"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

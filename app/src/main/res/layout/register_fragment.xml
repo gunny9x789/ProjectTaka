@@ -72,24 +72,10 @@
                 android:padding="@dimen/_5sdp" />
 
             <EditText
-                android:id="@+id/et_email_register"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_below="@+id/et_pass_register"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@drawable/et_log_reg"
-                android:hint="@string/emailNameUser"
-                android:inputType="text"
-                android:padding="@dimen/_5sdp" />
-
-
-            <EditText
                 android:id="@+id/et_phone_register"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_below="@+id/et_email_register"
+                android:layout_below="@+id/et_pass_register"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
@@ -109,6 +95,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:inputType="text"
                     android:id="@+id/et_address_user"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -136,17 +123,17 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/check_seller"
+                    android:id="@+id/check_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/typeBuy" />
+                    android:text="@string/sexMale" />
 
                 <RadioButton
-                    android:id="@+id/check_buyer"
+                    android:id="@+id/check_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/typeSeller" />
+                    android:text="@string/sexFemale" />
             </RadioGroup>
 
             <Button
