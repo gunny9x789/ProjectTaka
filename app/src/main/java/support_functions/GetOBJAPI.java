@@ -25,9 +25,10 @@ public class GetOBJAPI implements AllList {
                     Toast.makeText(context, "Code" + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }
+                SqlLiteHelper sqlLiteHelper = new SqlLiteHelper(context);
                 List<ItemSell> itemSellsList = response.body();
                 ALL_ITEM_SELL_LIST.addAll(itemSellsList);
-                ItemSell itemSell = ALL_ITEM_SELL_LIST.get(20);
+                ALL_ITEM_SELL_LIST.addAll(sqlLiteHelper.getAllListItemSell());
                 Classify_item_list.Classify_list();
                 context.startActivity(intent);
             }
@@ -39,6 +40,7 @@ public class GetOBJAPI implements AllList {
             }
         });
     }
+
     public static void getOBJEventInHome(Call<List<EventInHome>> callListEventInHome, Context context) {
         callListEventInHome.enqueue(new Callback<List<EventInHome>>() {
             @Override

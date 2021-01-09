@@ -99,7 +99,7 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
             public void onClick(View v) {
                 String accountNameSearch = managerUserFragmentBinding.etSearchAccountName.getText().toString().toLowerCase();
                 if (accountNameSearch == null || accountNameSearch.trim().isEmpty()) {
-                    Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_fint_user), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_find_user), Toast.LENGTH_SHORT).show();
                 } else {
                     List<User> allUser = sqlLiteHelper.getAllListUser();
                     List<User> userFind = new ArrayList<>();
@@ -111,7 +111,7 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                         } else continue;
                     }
                     if (userFind == null || userFind.isEmpty()) {
-                        Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_fint_user), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getBaseContext(), getString(R.string.dont_find_user), Toast.LENGTH_SHORT).show();
                     } else {
                         setShowListNow(userFind);
                         totalPage = getTotalPage(showListNow);
@@ -154,7 +154,6 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
     private void setData(List<User> userList, int currentPage) {
         adapterRCVManagerUser.setDataUserList(getListUser(userList, currentPage));
         managerUserFragmentBinding.rcvManagerUserSell.setAdapter(adapterRCVManagerUser);
-
     }
 
     private List<User> getListUser(List<User> userList, int currentPage) {

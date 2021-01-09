@@ -122,10 +122,10 @@
     <string name="priceTotal">Tổng :</string>
     <string name="notification_1">Bạn muốn mua </string>
     <string name="notification_2"> sản phẩm hết </string>
-    <string name="buyComplete">Yêu cầu mua thành công.</string>
+    <string name="buyComplete">Mua thành công.</string>
     <!--manager user-->
     <string name="search_user_name">Nhập account bạn muốn tìm</string>
-    <string name="dont_fint_user">Người dùng không tồn tại</string>
+    <string name="dont_find_user">Người dùng không tồn tại</string>
     <string name="Type">Loại</string>
     <string name="typeSeller">Seller</string>
     <string name="typeNormal">Normal</string>
@@ -133,6 +133,12 @@
     <string name="typeAdmin">Admin</string>
     <string name="delete_complete">Đã xóa, vui lòng làm mới danh sách</string>
     <string name="edit_type_complete">Đã thay đổi, vui lòng làm mới danh sách</string>
+    <!--    manager item buy-->
+    <string name="search_item_buy">Nhập vật phẩm bạn muốn tìm</string>
+    <string name="purchase_item_buy">Số lượng : </string>
+    <string name="day_buy">Ngày giao dịch : </string>
+    <string name="dont_find_itemBuy">Không tìm thấy vật phẩm</string>
+
     <!--    setting-->
     <string name="Logout">Đăng xuất</string>
     <string name="editProfile">Sửa thông tin tài khoản</string>

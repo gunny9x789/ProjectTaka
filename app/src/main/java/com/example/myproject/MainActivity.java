@@ -37,6 +37,7 @@ import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
+import AllListForder.Object.User;
 import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.HomeFragment;
 import View.NewsFeedFragment.NewsFeedFragment;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     private ResideMenuItem newsFeedItem;
     private ResideMenuItem notificationItem;
     private ResideMenuItem userItem;
-
+    private User userLoginNow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,6 +198,14 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     protected void onStop() {
         super.onStop();
         Tovuti.from(this).stop();
+    }
+
+    public User getUserLoginNow() {
+        return userLoginNow;
+    }
+
+    public void setUserLoginNow(User userLoginNow) {
+        this.userLoginNow = userLoginNow;
     }
 
     public String getMainLocal() {

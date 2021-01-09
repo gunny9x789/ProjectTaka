@@ -56,6 +56,7 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
             userFragmentBinding.tvLogReg.setVisibility(View.GONE);
             String accountLoginName = infoLogin.getNameUserLogin();
             User userLoginNow = getUserLogin(accountLoginName);
+            mainActivity.setUserLoginNow(userLoginNow);
             userFragmentBinding.userAllChoice.setVisibility(View.VISIBLE);
             userFragmentBinding.tvNameUser.setVisibility(View.VISIBLE);
             userFragmentBinding.tvNameUser.setText(userLoginNow.getAccountName());
@@ -114,6 +115,12 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
             @Override
             public void onClick(View v) {
                 mainActivity.getFragment(ManagerUserFragment.newInstance());
+            }
+        });
+        userFragmentBinding.managerItemBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.getFragment(ManagerItemBuyFragment.newInstance());
             }
         });
         return userFragmentBinding.getRoot();

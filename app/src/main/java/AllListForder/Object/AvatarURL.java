@@ -4,7 +4,7 @@ public class AvatarURL {
     private String UrlImg;
 
     public AvatarURL(String urlImg) {
-        UrlImg = urlImg;
+        this.UrlImg = urlImg;
     }
 
     public String getUrlImg() {

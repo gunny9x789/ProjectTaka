@@ -29,5 +29,23 @@ public interface SQLKey {
     String TIME_BUY = "timeBuy";
     String ACCOUNT_NAME_SELL_ITEM = "nameAccountSell";
     String ACCOUNT_NAME_SELL_BUY = "nameAccountBuy";
+    //    ItemSell
+    String ID_ITEM_SELL = "idItemSell";
+    String CODE_MAIN_CATE_ID = "CodeMainCateId";
+    String CODE_SIDE_CATE_ID = "CodeSideCateId";
+    String NAME_ITEM_SELL = "nameItemSell";
+    String SALE = "sale";
+    String SALE_PERCENT = "salePercent";
+    String PRICE_DONT_SALE = "priceDontSale";
+    String PRICE_SALE = "priceSale";
+    String TOTAL_ITEM = "totalItem";
+    String TOTAL_ITEM_SOLD = "totalItemSold";
+    String ITEM_SOLD_IN_MONTH = "itemSoldInMonth";
+    String ID_USER_SELL = "idUserSell";
+    String TRADEMARK = "trademark";
+    String CHARACTERISTICS = "characteristics";
+    String EVENT_CODE = "eventCode";
+    String DAY_SELL = "daySell";
+    String URL_IMG = "UrlImg";
 
 }

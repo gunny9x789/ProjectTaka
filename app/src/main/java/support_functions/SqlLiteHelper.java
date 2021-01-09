@@ -11,8 +11,10 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import AllListForder.Object.AvatarURL;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemBuy;
+import AllListForder.Object.ItemSell;
 import AllListForder.Object.SQLKey;
 import AllListForder.Object.User;
 
@@ -21,6 +23,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private static final String DB_USER_TABLE = "User";
     private static final String DB_CHECK_LOGIN_TABLE = "CheckLogin";
     private static final String DB_ITEMBUY = "ItemBuy";
+    private static final String DB_ITEMSELL = "ItemSell";
     private static final int DB_VERSION = 1;
 
     SQLiteDatabase sqLiteDatabase;
@@ -28,6 +31,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private Cursor cursorUser;
     private Cursor cursorCheckLogin;
     private Cursor cursorItemBuy;
+    private Cursor cursorItemSell;
 
 
     public SqlLiteHelper(@Nullable Context context) {
@@ -65,9 +69,29 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
                 "timeBuy TEXT," +
                 "nameAccountSell TEXT," +
                 "nameAccountBuy TEXT)";
+
+        String queryCreateItemSellTable = "CREATE TABLE ItemSell(" +
+                "idItemSell INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "CodeMainCateId TEXT," +
+                "CodeSideCateId TEXT," +
+                "nameItemSell TEXT," +
+                "sale TEXT," +
+                "salePercent INTEGER," +
+                "priceDontSale INTEGER," +
+                "priceSale INTEGER," +
+                "totalItem INTEGER," +
+                "totalItemSold INTEGER," +
+                "itemSoldInMonth INTEGER," +
+                "idUserSell INTEGER," +
+                "trademark TEXT," +
+                "characteristics TEXT," +
+                "eventCode TEXT," +
+                "daySell TEXT," +
+                "UrlImg TEXT)";
         db.execSQL(queryCreateUserTable);
         db.execSQL(queryCreateCheckLoginTable);
         db.execSQL(queryCreateItemBuyTable);
+        db.execSQL(queryCreateItemSellTable);
     }
 
     @Override
@@ -127,6 +151,31 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         closeDB();
     }
 
+    public void addItemSell(ItemSell itemSell) {
+        sqLiteDatabase = getWritableDatabase();
+        contentValues = new ContentValues();
+
+        contentValues.put(CODE_MAIN_CATE_ID, itemSell.getCodeMainCateId());
+        contentValues.put(CODE_SIDE_CATE_ID, itemSell.getCodeSideCateId());
+        contentValues.put(NAME_ITEM_SELL, itemSell.getNameItemSell());
+        contentValues.put(SALE, itemSell.getSale());
+        contentValues.put(SALE_PERCENT, itemSell.getSalePercent());
+        contentValues.put(PRICE_DONT_SALE, itemSell.getPriceDontSale());
+        contentValues.put(PRICE_SALE, itemSell.getPriceSale());
+        contentValues.put(TOTAL_ITEM, itemSell.getTotalItem());
+        contentValues.put(TOTAL_ITEM_SOLD, itemSell.getTotalItemSold());
+        contentValues.put(ITEM_SOLD_IN_MONTH, itemSell.getItemSoldInMonth());
+        contentValues.put(ID_USER_SELL, itemSell.getIdUserSell());
+        contentValues.put(TRADEMARK, itemSell.getTrademark());
+        contentValues.put(CHARACTERISTICS, itemSell.getCharacteristics());
+        contentValues.put(EVENT_CODE, itemSell.getEventCode());
+        contentValues.put(DAY_SELL, itemSell.getDaySell());
+        contentValues.put(URL_IMG, itemSell.getAvatarItemSell().get(0).getUrlImg());
+
+        sqLiteDatabase.insert(DB_ITEMSELL, null, contentValues);
+        closeDB();
+    }
+
     public void editUserTable(User user) {
         sqLiteDatabase = getWritableDatabase();
         contentValues = new ContentValues();
@@ -148,10 +197,42 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         closeDB();
     }
 
+    public void editItemSell(ItemSell itemSell) {
+        sqLiteDatabase = getWritableDatabase();
+        contentValues = new ContentValues();
+
+        contentValues.put(CODE_MAIN_CATE_ID, itemSell.getCodeMainCateId());
+        contentValues.put(CODE_SIDE_CATE_ID, itemSell.getCodeSideCateId());
+        contentValues.put(NAME_ITEM_SELL, itemSell.getNameItemSell());
+        contentValues.put(SALE, itemSell.getSale());
+        contentValues.put(SALE_PERCENT, itemSell.getSalePercent());
+        contentValues.put(PRICE_DONT_SALE, itemSell.getPriceDontSale());
+        contentValues.put(PRICE_SALE, itemSell.getPriceSale());
+        contentValues.put(TOTAL_ITEM, itemSell.getTotalItem());
+        contentValues.put(TOTAL_ITEM_SOLD, itemSell.getTotalItemSold());
+        contentValues.put(ITEM_SOLD_IN_MONTH, itemSell.getItemSoldInMonth());
+        contentValues.put(ID_USER_SELL, itemSell.getIdUserSell());
+        contentValues.put(TRADEMARK, itemSell.getTrademark());
+        contentValues.put(CHARACTERISTICS, itemSell.getCharacteristics());
+        contentValues.put(EVENT_CODE, itemSell.getEventCode());
+        contentValues.put(DAY_SELL, itemSell.getDaySell());
+        contentValues.put(URL_IMG, itemSell.getAvatarItemSell().get(0).getUrlImg());
+
+        sqLiteDatabase.update(DB_ITEMSELL, contentValues, "idItemSell=?",
+                new String[]{String.valueOf(itemSell.getIdItemSell())});
+    }
+
     public void delUser(int idUser) {
         sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete(DB_USER_TABLE, "idUser=?", new String[]{String.valueOf(idUser)});
         closeDB();
+    }
+
+
+    public void delItemSell(int idItemSell) {
+        sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(DB_ITEMSELL, "idItemSell=?", new String[]{String.valueOf(idItemSell)});
+
     }
 
     public void delAllUser() {
@@ -211,7 +292,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         List<ItemBuy> itemBuyList = new ArrayList<>();
         ItemBuy itemBuy;
         sqLiteDatabase = getReadableDatabase();
-        cursorItemBuy = cursorCheckLogin = sqLiteDatabase.query(false, DB_ITEMBUY, null
+        cursorItemBuy = sqLiteDatabase.query(false, DB_ITEMBUY, null
                 , null, null, null, null, null, null);
 
         while (cursorItemBuy.moveToNext()) {
@@ -231,6 +312,41 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         }
         closeDB();
         return itemBuyList;
+    }
+
+    public List<ItemSell> getAllListItemSell() {
+        List<ItemSell> itemSellList = new ArrayList<>();
+
+        sqLiteDatabase = getReadableDatabase();
+        cursorItemSell = sqLiteDatabase.query(false, DB_ITEMSELL, null
+                , null, null, null, null, null, null);
+        while (cursorItemSell.moveToNext()) {
+            int idItemSell = cursorItemSell.getInt(cursorItemSell.getColumnIndex(ID_ITEM_SELL));
+            String CodeMainCateId = cursorItemSell.getString(cursorItemSell.getColumnIndex(CODE_MAIN_CATE_ID));
+            String CodeSideCateId = cursorItemSell.getString(cursorItemSell.getColumnIndex(CODE_SIDE_CATE_ID));
+            String nameItemSell = cursorItemSell.getString(cursorItemSell.getColumnIndex(NAME_ITEM_SELL));
+            String sale = cursorItemSell.getString(cursorItemSell.getColumnIndex(SALE));
+            int salePercent = cursorItemSell.getInt(cursorItemSell.getColumnIndex(SALE_PERCENT));
+            int priceDontSale = cursorItemSell.getInt(cursorItemSell.getColumnIndex(PRICE_DONT_SALE));
+            int priceSale = cursorItemSell.getInt(cursorItemSell.getColumnIndex(PRICE_SALE));
+            int totalItem = cursorItemSell.getInt(cursorItemSell.getColumnIndex(TOTAL_ITEM));
+            int totalItemSold = cursorItemSell.getInt(cursorItemSell.getColumnIndex(TOTAL_ITEM_SOLD));
+            int itemSoldInMonth = cursorItemSell.getInt(cursorItemSell.getColumnIndex(ITEM_SOLD_IN_MONTH));
+            int idUserSell = cursorItemSell.getInt(cursorItemSell.getColumnIndex(ID_USER_SELL));
+            String trademark = cursorItemSell.getString(cursorItemSell.getColumnIndex(TRADEMARK));
+            String characteristics = cursorItemSell.getString(cursorItemSell.getColumnIndex(CHARACTERISTICS));
+            String eventCode = cursorItemSell.getString(cursorItemSell.getColumnIndex(EVENT_CODE));
+            String daySell = cursorItemSell.getString(cursorItemSell.getColumnIndex(DAY_SELL));
+            String UrlImg = cursorItemSell.getString(cursorItemSell.getColumnIndex(URL_IMG));
+            List<AvatarURL> avatarURLList = new ArrayList<>();
+            avatarURLList.add(new AvatarURL(UrlImg));
+
+            ItemSell itemSell = new ItemSell(idItemSell, CodeMainCateId, CodeSideCateId, nameItemSell, sale, salePercent, priceDontSale, priceSale
+                    , totalItem, totalItemSold, itemSoldInMonth, idUserSell, trademark, characteristics, eventCode, daySell, avatarURLList);
+            itemSellList.add(itemSell);
+        }
+        closeDB();
+        return itemSellList;
     }
 
     private void closeDB() {
