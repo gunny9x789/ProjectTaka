@@ -2,6 +2,7 @@ package View.showItemFragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ import AllListForder.AllList;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
+import AllListForder.Object.User;
 import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.Adapter.OnItemRCVClickListener;
 import View.HomeFragment.HomeFragment;
@@ -124,6 +126,18 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         } else if (mainActivity.getLocal().equals(ITEM_FROM_CATEGORY)) {
             setViewInfo(0);
             setMainList(ITEM_IN_CATEGORY);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
+        } else if (mainActivity.getLocal().equals(ITEM_FROM_EVENT_IN_HOME)) {
+            setViewInfo(0);
+            setMainList(ITEM_IN_EVENT);
+            setData(MainListItemShow, currentPage);
+            totalPage = getTotalPage(MainListItemShow);
+        }
+        if (mainActivity.getLocal().equals(ITEM_FROM_USER)) {
+            setViewInfo(1);
+            setMainList(ITEM_IN_USER);
+            setUserSellInfoView();
             setData(MainListItemShow, currentPage);
             totalPage = getTotalPage(MainListItemShow);
         }
@@ -310,6 +324,44 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
             }
         });
         return showAllListItemFragmentBinding.getRoot();
+    }
+
+    private void setUserSellInfoView() {
+        User userSell = USER_LIST.get(ITEM_IN_USER.get(0).getIdUserSell() - 1);
+        if (userSell.getSourceAvatar().equals(SOURCE_AVATAR_FROM_URL)) {
+            if (userSell.getAvatar().equals(NONE_AVATAR)) {
+                Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(showAllListItemFragmentBinding.avatarUserSell);
+            } else {
+                Picasso.get().load(userSell.getAvatar())
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(showAllListItemFragmentBinding.avatarUserSell);
+            }
+        } else if (userSell.getSourceAvatar().equals(SOURCE_AVATAR_FROM_STORAGE)) {
+            if (userSell.getAvatar().equals(NONE_AVATAR)) {
+                Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(showAllListItemFragmentBinding.avatarUserSell);
+            } else {
+                Uri uri = Uri.parse(userSell.getAvatar());
+                Picasso.get().load(uri)
+                        .error(R.drawable.dont_loading_img)
+                        .into(showAllListItemFragmentBinding.avatarUserSell);
+            }
+            showAllListItemFragmentBinding.tvNameUserSellInAllItem.setText(userSell.getAccountName());
+            showAllListItemFragmentBinding.tvAddressUserSellInAllItem.setText(userSell.getAddress());
+            showAllListItemFragmentBinding.tvTotalItemUserSellInAllItem.setText(ITEM_IN_USER.size() + "");
+            int totalSold = 0;
+            for (int i = 0; i < ITEM_IN_USER.size(); i++) {
+                ItemSell itemSell = ITEM_IN_USER.get(i);
+                totalSold += itemSell.getTotalItemSold();
+            }
+            showAllListItemFragmentBinding.tvTotalSoldUserSellInAllItem.setText(totalSold + "");
+        }
     }
 
     private void setMainList(List<ItemSell> itemSells) {

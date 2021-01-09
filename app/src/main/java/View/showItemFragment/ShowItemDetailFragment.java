@@ -38,6 +38,7 @@ import AllListForder.Object.User;
 import View.HomeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowListImgDetailItem;
 import View.showItemFragment.Adapter.ShowImgItemDetailClick;
+import support_functions.Classify_item_list;
 import support_functions.SqlLiteHelper;
 
 public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyLocal {
@@ -168,6 +169,27 @@ public class ShowItemDetailFragment extends Fragment implements AllList, AllKeyL
                             }).create();
                     alertDialog.show();
                 }
+            }
+        });
+//        Click_show_list_item_in_user
+        showItemDetailBinding.tvTrademark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tradeMark = itemSell.getTrademark();
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(ITEM_FROM_USER);
+                Classify_item_list.getItemInUser(TYPE_TRADEMARK, tradeMark);
+                mainActivity.getFragment(Show_all_item_fragment.newInstance());
+            }
+        });
+        showItemDetailBinding.tvUserSellName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String idUserSell = itemSell.getIdUserSell() + "";
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(ITEM_FROM_USER);
+                Classify_item_list.getItemInUser(TYPE_SELLER, idUserSell);
+                mainActivity.getFragment(Show_all_item_fragment.newInstance());
             }
         });
 //        SEARCH

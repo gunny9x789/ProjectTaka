@@ -46,6 +46,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
                 "userEmail TEXT," +
                 "userPhone TEXT," +
                 "sex TEXT," +
+                "sourceAvatar TEXT," +
                 "avatar TEXT," +
                 "address TEXT)";
         String queryCreateCheckLoginTable = "CREATE TABLE CheckLogin(" +
@@ -89,6 +90,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         contentValues.put(USER_EMAIL, user.getUserEmail());
         contentValues.put(USER_PHONE, user.getUserPhone());
         contentValues.put(USER_SEX, user.getSex());
+        contentValues.put(USER_SOURCE_AVATAR, user.getSourceAvatar());
         contentValues.put(USER_AVATAR, user.getAvatar());
         contentValues.put(USER_ADDRESS, user.getAddress());
 
@@ -136,6 +138,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         contentValues.put(USER_LAST_NAME, user.getUserLastName());
         contentValues.put(USER_EMAIL, user.getUserEmail());
         contentValues.put(USER_PHONE, user.getUserPhone());
+        contentValues.put(USER_SOURCE_AVATAR, user.getSourceAvatar());
         contentValues.put(USER_SEX, user.getSex());
         contentValues.put(USER_AVATAR, user.getAvatar());
         contentValues.put(USER_ADDRESS, user.getAddress());
@@ -174,11 +177,12 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
             String userEmail = cursorUser.getString(cursorUser.getColumnIndex(USER_EMAIL));
             String userPhone = cursorUser.getString(cursorUser.getColumnIndex(USER_PHONE));
             String userSex = cursorUser.getString(cursorUser.getColumnIndex(USER_SEX));
+            String userSourceAvatar = cursorUser.getString(cursorUser.getColumnIndex(USER_SOURCE_AVATAR));
             String userAvatar = cursorUser.getString(cursorUser.getColumnIndex(USER_AVATAR));
             String userAddress = cursorUser.getString(cursorUser.getColumnIndex(USER_ADDRESS));
 
             user = new User(id, userType, userAccount, userPass, userFistName, userLastName, userEmail
-                    , userPhone, userAddress, userSex, userAvatar);
+                    , userPhone, userAddress, userSex, userSourceAvatar, userAvatar);
             userList.add(user);
         }
         closeDB();

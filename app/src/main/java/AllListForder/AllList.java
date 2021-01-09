@@ -20,6 +20,8 @@ public interface AllList {
     List<ItemSell> ITEM_BEST_PRICE = new ArrayList<>();
     List<ItemSell> ITEM_NEW = new ArrayList<>();
     List<ItemSell> ITEM_IN_CATEGORY = new ArrayList<>();
+    List<ItemSell> ITEM_IN_EVENT = new ArrayList<>();
+    List<ItemSell> ITEM_IN_USER = new ArrayList<>();
     List<ItemBuy> ITEM_BUY_LIST = new ArrayList<>();
     List<ItemBuy> ITEM_ORDER_LIST = new ArrayList<>();
     //    Event

@@ -113,7 +113,7 @@ public class RegisterFragment extends Fragment implements AllKeyLocal, AllList {
                 } else checkAddress = true;
                 if (checkNameUser && checkAccountName && checkAccountPass && checkAddress && checkPhone) {
                     User user = new User(0, TYPE_NORMAL, accountName, accountPass, firstName, lastName,
-                            "", userPhone, addressUser, sex, NONE_AVATAR);
+                            "", userPhone, addressUser, sex, SOURCE_AVATAR_FROM_URL, NONE_AVATAR);
                     USER_LIST.add(user);
                     sqlLiteHelper.addUserTable(user);
                     Toast.makeText(getActivity().getBaseContext(), getString(R.string.register_complete), Toast.LENGTH_SHORT).show();

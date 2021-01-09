@@ -62,11 +62,12 @@ public class Classify_item_list implements AllList, AllKeyLocal {
         for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
             ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
             String eventCode = itemSell.getEventCode();
-            if (eventCode.indexOf("HOT_DEAL")!=-1){
+            if (eventCode.indexOf("HOT_DEAL") != -1) {
                 ITEM_HOT_DEAL.add(itemSell);
             }
         }
     }
+
     public static void getBestPrice() {
         if (ITEM_BEST_PRICE != null || ITEM_BEST_PRICE.isEmpty() == false) {
             ITEM_BEST_PRICE.clear();
@@ -74,11 +75,12 @@ public class Classify_item_list implements AllList, AllKeyLocal {
         for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
             ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
             String eventCode = itemSell.getEventCode();
-            if (eventCode.indexOf("BEST_PRICE")!=-1){
+            if (eventCode.indexOf("BEST_PRICE") != -1) {
                 ITEM_BEST_PRICE.add(itemSell);
             }
         }
     }
+
     public static void getNew() {
         if (ITEM_NEW != null || ITEM_NEW.isEmpty() == false) {
             ITEM_NEW.clear();
@@ -106,6 +108,35 @@ public class Classify_item_list implements AllList, AllKeyLocal {
                 ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
                 if (itemSell.getCodeSideCateId().equals(codeIdCategory)) {
                     ITEM_IN_CATEGORY.add(itemSell);
+                }
+            }
+        }
+    }
+
+    public static void getItemInEvent(String eventCode) {
+        ITEM_IN_EVENT.clear();
+        for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
+            ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
+            if (itemSell.getEventCode().indexOf(eventCode) > -1) {
+                ITEM_IN_EVENT.add(itemSell);
+            }
+        }
+    }
+
+    public static void getItemInUser(String typeSelect, String nameUser) {
+        ITEM_IN_USER.clear();
+        if (typeSelect.equals(TYPE_TRADEMARK)) {
+            for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
+                ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
+                if (itemSell.getTrademark().equals(nameUser)) {
+                    ITEM_IN_USER.add(itemSell);
+                }
+            }
+        } else if (typeSelect.equals(TYPE_SELLER)) {
+            for (int i = 0; i < ALL_ITEM_SELL_LIST.size(); i++) {
+                ItemSell itemSell = ALL_ITEM_SELL_LIST.get(i);
+                if (itemSell.getIdUserSell() == Integer.parseInt(nameUser)) {
+                    ITEM_IN_USER.add(itemSell);
                 }
             }
         }

@@ -37,9 +37,6 @@ import support_functions.SqlLiteHelper;
 
 public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyLocal {
     private final int Request_Permission_Code = 10;
-    private final String URL_LINK_ADS_HOME = "https://demo8357538.mockable.io/DemoHomeAds";
-    private final String URL_LINK_HOME_EVENT = "https://demo8357538.mockable.io/demoHomeEvent";
-    private final String URL_LINK_ALL_ITEM_SELL = "https://demo8357538.mockable.io/DemoSanPham";
     private static final String keyFistInstal = "KEY_FIST_INSTAL";
     private SqlLiteHelper sqlLiteHelper;
 
@@ -126,6 +123,10 @@ public class LoadingScreen extends AppCompatActivity implements AllList, AllKeyL
         sideCategoryList8.add(new SideCategory(22, 8, OTO, getString(R.string.oto), "https://i.imgur.com/mLMON10.png"));
         sideCategoryList8.add(new SideCategory(23, 8, XE_MAY, getString(R.string.xeMay), "https://i.imgur.com/djFBx2Z.png"));
         MAIN_CATEGORY_LIST.add(new MainCategory(8, CAR_MOTO, getString(R.string.car_moto), "https://i.imgur.com/iGvJFob.png", sideCategoryList8));
+        List<SideCategory> sideCategoryList9 = new ArrayList<>();
+        sideCategoryList9.add(new SideCategory(24, 9, THUC_PHAM, getString(R.string.foods), "https://i.imgur.com/QfF9s92.png"));
+        sideCategoryList9.add(new SideCategory(25, 9, NUOC_UONG, getString(R.string.drinks), "https://i.imgur.com/47CUdNJ.png"));
+        MAIN_CATEGORY_LIST.add(new MainCategory(9, FOODS_AND_DRINK, getString(R.string.food_drink), "https://i.imgur.com/dTncThD.png", sideCategoryList9));
     }
 
     @Override

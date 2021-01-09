@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myproject.R;
@@ -19,6 +20,11 @@ import AllListForder.Object.EventInHome;
 public class AdapterEventHome extends RecyclerView.Adapter<AdapterEventHome.ViewHolder> {
     private final List<EventInHome> eventInHomeList;
     private final Context context;
+    private OnEventHomeRCVClickListener onEventHomeRCVClickListener;
+
+    public void setOnEventHomeRCVClickListener(OnEventHomeRCVClickListener onEventHomeRCVClickListener) {
+        this.onEventHomeRCVClickListener = onEventHomeRCVClickListener;
+    }
 
     public AdapterEventHome(List<EventInHome> eventInHomeList, Context context) {
         this.eventInHomeList = eventInHomeList;
@@ -58,6 +64,12 @@ public class AdapterEventHome extends RecyclerView.Adapter<AdapterEventHome.View
                 .placeholder(R.drawable.dont_loading_img)
                 .error(R.drawable.dont_loading_img)
                 .into(holder.imgSideEvent4);
+        holder.layoutClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEventHomeRCVClickListener.onEventClick(eventInHome);
+            }
+        });
     }
 
     @Override
@@ -70,7 +82,7 @@ public class AdapterEventHome extends RecyclerView.Adapter<AdapterEventHome.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgMainEvent, imgSideEvent1, imgSideEvent2, imgSideEvent3, imgSideEvent4;
-
+        CardView layoutClick;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgMainEvent = itemView.findViewById(R.id.img_main_event_home);
@@ -78,6 +90,7 @@ public class AdapterEventHome extends RecyclerView.Adapter<AdapterEventHome.View
             imgSideEvent2 = itemView.findViewById(R.id.img_side_event_home2);
             imgSideEvent3 = itemView.findViewById(R.id.img_side_event_home3);
             imgSideEvent4 = itemView.findViewById(R.id.img_side_event_home4);
+            layoutClick = itemView.findViewById(R.id.layout_event_home);
         }
     }
 }

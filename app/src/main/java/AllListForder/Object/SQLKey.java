@@ -11,6 +11,7 @@ public interface SQLKey {
     String USER_EMAIL = "userEmail";
     String USER_PHONE = "userPhone";
     String USER_SEX = "sex";
+    String USER_SOURCE_AVATAR = "sourceAvatar";
     String USER_AVATAR = "avatar";
     String USER_ADDRESS = "address";
     //    CheckLogin

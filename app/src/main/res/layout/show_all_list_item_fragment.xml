@@ -83,6 +83,8 @@
                     android:padding="@dimen/_5sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:id="@+id/avatar_user_sell"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"

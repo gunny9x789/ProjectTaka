@@ -24,28 +24,28 @@ import java.util.List;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
+import AllListForder.Object.EventInHome;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.MainAdsImg;
 import View.HomeFragment.Adapter.AdaperRCVItemShowInHome;
-import View.HomeFragment.Adapter.AdapteMainADS;
 import View.HomeFragment.Adapter.AdapterEventHome;
 import View.HomeFragment.Adapter.AdapterRCVItemSaleInDay;
 import View.HomeFragment.Adapter.AdapterRCVItemYourMayLike;
+import View.HomeFragment.Adapter.OnEventHomeRCVClickListener;
 import View.HomeFragment.Adapter.OnItemRCVClickListener;
 import View.showItemFragment.ShowItemDetailFragment;
 import View.showItemFragment.Show_all_item_fragment;
+import support_functions.Classify_item_list;
 
 
 public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
 
     HomeFragmentBinding homeFragmentBinding;
-    private AdapteMainADS adapteMainADS;
     private AdapterEventHome adapterEventHome;
     private AdapterRCVItemSaleInDay adapterRCVItemSaleInDay;
     private AdapterRCVItemYourMayLike adapterRCVItemYourMayLike;
     private AdaperRCVItemShowInHome adaperRCVItemShowInHome;
     private MainActivity mainActivity;
-
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -82,11 +82,20 @@ public class HomeFragment extends Fragment implements AllList, AllKeyLocal {
             MainAdsImg mainAdsImg = MAIN_ADS_IMG_LIST.get(i);
             flipPerImage(mainAdsImg.getUrlIMG());
         }
-
+//event home
         adapterEventHome = new AdapterEventHome(EVENT_IN_HOME_LIST, getActivity().getBaseContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);
         homeFragmentBinding.rcvHomeEventShow.setAdapter(adapterEventHome);
         homeFragmentBinding.rcvHomeEventShow.setLayoutManager(layoutManager);
+        adapterEventHome.setOnEventHomeRCVClickListener(new OnEventHomeRCVClickListener() {
+            @Override
+            public void onEventClick(EventInHome eventInHome) {
+                mainActivity.setMainLocal(LOCAL_HOME);
+                mainActivity.setLocal(ITEM_FROM_EVENT_IN_HOME);
+                Classify_item_list.getItemInEvent(eventInHome.getCodeEvent());
+                mainActivity.getFragment(Show_all_item_fragment.newInstance());
+            }
+        });
 
         adapterRCVItemSaleInDay = new AdapterRCVItemSaleInDay();
         adapterRCVItemSaleInDay.setData(getList(ITEM_SALE_IN_DAY_LIST));

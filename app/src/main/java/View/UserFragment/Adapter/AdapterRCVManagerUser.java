@@ -1,6 +1,7 @@
 package View.UserFragment.Adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,16 +55,31 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = userList.get(position);
         sqlLiteHelper = new SqlLiteHelper(mContext);
-        if (user.getAvatar().equals(NONE_AVATAR)) {
-            Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
-                    .placeholder(R.drawable.dont_loading_img)
-                    .error(R.drawable.dont_loading_img)
-                    .into(holder.circleImageView);
-        } else {
-            Picasso.get().load(user.getAvatar())
-                    .placeholder(R.drawable.dont_loading_img)
-                    .error(R.drawable.dont_loading_img)
-                    .into(holder.circleImageView);
+        if (user.getSourceAvatar().equals(SOURCE_AVATAR_FROM_URL)) {
+            if (user.getAvatar().equals(NONE_AVATAR)) {
+                Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(holder.circleImageView);
+            } else {
+                Picasso.get().load(user.getAvatar())
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(holder.circleImageView);
+            }
+        } else if (user.getSourceAvatar().equals(SOURCE_AVATAR_FROM_STORAGE)) {
+            if (user.getAvatar().equals(NONE_AVATAR)) {
+                Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(holder.circleImageView);
+            } else {
+                Uri uri = Uri.parse(user.getAvatar());
+                Picasso.get().load(uri)
+                        .placeholder(R.drawable.dont_loading_img)
+                        .error(R.drawable.dont_loading_img)
+                        .into(holder.circleImageView);
+            }
         }
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.linearLayout);

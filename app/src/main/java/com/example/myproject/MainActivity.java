@@ -1,15 +1,25 @@
 package com.example.myproject;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -19,7 +29,9 @@ import com.example.myproject.databinding.ActivityMainBinding;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
@@ -33,13 +45,19 @@ import View.UserFragment.UserFragment;
 import View.showItemFragment.OrderItemBuyFragment;
 import support_functions.SqlLiteHelper;
 
-public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements AllList, AllKeyLocal, View.OnClickListener, LocationListener {
     private ActivityMainBinding mainBinding;
     private ItemSell itemSell;
     private String local;
     private String MainLocal;
     private String typeCategory;
     private SqlLiteHelper sqlLiteHelper;
+    private String viTri;
+    private Geocoder geocoder;
+    private LocationManager locationManager;
+    private double latitude;
+    private double longitude;
+    private List<Address> addressList;
     private final ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
         @Override
         public void openMenu() {
@@ -64,6 +82,20 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         getFragment(HomeFragment.newInstance());
         sqlLiteHelper = new SqlLiteHelper(this);
+
+        geocoder = new Geocoder(this, Locale.ENGLISH);
+        addressList = new ArrayList<>();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+                , Manifest.permission.INTERNET}, 200);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, this);
+
         Tovuti.from(this).monitor(new Monitor.ConnectivityListener() {
             @Override
             public void onConnectivityChanged(int connectionType, boolean isConnected, boolean isFast) {
@@ -245,8 +277,43 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
         INFO_LOGIN_LIST.addAll(infoLoginList);
     }
 
+    public String getVitri() {
+        return viTri;
+    }
+
+    public void setVitri(String vitri) {
+        this.viTri = vitri;
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return resideMenu.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        try {
+            addressList = geocoder.getFromLocation(latitude, longitude, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setVitri(addressList.get(0).getAddressLine(0));
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
     }
 }

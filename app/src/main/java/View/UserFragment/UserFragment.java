@@ -1,6 +1,7 @@
 package View.UserFragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.UserFragmentBinding;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
@@ -56,16 +59,30 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
             userFragmentBinding.userAllChoice.setVisibility(View.VISIBLE);
             userFragmentBinding.tvNameUser.setVisibility(View.VISIBLE);
             userFragmentBinding.tvNameUser.setText(userLoginNow.getAccountName());
-            if (userLoginNow.getAvatar().equals(NONE_AVATAR)) {
-                Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
-                        .placeholder(R.drawable.dont_loading_img)
-                        .error(R.drawable.dont_loading_img)
-                        .into(userFragmentBinding.imgAvatarUser);
-            } else {
-                Picasso.get().load(userLoginNow.getAvatar())
-                        .placeholder(R.drawable.dont_loading_img)
-                        .error(R.drawable.dont_loading_img)
-                        .into(userFragmentBinding.imgAvatarUser);
+            if (userLoginNow.getSourceAvatar().equals(SOURCE_AVATAR_FROM_URL)) {
+                if (userLoginNow.getAvatar().equals(NONE_AVATAR)) {
+                    Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                            .placeholder(R.drawable.dont_loading_img)
+                            .error(R.drawable.dont_loading_img)
+                            .into(userFragmentBinding.imgAvatarUser);
+                } else {
+                    Picasso.get().load(userLoginNow.getAvatar())
+                            .placeholder(R.drawable.dont_loading_img)
+                            .error(R.drawable.dont_loading_img)
+                            .into(userFragmentBinding.imgAvatarUser);
+                }
+            } else if (userLoginNow.getSourceAvatar().equals(SOURCE_AVATAR_FROM_STORAGE)) {
+                if (userLoginNow.getAvatar().equals(NONE_AVATAR)) {
+                    Picasso.get().load("https://i.imgur.com/TJSfIkU.png")
+                            .placeholder(R.drawable.dont_loading_img)
+                            .error(R.drawable.dont_loading_img)
+                            .into(userFragmentBinding.imgAvatarUser);
+                } else {
+                    Uri uri = Uri.parse(userLoginNow.getAvatar());
+                    Picasso.get().load(uri)
+                            .error(R.drawable.dont_loading_img)
+                            .into(userFragmentBinding.imgAvatarUser);
+                }
             }
             String typeAccount = userLoginNow.getAccountType();
             if (typeAccount.equals(TYPE_ADMIN)) {
@@ -104,8 +121,9 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
 
     private User getUserLogin(String accountName) {
         User user = null;
-        for (int i = 0; i < USER_LIST.size(); i++) {
-            user = USER_LIST.get(i);
+        List<User> userList = sqlLiteHelper.getAllListUser();
+        for (int i = 0; i < userList.size(); i++) {
+            user = userList.get(i);
             if (accountName.toLowerCase().equals(user.getAccountName().toLowerCase())) {
                 return user;
             }
