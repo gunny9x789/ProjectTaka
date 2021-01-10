@@ -1,4 +1,4 @@
-package View.UserFragment;
+package View.UserFragment.ManagerItemBuy;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +23,7 @@ import java.util.List;
 import AllListForder.Object.ItemBuy;
 import AllListForder.Object.User;
 import View.UserFragment.Adapter.AdapterManagerItemBuy;
+import View.UserFragment.UserFragment;
 import support_functions.SqlLiteHelper;
 
 public class ManagerItemBuyFragment extends Fragment {
@@ -56,7 +57,7 @@ public class ManagerItemBuyFragment extends Fragment {
 //        Rcv
         adapterManagerItemBuy = new AdapterManagerItemBuy(getContext());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);
-        managerItemBuyBinding.rcvManagerItemSell.setLayoutManager(layoutManager);
+        managerItemBuyBinding.rcvManagerItemBuy.setLayoutManager(layoutManager);
         setData(showListItemBuy, currentPage);
 
         managerItemBuyBinding.backPageInManagerItemBuy.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +118,8 @@ public class ManagerItemBuyFragment extends Fragment {
                     List<ItemBuy> itemBuyFindList = new ArrayList<>();
                     for (int i = 0; i < showListItemBuy.size(); i++) {
                         ItemBuy itemBuy = showListItemBuy.get(i);
-                        if (itemBuy.getItemName().trim().toLowerCase().indexOf(nameItemBuy) > -1) {
+                        if (itemBuy.getItemName().trim().toLowerCase().indexOf(nameItemBuy) > -1
+                                || itemBuy.getTimeBuy().trim().toLowerCase().indexOf(nameItemBuy) > -1) {
                             itemBuyFindList.add(itemBuy);
                         } else continue;
                     }
@@ -140,7 +142,7 @@ public class ManagerItemBuyFragment extends Fragment {
 
     private void setData(List<ItemBuy> itemBuyList, int currentPage) {
         adapterManagerItemBuy.setDataItemBuyList(getListItemBuy(itemBuyList, currentPage));
-        managerItemBuyBinding.rcvManagerItemSell.setAdapter(adapterManagerItemBuy);
+        managerItemBuyBinding.rcvManagerItemBuy.setAdapter(adapterManagerItemBuy);
     }
 
     private int getTotalPage(List<ItemBuy> itemBuyList) {

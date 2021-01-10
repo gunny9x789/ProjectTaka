@@ -1,4 +1,4 @@
-package View.UserFragment;
+package View.UserFragment.ManagerUser;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +24,8 @@ import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.User;
 import View.UserFragment.Adapter.AdapterRCVManagerUser;
+import View.UserFragment.Adapter.RCVManagerUserSetClickListener;
+import View.UserFragment.UserFragment;
 import support_functions.SqlLiteHelper;
 
 public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllList {
@@ -61,7 +63,23 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext(), RecyclerView.VERTICAL, false);
         managerUserFragmentBinding.rcvManagerUserSell.setLayoutManager(layoutManager);
         setData(showListNow, currentPage);
+        adapterRCVManagerUser.setRcvManagerUserSetClickListener(new RCVManagerUserSetClickListener() {
+            @Override
+            public void onDeleteUserClickListener() {
+                setShowListNow(sqlLiteHelper.getAllListUser());
+                totalPage = getTotalPage(showListNow);
+                currentPage = 1;
+                setData(showListNow, currentPage);
+                managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
+            }
 
+            @Override
+            public void onEditTypeClickListener() {
+                setShowListNow(sqlLiteHelper.getAllListUser());
+                setData(showListNow, currentPage);
+                managerUserFragmentBinding.tvCurrentTotalPageManagerUser.setText(currentPage + "/" + totalPage);
+            }
+        });
         managerUserFragmentBinding.backPageInManagerUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +111,7 @@ public class ManagerUserFragment extends Fragment implements AllKeyLocal, AllLis
                 mainActivity.getFragment(UserFragment.newInstance());
             }
         });
+
 //        search user
         managerUserFragmentBinding.iconSearchAccountName.setOnClickListener(new View.OnClickListener() {
             @Override

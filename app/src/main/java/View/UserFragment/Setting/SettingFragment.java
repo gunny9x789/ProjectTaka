@@ -1,4 +1,4 @@
-package View.UserFragment;
+package View.UserFragment.Setting;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -29,6 +29,7 @@ import AllListForder.AllList;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.User;
 import View.HomeFragment.HomeFragment;
+import View.UserFragment.UserFragment;
 import support_functions.SqlLiteHelper;
 
 import static android.app.Activity.RESULT_OK;

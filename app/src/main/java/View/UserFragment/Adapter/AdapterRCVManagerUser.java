@@ -32,9 +32,14 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
     List<User> userList;
     SqlLiteHelper sqlLiteHelper;
     Context mContext;
+    RCVManagerUserSetClickListener rcvManagerUserSetClickListener;
 
     public AdapterRCVManagerUser(Context mContext) {
         this.mContext = mContext;
+    }
+
+    public void setRcvManagerUserSetClickListener(RCVManagerUserSetClickListener rcvManagerUserSetClickListener) {
+        this.rcvManagerUserSetClickListener = rcvManagerUserSetClickListener;
     }
 
     public void setDataUserList(List<User> dataUserList) {
@@ -97,6 +102,7 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                 sqlLiteHelper.delUser(id);
                 Toast.makeText(mContext, mContext.getString(R.string.delete_complete), Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
+                rcvManagerUserSetClickListener.onDeleteUserClickListener();
             }
         });
         holder.btnSetType.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +120,7 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                                 sqlLiteHelper.editUserTable(user);
                                 Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
+                                rcvManagerUserSetClickListener.onEditTypeClickListener();
                                 break;
                             }
                             case R.id.setSeller: {
@@ -121,6 +128,7 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                                 sqlLiteHelper.editUserTable(user);
                                 Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
+                                rcvManagerUserSetClickListener.onEditTypeClickListener();
                                 break;
                             }
                             case R.id.setNormal: {
@@ -128,6 +136,7 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                                 sqlLiteHelper.editUserTable(user);
                                 Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
+                                rcvManagerUserSetClickListener.onEditTypeClickListener();
                                 break;
                             }
                             case R.id.setTradeMark: {
@@ -135,6 +144,7 @@ public class AdapterRCVManagerUser extends RecyclerView.Adapter<AdapterRCVManage
                                 sqlLiteHelper.editUserTable(user);
                                 Toast.makeText(mContext, mContext.getString(R.string.edit_type_complete), Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
+                                rcvManagerUserSetClickListener.onEditTypeClickListener();
                                 break;
                             }
                         }

@@ -71,9 +71,10 @@
     <string name="trademark">Nhãn Hiệu : </string>
     <string name="UserSellName">Người bán : </string>
     <!--Show All Item-->
-    <string name="sort">Sắp xếp: </string>
-    <string name="totalItemUserSell">Sản phẩm: </string>
-    <string name="totalSoldUserSell">Đã bán: </string>
+    <string name="sort">Sắp xếp : </string>
+    <string name="totalItemUserSell">Sản phẩm : </string>
+    <string name="totalSoldUserSell">Đã bán : </string>
+    <string name="totalSoldInMonthUserSell">Đã bán trong tháng : </string>
     <!--Sort menu-->
     <string name="newItem">Hàng mới</string>
     <string name="hotItem">Bán chạy</string>
@@ -131,13 +132,23 @@
     <string name="typeNormal">Normal</string>
     <string name="typeTradeMark">TradeMark</string>
     <string name="typeAdmin">Admin</string>
-    <string name="delete_complete">Đã xóa, vui lòng làm mới danh sách</string>
-    <string name="edit_type_complete">Đã thay đổi, vui lòng làm mới danh sách</string>
+    <string name="delete_complete">Đã xóa thành công</string>
+    <string name="edit_type_complete">Đã thay đổi thành công</string>
     <!--    manager item buy-->
     <string name="search_item_buy">Nhập vật phẩm bạn muốn tìm</string>
     <string name="purchase_item_buy">Số lượng : </string>
     <string name="day_buy">Ngày giao dịch : </string>
     <string name="dont_find_itemBuy">Không tìm thấy vật phẩm</string>
+    <!--    manager item sell-->
+    <string name="add_item_sells">Thêm sản phẩm</string>
+    <string name="item_name">Tên sản phẩm</string>
+    <string name="now_item_sells">Vật phẩm của bạn</string>
+    <string name="item_sell_sold">Vật phẩm đã bán</string>
+    <string name="user_buy_item_me">Người mua : </string>
+    <string name="day_me_sell">Ngày bán</string>
+    <string name="total_item_sell">Đã bán</string>
+    <string name="inventory_item">Còn lại</string>
+    <string name="sold_in_month">Bán trong tháng</string>
 
     <!--    setting-->
     <string name="Logout">Đăng xuất</string>

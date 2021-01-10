@@ -24,6 +24,10 @@ import AllListForder.AllKeyLocal;
 import AllListForder.AllList;
 import AllListForder.Object.InfoLogin;
 import AllListForder.Object.User;
+import View.UserFragment.ManagerItemBuy.ManagerItemBuyFragment;
+import View.UserFragment.ManagerItemSell.ManagerItemSellFragment;
+import View.UserFragment.ManagerUser.ManagerUserFragment;
+import View.UserFragment.Setting.SettingFragment;
 import support_functions.SqlLiteHelper;
 
 public class UserFragment extends Fragment implements AllList, AllKeyLocal {
@@ -121,6 +125,12 @@ public class UserFragment extends Fragment implements AllList, AllKeyLocal {
             @Override
             public void onClick(View v) {
                 mainActivity.getFragment(ManagerItemBuyFragment.newInstance());
+            }
+        });
+        userFragmentBinding.managerItemSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.getFragment(ManagerItemSellFragment.newInstance());
             }
         });
         return userFragmentBinding.getRoot();
