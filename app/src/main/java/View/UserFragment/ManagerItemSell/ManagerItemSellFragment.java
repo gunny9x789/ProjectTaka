@@ -14,9 +14,11 @@ import com.example.myproject.MainActivity;
 import com.example.myproject.R;
 import com.example.myproject.databinding.ManagerItemSellsFragmentBinding;
 
+import AllListForder.AllKeyLocal;
+import AllListForder.Object.User;
 import View.UserFragment.UserFragment;
 
-public class ManagerItemSellFragment extends Fragment {
+public class ManagerItemSellFragment extends Fragment implements AllKeyLocal {
     private ManagerItemSellsFragmentBinding managerItemSellsFragmentBinding;
     private MainActivity mainActivity;
 
@@ -35,6 +37,7 @@ public class ManagerItemSellFragment extends Fragment {
         managerItemSellsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.manager_item_sells_fragment, container, false);
         mainActivity = (MainActivity) getActivity();
 
+        User userLoginNow = mainActivity.getUserLoginNow();
         managerItemSellsFragmentBinding.backSettingManagerItemSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +62,17 @@ public class ManagerItemSellFragment extends Fragment {
                 mainActivity.getFragment(AddItemFragment.newInstance());
             }
         });
+        if (userLoginNow.getAccountType().equals(TYPE_ADMIN)) {
+            managerItemSellsFragmentBinding.managerAcceptItem.setVisibility(View.VISIBLE);
+            managerItemSellsFragmentBinding.managerAcceptItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mainActivity.getFragment(AcceptItemSell.newInstance());
+                }
+            });
+        } else {
+            managerItemSellsFragmentBinding.managerAcceptItem.setVisibility(View.GONE);
+        }
         return managerItemSellsFragmentBinding.getRoot();
     }
 }

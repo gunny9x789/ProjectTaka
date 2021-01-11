@@ -141,6 +141,7 @@
     <string name="dont_find_itemBuy">Không tìm thấy vật phẩm</string>
     <!--    manager item sell-->
     <string name="add_item_sells">Thêm sản phẩm</string>
+    <string name="done_item_add">Xác nhận sản phẩm</string>
     <string name="item_name">Tên sản phẩm</string>
     <string name="now_item_sells">Vật phẩm của bạn</string>
     <string name="item_sell_sold">Vật phẩm đã bán</string>
@@ -156,12 +157,20 @@
     <string name="dontSale">Không giảm giá</string>
     <string name="priceIfSale">Giá khuyến mãi</string>
     <string name="inventory_you_have_now">Số lượng sản phẩm hiện có</string>
-    <string name="characteristicsItem">Mô tả sản phẩm</string>
+    <string name="characteristicsItem">Thông tin sản phẩm : </string>
     <string name="tradeMarkItem">Nhã hiệu sản phẩm</string>
     <string name="urlAvatarItemImage">URL Ảnh đại diện sản phẩm</string>
     <string name="noneAcceptImg">Ảnh đại diện không hợp lệ</string>
     <string name="notificationDontAcceptAddItem">Xin điền đầy đủ thông tin</string>
     <string name="notificationAcceptAddItem">Thêm thành công chờ xét duyệt</string>
+    <string name="acceptComplete">Thêm thành công chờ xét duyệt</string>
+    <string name="editItem">Sửa thông tin</string>
+    <string name="acceptItemSale">Giảm giá : </string>
+    <string name="acceptDoneSale">Có</string>
+    <string name="acceptDontSale">Không</string>
+    <string name="acceptPriceSale">Giá khuyến mại : </string>
+    <string name="acceptMainCate">Danh mục chính : </string>
+    <string name="acceptSideCate">Danh mục phụ : </string>
 
     <!--    setting-->
     <string name="Logout">Đăng xuất</string>

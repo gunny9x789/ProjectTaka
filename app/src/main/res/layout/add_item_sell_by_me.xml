@@ -164,7 +164,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/et_log_reg"
                     android:gravity="top|left"
-                    android:hint="@string/characteristicsItem"
+                    android:hint="@string/characteristics"
                     android:inputType="number"
                     android:padding="@dimen/_5sdp"
                     android:textSize="15sp" />
