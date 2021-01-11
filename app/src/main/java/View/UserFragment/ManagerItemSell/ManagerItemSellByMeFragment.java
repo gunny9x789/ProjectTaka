@@ -32,6 +32,7 @@ import java.util.List;
 import AllListForder.Object.ItemSell;
 import AllListForder.Object.User;
 import View.UserFragment.Adapter.AdapterRCVManagerItemSellByMe;
+import View.UserFragment.Adapter.RCVManagerItemSellsByMeClickListener;
 import support_functions.SqlLiteHelper;
 
 public class ManagerItemSellByMeFragment extends Fragment {
@@ -67,7 +68,16 @@ public class ManagerItemSellByMeFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         managerItemSellByMeBinding.rcvManagerItemSellByMe.setLayoutManager(layoutManager);
         setData(showListItemSell, currentPage);
-
+        adapterRCVManagerItemSellByMe.setRcvManagerItemSellsByMeClickListener(new RCVManagerItemSellsByMeClickListener() {
+            @Override
+            public void btnDeleteClickListener() {
+                setShowListItemBuy(sqlLiteHelper.getAllListItemSell());
+                totalPage = getTotalPage(showListItemSell);
+                currentPage = 1;
+                setData(showListItemSell, currentPage);
+                managerItemSellByMeBinding.tvCurrentTotalPageManagerItemSellByMe.setText(currentPage + "/" + totalPage);
+            }
+        });
         managerItemSellByMeBinding.backPageInManagerItemSellByMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

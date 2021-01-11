@@ -29,9 +29,14 @@ public class AdapterRCVManagerItemSellByMe extends RecyclerView.Adapter<AdapterR
     private final Context mContex;
     private List<ItemSell> itemSellList;
     private SqlLiteHelper sqlLiteHelper;
+    private RCVManagerItemSellsByMeClickListener rcvManagerItemSellsByMeClickListener;
 
     public AdapterRCVManagerItemSellByMe(Context mContex) {
         this.mContex = mContex;
+    }
+
+    public void setRcvManagerItemSellsByMeClickListener(RCVManagerItemSellsByMeClickListener rcvManagerItemSellsByMeClickListener) {
+        this.rcvManagerItemSellsByMeClickListener = rcvManagerItemSellsByMeClickListener;
     }
 
     public void setDataItemSellList(List<ItemSell> itemSellList) {
@@ -72,6 +77,7 @@ public class AdapterRCVManagerItemSellByMe extends RecyclerView.Adapter<AdapterR
                 sqlLiteHelper.delItemSell(id);
                 Toast.makeText(mContex, mContex.getString(R.string.delete_complete), Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
+                rcvManagerItemSellsByMeClickListener.btnDeleteClickListener();
             }
         });
         Picasso.get().load(itemSell.getAvatarItemSell().get(0).getUrlImg()).error(R.drawable.dont_loading_img).into(holder.avatarItem);

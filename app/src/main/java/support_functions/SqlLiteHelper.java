@@ -24,6 +24,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private static final String DB_CHECK_LOGIN_TABLE = "CheckLogin";
     private static final String DB_ITEMBUY = "ItemBuy";
     private static final String DB_ITEMSELL = "ItemSell";
+    private static final String DB_ITEMSELL_PENDING = "ItemSellPending";
     private static final int DB_VERSION = 1;
 
     SQLiteDatabase sqLiteDatabase;
@@ -32,6 +33,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     private Cursor cursorCheckLogin;
     private Cursor cursorItemBuy;
     private Cursor cursorItemSell;
+    private Cursor cursorItemSellPending;
 
 
     public SqlLiteHelper(@Nullable Context context) {
@@ -88,10 +90,30 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
                 "eventCode TEXT," +
                 "daySell TEXT," +
                 "UrlImg TEXT)";
+
+        String queryCreateItemSellPendingTable = "CREATE TABLE ItemSellPending(" +
+                "idItemSellPending INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "CodeMainCateIdPending TEXT," +
+                "CodeSideCateIdPending TEXT," +
+                "nameItemSellPending TEXT," +
+                "salePending TEXT," +
+                "salePercentPending INTEGER," +
+                "priceDontSalePending INTEGER," +
+                "priceSalePending INTEGER," +
+                "totalItemPending INTEGER," +
+                "totalItemSoldPending INTEGER," +
+                "itemSoldInMonthPending INTEGER," +
+                "idUserSellPending INTEGER," +
+                "trademarkPending TEXT," +
+                "characteristicsPending TEXT," +
+                "eventCodePending TEXT," +
+                "daySellPending TEXT," +
+                "UrlImgPending TEXT)";
         db.execSQL(queryCreateUserTable);
         db.execSQL(queryCreateCheckLoginTable);
         db.execSQL(queryCreateItemBuyTable);
         db.execSQL(queryCreateItemSellTable);
+        db.execSQL(queryCreateItemSellPendingTable);
     }
 
     @Override
@@ -176,6 +198,31 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         closeDB();
     }
 
+    public void addItemSellPending(ItemSell itemSell) {
+        sqLiteDatabase = getWritableDatabase();
+        contentValues = new ContentValues();
+
+        contentValues.put(CODE_MAIN_CATE_ID_PENDING, itemSell.getCodeMainCateId());
+        contentValues.put(CODE_SIDE_CATE_ID_PENDING, itemSell.getCodeSideCateId());
+        contentValues.put(NAME_ITEM_SELL_PENDING, itemSell.getNameItemSell());
+        contentValues.put(SALE_PENDING, itemSell.getSale());
+        contentValues.put(SALE_PERCENT_PENDING, itemSell.getSalePercent());
+        contentValues.put(PRICE_DONT_SALE_PENDING, itemSell.getPriceDontSale());
+        contentValues.put(PRICE_SALE_PENDING, itemSell.getPriceSale());
+        contentValues.put(TOTAL_ITEM_PENDING, itemSell.getTotalItem());
+        contentValues.put(TOTAL_ITEM_SOLD_PENDING, itemSell.getTotalItemSold());
+        contentValues.put(ITEM_SOLD_IN_MONTH_PENDING, itemSell.getItemSoldInMonth());
+        contentValues.put(ID_USER_SELL_PENDING, itemSell.getIdUserSell());
+        contentValues.put(TRADEMARK_PENDING, itemSell.getTrademark());
+        contentValues.put(CHARACTERISTICS_PENDING, itemSell.getCharacteristics());
+        contentValues.put(EVENT_CODE_PENDING, itemSell.getEventCode());
+        contentValues.put(DAY_SELL_PENDING, itemSell.getDaySell());
+        contentValues.put(URL_IMG_PENDING, itemSell.getAvatarItemSell().get(0).getUrlImg());
+
+        sqLiteDatabase.insert(DB_ITEMSELL_PENDING, null, contentValues);
+        closeDB();
+    }
+
     public void editUserTable(User user) {
         sqLiteDatabase = getWritableDatabase();
         contentValues = new ContentValues();
@@ -232,6 +279,12 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
     public void delItemSell(int idItemSell) {
         sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.delete(DB_ITEMSELL, "idItemSell=?", new String[]{String.valueOf(idItemSell)});
+
+    }
+
+    public void delItemSellPending(int idItemSell) {
+        sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(DB_ITEMSELL_PENDING, "idItemSellPending=?", new String[]{String.valueOf(idItemSell)});
 
     }
 
@@ -349,10 +402,48 @@ public class SqlLiteHelper extends SQLiteOpenHelper implements SQLKey {
         return itemSellList;
     }
 
+    public List<ItemSell> getAllListItemSellPending() {
+        List<ItemSell> itemSellList = new ArrayList<>();
+
+        sqLiteDatabase = getReadableDatabase();
+        cursorItemSell = sqLiteDatabase.query(false, DB_ITEMSELL_PENDING, null
+                , null, null, null, null, null, null);
+        while (cursorItemSell.moveToNext()) {
+            int idItemSell = cursorItemSell.getInt(cursorItemSell.getColumnIndex(ID_ITEM_SELL_PENDING));
+            String CodeMainCateId = cursorItemSell.getString(cursorItemSell.getColumnIndex(CODE_MAIN_CATE_ID_PENDING));
+            String CodeSideCateId = cursorItemSell.getString(cursorItemSell.getColumnIndex(CODE_SIDE_CATE_ID_PENDING));
+            String nameItemSell = cursorItemSell.getString(cursorItemSell.getColumnIndex(NAME_ITEM_SELL_PENDING));
+            String sale = cursorItemSell.getString(cursorItemSell.getColumnIndex(SALE_PENDING));
+            int salePercent = cursorItemSell.getInt(cursorItemSell.getColumnIndex(SALE_PERCENT_PENDING));
+            int priceDontSale = cursorItemSell.getInt(cursorItemSell.getColumnIndex(PRICE_DONT_SALE_PENDING));
+            int priceSale = cursorItemSell.getInt(cursorItemSell.getColumnIndex(PRICE_SALE_PENDING));
+            int totalItem = cursorItemSell.getInt(cursorItemSell.getColumnIndex(TOTAL_ITEM_PENDING));
+            int totalItemSold = cursorItemSell.getInt(cursorItemSell.getColumnIndex(TOTAL_ITEM_SOLD_PENDING));
+            int itemSoldInMonth = cursorItemSell.getInt(cursorItemSell.getColumnIndex(ITEM_SOLD_IN_MONTH_PENDING));
+            int idUserSell = cursorItemSell.getInt(cursorItemSell.getColumnIndex(ID_USER_SELL_PENDING));
+            String trademark = cursorItemSell.getString(cursorItemSell.getColumnIndex(TRADEMARK_PENDING));
+            String characteristics = cursorItemSell.getString(cursorItemSell.getColumnIndex(CHARACTERISTICS_PENDING));
+            String eventCode = cursorItemSell.getString(cursorItemSell.getColumnIndex(EVENT_CODE_PENDING));
+            String daySell = cursorItemSell.getString(cursorItemSell.getColumnIndex(DAY_SELL_PENDING));
+            String UrlImg = cursorItemSell.getString(cursorItemSell.getColumnIndex(URL_IMG_PENDING));
+            List<AvatarURL> avatarURLList = new ArrayList<>();
+            avatarURLList.add(new AvatarURL(UrlImg));
+
+            ItemSell itemSell = new ItemSell(idItemSell, CodeMainCateId, CodeSideCateId, nameItemSell, sale, salePercent, priceDontSale, priceSale
+                    , totalItem, totalItemSold, itemSoldInMonth, idUserSell, trademark, characteristics, eventCode, daySell, avatarURLList);
+            itemSellList.add(itemSell);
+        }
+        closeDB();
+        return itemSellList;
+    }
+
     private void closeDB() {
         if (contentValues != null) contentValues.clear();
         if (cursorUser != null) cursorUser.close();
         if (cursorCheckLogin != null) cursorCheckLogin.close();
+        if (cursorItemBuy != null) cursorItemBuy.close();
+        if (cursorItemSell != null) cursorItemSell.close();
+        if (cursorItemSellPending != null) cursorItemSellPending.close();
         if (sqLiteDatabase != null) sqLiteDatabase.close();
     }
 }

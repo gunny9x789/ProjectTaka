@@ -149,6 +149,19 @@
     <string name="total_item_sell">Đã bán</string>
     <string name="inventory_item">Còn lại</string>
     <string name="sold_in_month">Bán trong tháng</string>
+    <string name="main_category">Danh mục chính</string>
+    <string name="side_category">Danh mục phụ</string>
+    <string name="priceOnceItemSell">Giá sản phẩm</string>
+    <string name="sale">Giảm giá</string>
+    <string name="dontSale">Không giảm giá</string>
+    <string name="priceIfSale">Giá khuyến mãi</string>
+    <string name="inventory_you_have_now">Số lượng sản phẩm hiện có</string>
+    <string name="characteristicsItem">Mô tả sản phẩm</string>
+    <string name="tradeMarkItem">Nhã hiệu sản phẩm</string>
+    <string name="urlAvatarItemImage">URL Ảnh đại diện sản phẩm</string>
+    <string name="noneAcceptImg">Ảnh đại diện không hợp lệ</string>
+    <string name="notificationDontAcceptAddItem">Xin điền đầy đủ thông tin</string>
+    <string name="notificationAcceptAddItem">Thêm thành công chờ xét duyệt</string>
 
     <!--    setting-->
     <string name="Logout">Đăng xuất</string>

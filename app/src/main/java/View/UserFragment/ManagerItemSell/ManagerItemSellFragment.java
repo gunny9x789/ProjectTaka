@@ -53,6 +53,12 @@ public class ManagerItemSellFragment extends Fragment {
                 mainActivity.getFragment(ManagerItemSellByMeFragment.newInstance());
             }
         });
+        managerItemSellsFragmentBinding.managerItemSellAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.getFragment(AddItemFragment.newInstance());
+            }
+        });
         return managerItemSellsFragmentBinding.getRoot();
     }
 }

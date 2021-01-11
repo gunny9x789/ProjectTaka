@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     private ResideMenuItem notificationItem;
     private ResideMenuItem userItem;
     private User userLoginNow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -325,4 +326,6 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     public void onProviderDisabled(@NonNull String provider) {
 
     }
+
+
 }

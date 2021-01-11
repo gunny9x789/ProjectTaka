@@ -47,5 +47,23 @@ public interface SQLKey {
     String EVENT_CODE = "eventCode";
     String DAY_SELL = "daySell";
     String URL_IMG = "UrlImg";
+    //   Pending ItemSell
+    String ID_ITEM_SELL_PENDING = "idItemSellPending";
+    String CODE_MAIN_CATE_ID_PENDING = "CodeMainCateIdPending";
+    String CODE_SIDE_CATE_ID_PENDING = "CodeSideCateIdPending";
+    String NAME_ITEM_SELL_PENDING = "nameItemSellPending";
+    String SALE_PENDING = "salePending";
+    String SALE_PERCENT_PENDING = "salePercentPending";
+    String PRICE_DONT_SALE_PENDING = "priceDontSalePending";
+    String PRICE_SALE_PENDING = "priceSalePending";
+    String TOTAL_ITEM_PENDING = "totalItemPending";
+    String TOTAL_ITEM_SOLD_PENDING = "totalItemSoldPending";
+    String ITEM_SOLD_IN_MONTH_PENDING = "itemSoldInMonthPending";
+    String ID_USER_SELL_PENDING = "idUserSellPending";
+    String TRADEMARK_PENDING = "trademarkPending";
+    String CHARACTERISTICS_PENDING = "characteristicsPending";
+    String EVENT_CODE_PENDING = "eventCodePending";
+    String DAY_SELL_PENDING = "daySellPending";
+    String URL_IMG_PENDING = "UrlImgPending";
 
 }
