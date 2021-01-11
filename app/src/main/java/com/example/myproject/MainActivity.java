@@ -40,7 +40,6 @@ import AllListForder.Object.ItemSell;
 import AllListForder.Object.User;
 import View.CategoryFragment.ShowListCategoryFragment;
 import View.HomeFragment.HomeFragment;
-import View.NewsFeedFragment.NewsFeedFragment;
 import View.NotificationFragment.NotificationFragment;
 import View.UserFragment.UserFragment;
 import View.showItemFragment.OrderItemBuyFragment;
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
     private ResideMenu resideMenu;
     private ResideMenuItem homeItem;
     private ResideMenuItem categoryItem;
-    private ResideMenuItem newsFeedItem;
+    //private ResideMenuItem newsFeedItem;
     private ResideMenuItem notificationItem;
     private ResideMenuItem userItem;
     private User userLoginNow;
@@ -171,19 +170,19 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
 
         homeItem = new ResideMenuItem(this, R.drawable.homeimg, getString(R.string.function_home));
         categoryItem = new ResideMenuItem(this, R.drawable.categoryimg, getString(R.string.function_Category));
-        newsFeedItem = new ResideMenuItem(this, R.drawable.newsimg, getString(R.string.function_new));
+        //newsFeedItem = new ResideMenuItem(this, R.drawable.newsimg, getString(R.string.function_new));
         notificationItem = new ResideMenuItem(this, R.drawable.notificationimg, getString(R.string.function_Notification));
         userItem = new ResideMenuItem(this, R.drawable.userimg, getString(R.string.function_user));
 
         homeItem.setOnClickListener(this);
         categoryItem.setOnClickListener(this);
-        newsFeedItem.setOnClickListener(this);
+        //newsFeedItem.setOnClickListener(this);
         notificationItem.setOnClickListener(this);
         userItem.setOnClickListener(this);
 
         resideMenu.addMenuItem(homeItem, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(categoryItem, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(newsFeedItem, ResideMenu.DIRECTION_LEFT);
+        //resideMenu.addMenuItem(newsFeedItem, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(notificationItem, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(userItem, ResideMenu.DIRECTION_LEFT);
 
@@ -267,10 +266,12 @@ public class MainActivity extends AppCompatActivity implements AllList, AllKeyLo
             setLocal(TOY_AND_MOM);
             setTypeCategory(TYPE_MAIN);
             getFragment(ShowListCategoryFragment.newInstance());
-        } else if (v == newsFeedItem) {
-            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
-            getFragment(NewsFeedFragment.newInstance());
-        } else if (v == notificationItem) {
+        }
+//        else if (v == newsFeedItem) {
+//            mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
+//            getFragment(NewsFeedFragment.newInstance());
+//        }
+        else if (v == notificationItem) {
             mainBinding.mainSearchBar.setVisibility(View.VISIBLE);
             getFragment(NotificationFragment.newInstance());
         } else if (v == userItem) {

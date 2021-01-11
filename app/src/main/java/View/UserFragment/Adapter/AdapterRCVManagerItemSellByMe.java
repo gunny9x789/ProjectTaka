@@ -80,6 +80,12 @@ public class AdapterRCVManagerItemSellByMe extends RecyclerView.Adapter<AdapterR
                 rcvManagerItemSellsByMeClickListener.btnDeleteClickListener();
             }
         });
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rcvManagerItemSellsByMeClickListener.btnEditClickListener(itemSell);
+            }
+        });
         Picasso.get().load(itemSell.getAvatarItemSell().get(0).getUrlImg()).error(R.drawable.dont_loading_img).into(holder.avatarItem);
         holder.tvNameItem.setText(" " + itemSell.getNameItemSell());
         holder.tvPriceItem.setText(" " + myFormatter.format(itemSell.getPriceSale()) + " đ");

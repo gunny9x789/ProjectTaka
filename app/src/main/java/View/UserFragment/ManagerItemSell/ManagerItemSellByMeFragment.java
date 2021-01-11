@@ -77,6 +77,12 @@ public class ManagerItemSellByMeFragment extends Fragment {
                 setData(showListItemSell, currentPage);
                 managerItemSellByMeBinding.tvCurrentTotalPageManagerItemSellByMe.setText(currentPage + "/" + totalPage);
             }
+
+            @Override
+            public void btnEditClickListener(ItemSell itemSell) {
+                mainActivity.setItemSell(itemSell);
+                mainActivity.getFragment(EditItemSellByMe.newInstance());
+            }
         });
 
         managerItemSellByMeBinding.backPageInManagerItemSellByMe.setOnClickListener(new View.OnClickListener() {

@@ -18,6 +18,14 @@ public interface SQLKey {
     String ID_CHECK_LOGIN = "idCheckLogin";
     String NAME_USER_LOGIN = "nameUserLogin";
     String INFO_LOGIN = "infoLogin";
+    //    notification
+    String ID_NOTIFICATION = "idNotification";
+    String NAME_USER_RECEIVE = "nameUserReceive";
+    String NAME_USER_SEND = "nameUserSend";
+    String ADDRESS_USER_SEND = "addressUserSend";
+    String PHONE_USER_SELL = "phoneUserSend";
+    String DAY_SEND_NOTIFICATION = "daySendNotification";
+    String CONTENT_MAIL = "contentMail";
     //    ItemBuy
     String ID_TRADE = "idTrade";
     String ID_ITEM_BUY = "idItemBuy";

@@ -88,6 +88,7 @@
     <string name="manager_item_buy">Sản phẩm đã mua.</string>
     <string name="user_seting">Cài đặt.</string>
     <!--    Register user-->
+    <string name="User">Người dùng : </string>
     <string name="firstNameUser">Họ</string>
     <string name="lastNameUser">Tên</string>
     <string name="accountNameUser">Tài khoản</string>
@@ -141,6 +142,7 @@
     <string name="dont_find_itemBuy">Không tìm thấy vật phẩm</string>
     <!--    manager item sell-->
     <string name="add_item_sells">Thêm sản phẩm</string>
+    <string name="edit_item_sells">Sửa sản phẩm</string>
     <string name="done_item_add">Xác nhận sản phẩm</string>
     <string name="item_name">Tên sản phẩm</string>
     <string name="now_item_sells">Vật phẩm của bạn</string>
@@ -163,6 +165,7 @@
     <string name="noneAcceptImg">Ảnh đại diện không hợp lệ</string>
     <string name="notificationDontAcceptAddItem">Xin điền đầy đủ thông tin</string>
     <string name="notificationAcceptAddItem">Thêm thành công chờ xét duyệt</string>
+    <string name="notificationAcceptEditItem">Xửa thông tin thành công</string>
     <string name="acceptComplete">Thêm thành công chờ xét duyệt</string>
     <string name="editItem">Sửa thông tin</string>
     <string name="acceptItemSale">Giảm giá : </string>
@@ -171,7 +174,9 @@
     <string name="acceptPriceSale">Giá khuyến mại : </string>
     <string name="acceptMainCate">Danh mục chính : </string>
     <string name="acceptSideCate">Danh mục phụ : </string>
-
+    <!--notification-->
+    <string name="notificationEditItem">Đã sửa đổi thông tin vật phẩm</string>
+    <string name="notificationAddItem">Đã yêu cầu đăng kí bán vật phẩm</string>
     <!--    setting-->
     <string name="Logout">Đăng xuất</string>
     <string name="editProfile">Sửa thông tin tài khoản</string>

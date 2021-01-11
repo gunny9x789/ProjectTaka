@@ -33,7 +33,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:text="@string/editItem" />
+                    android:text="@string/done_item_add" />
 
                 <Button
                     android:id="@+id/btn_delete_AcceptItem"
