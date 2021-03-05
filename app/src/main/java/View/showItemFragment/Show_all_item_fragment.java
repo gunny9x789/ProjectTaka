@@ -48,13 +48,14 @@ import View.HomeFragment.Adapter.OnItemRCVClickListener;
 import View.HomeFragment.HomeFragment;
 import View.showItemFragment.Adapter.AdapterRCVShowAllItem;
 
-public class Show_all_item_fragment extends Fragment implements AllList, AllKeyLocal {
+public class Show_all_item_fragment extends Fragment implements AllList, AllKeyLocal, ModelShowItem {
     private int currentPage = 1;
     private ShowAllListItemFragmentBinding showAllListItemFragmentBinding;
     private MainActivity mainActivity;
     private AdapterRCVShowAllItem adapterRCVShowAllItem;
     private int totalPage;
     private List<ItemSell> MainListItemShow;
+    private ShowItemPresenter showItemPresenter;
 
     public static Show_all_item_fragment newInstance() {
         Bundle args = new Bundle();
@@ -70,7 +71,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
         mainActivity = (MainActivity) getActivity();
         mainActivity.setVisibleSearchBar(false);
         MainListItemShow = new ArrayList<>();
-
+        showItemPresenter = new ShowItemPresenter(this);
         for (int i = 0; i < MAIN_ADS_IMG_LIST.size(); i++) {
             MainAdsImg mainAdsImg = MAIN_ADS_IMG_LIST.get(i);
             flipPerImage(mainAdsImg.getUrlIMG());
@@ -91,54 +92,8 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
                 mainActivity.getFragment(ShowItemDetailFragment.newInstance());
             }
         });
-        if (mainActivity.getLocal().equals(SALE_IN_HOME)) {
-            setViewInfo(0);
-            setMainList(ITEM_SALE_IN_DAY_LIST);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(YOU_MAY_LIKE)) {
-            setViewInfo(0);
-            setMainList(ITEM_YOUR_MAY_LIKE_LIST);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(HOT_DEAL_ITEM)) {
-            setViewInfo(0);
-            setMainList(ITEM_HOT_DEAL);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(BEST_PRICE_ITEM)) {
-            setViewInfo(0);
-            setMainList(ITEM_NEW);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(NEW_ITEM)) {
-            setViewInfo(0);
-            setMainList(ITEM_NEW);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(ALL_ITEM)) {
-            setViewInfo(0);
-            setMainList(ALL_ITEM_SELL_LIST);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(ITEM_FROM_CATEGORY)) {
-            setViewInfo(0);
-            setMainList(ITEM_IN_CATEGORY);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        } else if (mainActivity.getLocal().equals(ITEM_FROM_EVENT_IN_HOME)) {
-            setViewInfo(0);
-            setMainList(ITEM_IN_EVENT);
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        }
-        if (mainActivity.getLocal().equals(ITEM_FROM_USER)) {
-            setViewInfo(1);
-            setMainList(ITEM_IN_USER);
-            setUserSellInfoView();
-            setData(MainListItemShow, currentPage);
-            totalPage = getTotalPage(MainListItemShow);
-        }
+
+        showItemPresenter.ShowItem(mainActivity.getLocal());
         showAllListItemFragmentBinding.tvCurrentTotalPage.setText(currentPage + "/" + totalPage);
 
         showAllListItemFragmentBinding.backPageInShowAll.setOnClickListener(new View.OnClickListener() {
@@ -425,5 +380,78 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
 
         showAllListItemFragmentBinding.VfMainAdsShowAllFragment.setInAnimation(getContext(), android.R.anim.slide_in_left);
         showAllListItemFragmentBinding.VfMainAdsShowAllFragment.setOutAnimation(getContext(), android.R.anim.slide_out_right);
+    }
+
+    @Override
+    public void setListSaleInHome() {
+        setViewInfo(0);
+        setMainList(ITEM_SALE_IN_DAY_LIST);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListYouMayLike() {
+        setViewInfo(0);
+        setMainList(ITEM_YOUR_MAY_LIKE_LIST);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListHotDealItem() {
+        setViewInfo(0);
+        setMainList(ITEM_HOT_DEAL);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListBestPriceItem() {
+        setViewInfo(0);
+        setMainList(ITEM_BEST_PRICE);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListNewItem() {
+        setViewInfo(0);
+        setMainList(ITEM_NEW);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListAllItem() {
+        setViewInfo(0);
+        setMainList(ALL_ITEM_SELL_LIST);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListItemFromCategory() {
+        setViewInfo(0);
+        setMainList(ITEM_IN_CATEGORY);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListItemFromEventInHome() {
+        setViewInfo(0);
+        setMainList(ITEM_IN_EVENT);
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
+    }
+
+    @Override
+    public void setListItemFromUser() {
+        setViewInfo(1);
+        setMainList(ITEM_IN_USER);
+        setUserSellInfoView();
+        setData(MainListItemShow, currentPage);
+        totalPage = getTotalPage(MainListItemShow);
     }
 }
