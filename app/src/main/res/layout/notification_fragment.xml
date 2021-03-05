@@ -7,15 +7,29 @@
         android:background="@color/background_bar"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@android:color/background_light">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/showTileNotificationRCV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:padding="@dimen/_5sdp"
+            android:background="@android:color/background_light"
             android:id="@+id/rcv_list_notification"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp" />
+            android:layout_margin="@dimen/_5sdp" />
     </LinearLayout>
 </layout>
