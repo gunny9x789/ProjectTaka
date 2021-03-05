@@ -57,9 +57,7 @@ public class Show_all_item_fragment extends Fragment implements AllList, AllKeyL
     private List<ItemSell> MainListItemShow;
 
     public static Show_all_item_fragment newInstance() {
-
         Bundle args = new Bundle();
-
         Show_all_item_fragment fragment = new Show_all_item_fragment();
         fragment.setArguments(args);
         return fragment;
