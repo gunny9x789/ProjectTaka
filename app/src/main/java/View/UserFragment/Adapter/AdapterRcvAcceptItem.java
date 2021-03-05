@@ -77,7 +77,7 @@ public class AdapterRcvAcceptItem extends RecyclerView.Adapter<AdapterRcvAcceptI
                 sqlLiteHelper.delItemSellPending(id);
                 Toast.makeText(mContex, mContex.getString(R.string.delete_complete), Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
-                rcvAcceptItemClickListener.btnDeleteOnClick();
+                rcvAcceptItemClickListener.btnDeleteOnClick(itemSell);
             }
         });
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,7 @@ public class AdapterRcvAcceptItem extends RecyclerView.Adapter<AdapterRcvAcceptI
                 sqlLiteHelper.delItemSellPending(id);
                 Toast.makeText(mContex, mContex.getString(R.string.addComplete), Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
-                rcvAcceptItemClickListener.btnAcceptOnClick();
+                rcvAcceptItemClickListener.btnAcceptOnClick(itemSell);
             }
         });
         Picasso.get().load(itemSell.getAvatarItemSell().get(0).getUrlImg()).error(R.drawable.dont_loading_img).into(holder.avatarItemAccept);

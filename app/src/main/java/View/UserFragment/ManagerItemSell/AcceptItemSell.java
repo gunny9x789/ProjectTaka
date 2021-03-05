@@ -18,9 +18,12 @@ import com.example.myproject.R;
 import com.example.myproject.databinding.ManagerAcceptItemBinding;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import AllListForder.Object.ItemSell;
+import AllListForder.Object.Notification;
+import AllListForder.Object.User;
 import View.UserFragment.Adapter.AdapterRcvAcceptItem;
 import View.UserFragment.Adapter.RCVAcceptItemClickListener;
 import support_functions.SqlLiteHelper;
@@ -60,19 +63,61 @@ public class AcceptItemSell extends Fragment {
         setData(showListItemSell, currentPage);
         adapterRcvAcceptItem.setRcvAcceptItemClickListener(new RCVAcceptItemClickListener() {
             @Override
-            public void btnDeleteOnClick() {
+            public void btnDeleteOnClick(ItemSell itemSell) {
                 setShowListItemBuy(sqlLiteHelper.getAllListItemSellPending());
                 totalPage = getTotalPage(showListItemSell);
                 currentPage = 1;
+                String notificationContent = getActivity().getString(R.string.item) + " " + itemSell.getNameItemSell() + " " + getActivity().getString(R.string.notificationDontAccepItem);
+                String addressUserReceive = "";
+                String nameUserReceive = "";
+                String phoneUserReceive = "";
+                int idUserReceive = itemSell.getIdUserSell();
+                List<User> userList = sqlLiteHelper.getAllListUser();
+                for (int i = 0; i < userList.size(); i++) {
+                    User user = userList.get(i);
+                    if (idUserReceive == user.getIdUser()) {
+                        addressUserReceive = user.getAddress();
+                        phoneUserReceive = user.getUserPhone();
+                        return;
+                    } else continue;
+                }
+                Calendar calendar = Calendar.getInstance();
+                int dayAdd = calendar.get(Calendar.DAY_OF_MONTH);
+                int monthAdd = calendar.get(Calendar.MONTH) + 1;
+                int yearAdd = calendar.get(Calendar.YEAR);
+                Notification notification = new Notification(0, itemSell.getIdUserSell() + "", getActivity().getString(R.string.typeAdmin),
+                        addressUserReceive, phoneUserReceive, dayAdd + "/" + monthAdd + "/" + yearAdd, notificationContent);
+                sqlLiteHelper.addNotification(notification);
                 setData(showListItemSell, currentPage);
                 managerAcceptItemBinding.tvCurrentTotalPageManagerAcceptItemSell.setText(currentPage + "/" + totalPage);
             }
 
             @Override
-            public void btnAcceptOnClick() {
+            public void btnAcceptOnClick(ItemSell itemSell) {
                 setShowListItemBuy(sqlLiteHelper.getAllListItemSellPending());
                 totalPage = getTotalPage(showListItemSell);
                 currentPage = 1;
+                String notificationContent = getActivity().getString(R.string.item) + " " + itemSell.getNameItemSell() + " " + getActivity().getString(R.string.notificationAccepItem);
+                String addressUserReceive = "";
+                String nameUserReceive = "";
+                String phoneUserReceive = "";
+                int idUserReceive = itemSell.getIdUserSell();
+                List<User> userList = sqlLiteHelper.getAllListUser();
+                for (int i = 0; i < userList.size(); i++) {
+                    User user = userList.get(i);
+                    if (idUserReceive == user.getIdUser()) {
+                        addressUserReceive = user.getAddress();
+                        phoneUserReceive = user.getUserPhone();
+                        return;
+                    } else continue;
+                }
+                Calendar calendar = Calendar.getInstance();
+                int dayAdd = calendar.get(Calendar.DAY_OF_MONTH);
+                int monthAdd = calendar.get(Calendar.MONTH) + 1;
+                int yearAdd = calendar.get(Calendar.YEAR);
+                Notification notification = new Notification(0, itemSell.getIdUserSell() + "", getActivity().getString(R.string.typeAdmin),
+                        addressUserReceive, phoneUserReceive, dayAdd + "/" + monthAdd + "/" + yearAdd, notificationContent);
+                sqlLiteHelper.addNotification(notification);
                 setData(showListItemSell, currentPage);
                 managerAcceptItemBinding.tvCurrentTotalPageManagerAcceptItemSell.setText(currentPage + "/" + totalPage);
             }

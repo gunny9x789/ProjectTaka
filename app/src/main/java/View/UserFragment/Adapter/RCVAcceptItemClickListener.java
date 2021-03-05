@@ -1,7 +1,9 @@
 package View.UserFragment.Adapter;
 
-public interface RCVAcceptItemClickListener {
-    void btnDeleteOnClick();
+import AllListForder.Object.ItemSell;
 
-    void btnAcceptOnClick();
+public interface RCVAcceptItemClickListener {
+    void btnDeleteOnClick(ItemSell itemSell);
+
+    void btnAcceptOnClick(ItemSell itemSell);
 }

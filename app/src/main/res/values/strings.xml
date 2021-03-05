@@ -177,6 +177,8 @@
     <!--notification-->
     <string name="notificationEditItem">Đã sửa đổi thông tin vật phẩm</string>
     <string name="notificationAddItem">Đã yêu cầu đăng kí bán vật phẩm</string>
+    <string name="notificationDontAccepItem">đã bị từ chối đăng ký</string>
+    <string name="notificationAccepItem">đã được đăng ký</string>
     <!--    setting-->
     <string name="Logout">Đăng xuất</string>
     <string name="editProfile">Sửa thông tin tài khoản</string>
